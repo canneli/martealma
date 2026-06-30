@@ -1,23 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth"> <!-- Começa no Modo Claro (sem a classe 'dark') -->
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marte Alma | Cultura e Entretenimento</title>
     
-    <!-- Tailwind CSS -->
+    <!-- SEO E META TAGS -->
+    <title>Marte Alma | Cultura e Entretenimento Pop</title>
+    <meta name="description" content="MARTE ALMA é um site sobre cultura pop. Acompanhe notícias, fotos, vídeos, performances e estreias do seu ídolo pop favorito.">
+    <meta name="keywords" content="cultura pop, notícias pop, celebridades, estreias, vídeos musicais, performances, entretenimento, música, cinema, séries, marte alma">
+    <meta property="og:title" content="Marte Alma | Cultura e Entretenimento Pop">
+    <meta property="og:description" content="Acompanhe as últimas notícias, fotos, vídeos e estreias do seu ídolo pop favorito no Marte Alma.">
+    <meta property="og:type" content="website">
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Marked.js para Markdown -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
-    <!-- Configuração do Tailwind -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -28,12 +26,7 @@
                         serif: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        brand: {
-                            pink: '#ec4899',    /* Rosa Vibrante */
-                            orange: '#f97316',  /* Laranja */
-                            cyan: '#06b6d4',    /* Ciano */
-                            dark: '#0a0a0f'
-                        }
+                        brand: { pink: '#ec4899', orange: '#f97316', cyan: '#06b6d4', dark: '#0a0a0f' }
                     }
                 }
             }
@@ -41,597 +34,106 @@
     </script>
 
     <style>
-        :root {
-            /* MODO CLARO (Padrão, super iluminado e translúcido) */
-            --bg-color: #f8fafc;
-            --text-color: #0f172a;
-            
-            /* Liquid Glass Ultra Chic - Modo Claro */
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-blur: blur(32px);
-            --glass-border-top: rgba(255, 255, 255, 0.9);
-            --glass-border-left: rgba(255, 255, 255, 0.6);
-            --glass-border-bottom: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 12px 40px 0 rgba(236, 72, 153, 0.05); /* Sombra rosada bem sutil */
-            --blob-opacity: 0.8;
-        }
+        :root { --bg-color: #f8fafc; --text-color: #0f172a; --glass-bg: rgba(255, 255, 255, 0.45); }
+        .dark { --bg-color: #050508; --text-color: #f8fafc; --glass-bg: rgba(15, 15, 22, 0.55); }
+        body { background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.4s ease; }
 
-        .dark {
-            /* MODO ESCURO */
-            --bg-color: #050508;
-            --text-color: #f8fafc;
-            
-            /* Liquid Glass Ultra Chic - Modo Escuro */
-            --glass-bg: rgba(15, 15, 22, 0.55);
-            --glass-blur: blur(32px);
-            --glass-border-top: rgba(255, 255, 255, 0.15);
-            --glass-border-left: rgba(255, 255, 255, 0.08);
-            --glass-border-bottom: rgba(0, 0, 0, 0.5);
-            --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.8);
-            --blob-opacity: 0.35;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1), color 0.6s ease;
-        }
-
-        /* O EFEITO LIQUID GLASS PREMIUM */
         .liquid-glass {
             background: var(--glass-bg); 
-            backdrop-filter: var(--glass-blur); 
-            -webkit-backdrop-filter: var(--glass-blur);
-            border-top: 1.5px solid var(--glass-border-top);
-            border-left: 1px solid var(--glass-border-left);
-            border-bottom: 1px solid var(--glass-border-bottom);
-            border-right: 1px solid var(--glass-border-bottom);
-            box-shadow: var(--glass-shadow); 
-            border-radius: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .liquid-glass-header {
-            border-radius: 0 0 1.5rem 1.5rem;
-            border-top: none;
-            border-left: none;
-            border-right: none;
+        .img-gradient {
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
         }
-
-        .liquid-glass:hover:not(.no-hover) {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px 0 rgba(236, 72, 153, 0.15);
-            background: rgba(255, 255, 255, 0.55);
-        }
-        
-        .dark .liquid-glass:hover:not(.no-hover) {
-            box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.9);
-            background: rgba(25, 25, 35, 0.65);
-            border-top-color: rgba(255, 255, 255, 0.25);
-        }
-
-        /* ORBES NEON DE FUNDO (Cores do Entretenimento) */
-        .blob {
-            position: fixed;
-            filter: blur(100px); 
-            z-index: -1;
-            opacity: var(--blob-opacity); 
-            animation: float 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 50%;
-            transition: opacity 0.8s ease;
-        }
-
-        .blob-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: radial-gradient(circle, #ec4899 0%, transparent 70%); animation-delay: 0s; } /* Rosa */
-        .blob-2 { bottom: -20%; right: -10%; width: 65vw; height: 65vw; background: radial-gradient(circle, #f97316 0%, transparent 70%); animation-delay: -5s; } /* Laranja */
-        .blob-3 { top: 30%; left: 30%; width: 45vw; height: 45vw; background: radial-gradient(circle, #06b6d4 0%, transparent 70%); animation-delay: -10s; } /* Ciano */
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(5%, 5%) scale(1.1) rotate(15deg); }
-            66% { transform: translate(-5%, 2%) scale(0.9) rotate(-15deg); }
-            100% { transform: translate(2%, -5%) scale(1.1) rotate(5deg); }
-        }
-
-        /* Animações de entrada */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fade-up {
-            opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-
-        /* Estilos de Conteúdo (Markdown) */
-        .markdown-content p { margin-bottom: 1.5rem; line-height: 1.8; color: inherit; opacity: 0.85; font-size: 1.15rem; } 
-        .markdown-content h1, .markdown-content h2, .markdown-content h3 { font-weight: 800; margin-top: 2.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif; }
-        .markdown-content h2 { font-size: 1.8rem; color: #ec4899; }
-        .markdown-content a { color: #f97316; text-decoration: none; border-bottom: 2px solid rgba(249, 115, 22, 0.3); transition: all 0.2s;}
-        .markdown-content a:hover { border-bottom-color: #f97316; }
-        .markdown-content img { border-radius: 1.5rem; width: 100%; height: auto; margin: 2rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .dark .markdown-content img { box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .markdown-content blockquote { border-left: 4px solid #06b6d4; padding: 1.5rem 1.5rem 1.5rem 2rem; font-style: italic; background: rgba(6, 182, 212, 0.05); border-radius: 0 1rem 1rem 0; margin: 2rem 0;}
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.3); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box;}
-        ::-webkit-scrollbar-thumb:hover { background-color: rgba(150,150,150,0.5); }
     </style>
 </head>
 
-<body class="antialiased selection:bg-brand-pink selection:text-white flex flex-col min-h-screen">
-
-    <!-- Orbes Animados de Fundo -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-
-    <!-- CABEÇALHO SUPERIOR (Header Fixo) -->
-    <header class="fixed top-0 left-0 right-0 z-40 liquid-glass liquid-glass-header no-hover py-3 px-4 md:px-8 flex justify-between items-center transition-all duration-300">
-        
+<body class="antialiased font-sans">
+    
+    <!-- CABEÇALHO -->
+    <header class="fixed top-0 left-0 right-0 z-50 liquid-glass py-4 px-6 md:px-12 flex justify-between items-center border-b border-white/10">
         <div class="flex items-center gap-4">
-            <!-- Botão Menu Hambúrguer -->
-            <button onclick="toggleSidebar()" class="w-12 h-12 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/5 dark:hover:bg-white/10 transition backdrop-blur-md border border-white/40 dark:border-white/10 text-slate-800 dark:text-white">
-                <i class="ph ph-list text-2xl"></i>
-            </button>
-
-            <!-- Logo -->
-            <a href="#" onclick="renderHome()" class="flex items-center gap-2 group hidden sm:flex">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-pink to-brand-orange flex items-center justify-center text-white shadow-lg shadow-brand-pink/30 group-hover:rotate-45 transition-transform duration-500">
-                    <i class="ph-fill ph-planet text-2xl"></i>
-                </div>
-                <div class="flex flex-col leading-none">
-                    <span class="font-serif text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
-                </div>
-            </a>
+            <button onclick="toggleSidebar()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10"><i class="ph ph-list text-2xl"></i></button>
+            <a href="#" onclick="renderHome()" class="font-serif text-2xl font-black">MARTE<span class="text-brand-pink">ALMA</span></a>
         </div>
 
-        <!-- Tópicos Centrais (Desktop) -->
-        <nav class="hidden md:flex items-center gap-2 bg-slate-200/30 dark:bg-black/20 p-1.5 rounded-full backdrop-blur-md border border-white/40 dark:border-white/10">
-            <button onclick="filterCategory('Pop')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Pop</button>
-            <button onclick="filterCategory('Cinema')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Cinema</button>
-            <button onclick="filterCategory('Séries')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Séries</button>
-            <button onclick="filterCategory('Críticas')" class="px-5 py-2 rounded-full text-sm font-bold text-brand-orange hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Críticas</button>
+        <nav class="hidden md:flex gap-8 font-bold text-sm tracking-widest uppercase opacity-70">
+            <a href="#" onclick="filterCategory('Pop')" class="hover:text-brand-pink transition">Pop</a>
+            <a href="#" onclick="filterCategory('Cinema')" class="hover:text-brand-cyan transition">Cinema</a>
+            <a href="#" onclick="filterCategory('Séries')" class="hover:text-brand-orange transition">Séries</a>
         </nav>
 
-        <!-- Ações da Direita -->
-        <div class="flex items-center gap-3">
-            <!-- Botão de Pesquisa (Decorativo) -->
-            <button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-slate-300/30 dark:hover:bg-white/10 transition">
-                <i class="ph-bold ph-magnifying-glass text-xl"></i>
-            </button>
-            
-            <!-- Toggle de Tema (Claro/Escuro) -->
-            <button onclick="toggleTheme()" id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
-                <i class="ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-transform"></i>
-            </button>
-        </div>
+        <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-black/5 dark:bg-white/10"><i class="ph-fill ph-sun dark:ph-moon text-xl"></i></button>
     </header>
 
-    <!-- BARRA LATERAL (Escondida por padrão) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 p-6 flex flex-col liquid-glass no-hover transform -translate-x-full transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) rounded-none md:rounded-r-[2rem] border-y-0 border-l-0 shadow-2xl">
-        
-        <div class="flex justify-between items-center mb-10">
-            <a href="#" onclick="renderHome(); toggleSidebar();" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-pink to-brand-orange flex items-center justify-center text-white">
-                    <i class="ph-fill ph-planet text-xl"></i>
-                </div>
-                <span class="font-serif text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
-            </a>
-            
-            <button onclick="toggleSidebar()" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-brand-pink hover:text-white dark:bg-white/10 dark:hover:bg-brand-pink transition-colors">
-                <i class="ph-bold ph-x text-lg"></i>
-            </button>
-        </div>
-
-        <nav class="flex-grow flex flex-col gap-3">
-            <p class="text-xs font-bold uppercase tracking-widest opacity-40 mb-2 pl-2">Descubra</p>
-            <button onclick="filterCategory('Pop'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-brand-pink/20 text-brand-pink flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-sparkle text-xl"></i></div>
-                Cultura Pop
-            </button>
-            <button onclick="filterCategory('Cinema'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-brand-cyan/20 text-brand-cyan flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-film-strip text-xl"></i></div>
-                Cinema
-            </button>
-            <button onclick="filterCategory('Séries'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-television text-xl"></i></div>
-                Séries
-            </button>
-            <button onclick="filterCategory('Críticas'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-star-half text-xl"></i></div>
-                Críticas
-            </button>
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white/95 dark:bg-black/95 backdrop-blur-xl border-r border-white/20 transform -translate-x-full transition-transform duration-300 p-8">
+        <button onclick="toggleSidebar()" class="mb-8"><i class="ph ph-x text-2xl"></i></button>
+        <nav class="flex flex-col gap-6 font-bold uppercase text-lg">
+            <a href="#" onclick="filterCategory('Pop'); toggleSidebar();">Pop</a>
+            <a href="#" onclick="filterCategory('Cinema'); toggleSidebar();">Cinema</a>
+            <a href="#" onclick="filterCategory('Séries'); toggleSidebar();">Séries</a>
         </nav>
+    </div>
 
-        <div class="mt-auto pt-8 border-t border-slate-300/30 dark:border-white/10">
-            <button class="w-full flex justify-center items-center gap-2 px-4 py-4 rounded-2xl bg-gradient-to-r from-brand-pink to-brand-orange text-white hover:opacity-90 transition-opacity text-sm font-black uppercase tracking-wider shadow-lg shadow-brand-pink/20">
-                <i class="ph-fill ph-bell-ringing text-lg"></i> Assinar Alertas
-            </button>
-            <div class="flex justify-center gap-6 text-2xl mt-6 opacity-60">
-                <a href="#" class="hover:text-brand-pink hover:opacity-100 transition hover:scale-110"><i class="ph-fill ph-instagram-logo"></i></a>
-                <a href="#" class="hover:text-brand-cyan hover:opacity-100 transition hover:scale-110"><i class="ph-fill ph-tiktok-logo"></i></a>
-                <a href="#" class="hover:text-slate-800 dark:hover:text-white hover:opacity-100 transition hover:scale-110"><i class="ph-fill ph-x-logo"></i></a>
-            </div>
-            <p class="text-center text-xs font-bold mt-6 opacity-40">© 2026 Marte Alma</p>
-        </div>
-    </aside>
-
-    <!-- OVERLAY (Fundo escuro ao abrir o menu) -->
-    <div id="mobile-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
-
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="flex-grow w-full pt-28 pb-12">
-        <div class="max-w-[1400px] mx-auto p-4 md:p-8 lg:px-12">
-            <div id="dynamic-content">
-                <!-- Estado de Carregamento -->
-                <div class="flex flex-col justify-center items-center h-64 gap-4 animate-fade-up">
-                    <div class="w-16 h-16 border-4 border-brand-pink/30 border-t-brand-pink rounded-full animate-spin"></div>
-                    <p class="font-serif font-bold text-brand-pink tracking-widest animate-pulse">SINTONIZANDO MARTE...</p>
-                </div>
-            </div>
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+        <div id="dynamic-content">
+            <!-- Conteúdo carregado dinamicamente -->
         </div>
     </main>
 
-    <!-- Scripts do Firebase (Mantidos para a arquitetura gratuita) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'marte-alma';
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        
-        window.db = db; window.auth = auth; window.appId = appId;
-        window.signInAnonymously = signInAnonymously;
-        window.collection = collection; window.onSnapshot = onSnapshot;
-    </script>
-
     <script>
-        // --- FUNÇÕES DA INTERFACE ---
-        
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-            
-            // Verifica se a barra está escondida (tem a classe -translate-x-full)
-            if (sidebar.classList.contains('-translate-x-full')) {
-                // Abrir
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-                // Pequeno delay para a transição de opacidade funcionar
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-                document.body.style.overflow = 'hidden'; // Impede scroll da página
-            } else {
-                // Fechar
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('opacity-0');
-                setTimeout(() => overlay.classList.add('hidden'), 300); // Espera a animação
-                document.body.style.overflow = ''; // Devolve scroll
-            }
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.classList.toggle('dark');
-            const icon = document.querySelector('#theme-toggle i');
-            
-            // Animação de rotação no ícone ao trocar
-            icon.classList.add('-rotate-90', 'opacity-0');
-            
-            setTimeout(() => {
-                if (isDark) {
-                    // Mudou para escuro, mostra o sol para voltar pro claro
-                    icon.className = 'ph-fill ph-sun text-xl text-brand-orange transition-all duration-300 rotate-0 opacity-100';
-                } else {
-                    // Mudou para claro, mostra a lua para ir pro escuro
-                    icon.className = 'ph-fill ph-moon text-xl text-slate-800 transition-all duration-300 rotate-0 opacity-100';
-                }
-            }, 150);
-        }
-
-        // --- STREAMING_CHUNK:Banco de dados Falso e Logica de Renderizacao... ---
-        
-        // Cores baseadas nas editorias
-        function getCategoryStyle(category) {
-            switch(category.toLowerCase()) {
-                case 'pop': return 'text-brand-pink bg-brand-pink/10 border-brand-pink/30';
-                case 'cinema': return 'text-brand-cyan bg-brand-cyan/10 border-brand-cyan/30';
-                case 'séries': return 'text-brand-orange bg-brand-orange/10 border-brand-orange/30';
-                default: return 'text-purple-500 bg-purple-500/10 border-purple-500/30';
-            }
-        }
-
-        // Nova função que alterna as cores dos quadros editoriais por baixo de cada matéria
-        function getEditorialFrameColor(index) {
-            const cores = ['bg-brand-pink', 'bg-brand-cyan', 'bg-brand-orange', 'bg-purple-500'];
-            return cores[index % cores.length];
-        }
-
-        const FALLBACK_POSTS = [
-            {
-                id: "1",
-                title: "O Retorno Apoteótico de Lady Gaga às Pistas de Dança",
-                category: "Pop",
-                date: "30 Jun, 2026",
-                author: "Redação Marte",
-                image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop",
-                featured: true,
-                timestamp: 1719752000,
-                content: `A espera acabou. O novo álbum da rainha do pop aterra nas plataformas digitais redefinindo o que entendemos por música eletrônica.\n\n### Uma Era Neon\nDiferente de tudo que já fez, as novas faixas mergulham no *synth-pop* com vocais extraterrestres.\n\n> "Eu queria que as pessoas sentissem a gravidade zero na pista de dança", declarou em entrevista.`
-            },
-            {
-                id: "2",
-                title: "Duna: Messias encerra a trilogia com visual de cair o queixo",
-                category: "Cinema",
-                date: "28 Jun, 2026",
-                author: "João Crítico",
-                image: "https://images.unsplash.com/photo-1542451313056-b7c8e626645f?q=80&w=800&auto=format&fit=crop",
-                featured: false,
-                timestamp: 1719579200,
-                content: `Denis Villeneuve atinge o ápice da ficção científica cinematográfica com a conclusão da jornada de Paul Atreides.`
-            },
-            {
-                id: "3",
-                title: "Por que Ruptura (Severance) é a melhor série da década?",
-                category: "Séries",
-                date: "25 Jun, 2026",
-                author: "Alma Editorial",
-                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
-                featured: false,
-                timestamp: 1719200000,
-                content: `A terceira temporada elevou o suspense corporativo a níveis angustiantes de perfeição narrativa e visual.`
-            }
+        const POSTS = [
+            { id: 1, title: "O NOVO SOM DE LADY GAGA", category: "Pop", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800", content: "A rainha do pop está de volta com um som revolucionário..." },
+            { id: 2, title: "DUNA 3: O FINAL", category: "Cinema", image: "https://images.unsplash.com/photo-1542451313056-b7c8e626645f?w=800", content: "Uma análise profunda sobre o fim da trilogia que mudou o cinema." },
+            { id: 3, title: "SÉRIE DO ANO: O QUE ESPERAR", category: "Séries", image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800", content: "Os bastidores da produção que parou o streaming." }
         ];
 
-        const CRITICAS = [
-            { title: "The White Lotus - T3", rating: "⭐⭐⭐⭐⭐", text: "Ácida, luxuosa e terrivelmente engraçada. O resort na Ásia entrega o melhor mistério até agora." },
-            { title: "Dua Lipa - Radical Optimism", rating: "⭐⭐⭐⭐", text: "Um pop efervescente e psicodélico que te obriga a dançar, mesmo nas faixas mais reflexivas." },
-            { title: "Deadpool & Wolverine", rating: "⭐⭐⭐", text: "Divertido, sangrento, mas recicla piadas que já parecem cansadas para o gênero de heróis." },
-        ];
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('-translate-x-full'); }
 
-        let POSTS = [];
-        const dynamicContent = document.getElementById('dynamic-content');
-
-        // --- RENDERIZAÇÃO: HOME ---
         function renderHome() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if(POSTS.length === 0) return;
-
-            const featuredPost = POSTS.find(p => p.featured) || POSTS[0];
-            const recentPosts = POSTS.filter(p => p.id !== featuredPost.id);
-
-            let html = `
-                <!-- DESTAQUE PRINCIPAL -->
-                <div class="mb-16 cursor-pointer group animate-fade-up relative z-10" onclick="renderArticle(${featuredPost.id})">
-                    <!-- Quadro Editorial de Fundo (A mágica das cores) -->
-                    <div class="absolute inset-0 rounded-[3rem] transform translate-x-3 translate-y-4 md:translate-x-5 md:translate-y-5 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-8 ${getEditorialFrameColor(0)} opacity-90 dark:opacity-60 shadow-lg"></div>
-                    
-                    <article class="liquid-glass overflow-hidden relative h-[550px] lg:h-[650px] rounded-[2.5rem] p-2 z-10">
-                        <div class="relative w-full h-full rounded-[2rem] overflow-hidden">
-                            <img src="${featuredPost.image}" alt="${featuredPost.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out">
-                            
-                            <!-- Gradiente overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                            
-                            <div class="absolute bottom-0 left-0 w-full p-8 md:p-14">
-                                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border backdrop-blur-md mb-6 ${getCategoryStyle(featuredPost.category)}">
-                                    ${featuredPost.category}
-                                </span>
-                                <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif font-black text-white mb-6 leading-[1.05] drop-shadow-2xl max-w-4xl group-hover:text-brand-pink transition-colors duration-500">
-                                    ${featuredPost.title}
-                                </h1>
-                                <p class="text-white/90 font-bold flex items-center gap-3 text-sm md:text-base">
-                                    <span class="opacity-60 font-medium">Por</span> ${featuredPost.author} 
-                                    <span class="text-brand-pink">&bull;</span> ${featuredPost.date}
-                                </p>
+            let html = '<div class="grid md:grid-cols-2 gap-8">';
+            POSTS.forEach((post, i) => {
+                const colors = ['bg-brand-pink', 'bg-brand-cyan', 'bg-brand-orange'];
+                const color = colors[i % colors.length];
+                html += `
+                    <div class="relative group cursor-pointer" onclick="renderArticle(${post.id})">
+                        <div class="absolute inset-0 rounded-3xl translate-x-4 translate-y-4 ${color} opacity-40 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-300"></div>
+                        <div class="relative overflow-hidden rounded-3xl h-[400px]">
+                            <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute inset-0 img-gradient p-8 flex flex-col justify-end">
+                                <span class="text-xs font-bold uppercase tracking-widest text-white/80 mb-2">${post.category}</span>
+                                <h2 class="text-white text-3xl font-black uppercase leading-tight">${post.title}</h2>
                             </div>
                         </div>
-                    </article>
-                </div>
-
-                <!-- GRID DE NOTÍCIAS & CRÍTICAS -->
-                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-10 relative z-10">
-                    
-                    <!-- Últimas Notícias (Esquerda) -->
-                    <div class="xl:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-            `;
-
-            recentPosts.forEach((post, index) => {
-                const delay = index % 2 === 0 ? 'delay-100' : 'delay-200';
-                html += `
-                        <div class="relative group cursor-pointer animate-fade-up ${delay} h-full" onclick="renderArticle(${post.id})">
-                            <!-- Quadro Editorial de Fundo -->
-                            <div class="absolute inset-0 rounded-[2.5rem] md:rounded-[2rem] transform translate-x-2 translate-y-3 md:translate-x-3 md:translate-y-4 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-6 ${getEditorialFrameColor(index + 1)} opacity-90 dark:opacity-60"></div>
-                            
-                            <article class="relative liquid-glass rounded-[2.5rem] md:rounded-[2rem] p-4 flex flex-col h-full z-10">
-                                <div class="w-full h-56 overflow-hidden rounded-[1.5rem] mb-5 relative">
-                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}">
-                                    <div class="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border backdrop-blur-xl ${getCategoryStyle(post.category)}">
-                                        ${post.category}
-                                    </div>
-                                </div>
-                                <div class="px-3 pb-3 flex-grow flex flex-col justify-between">
-                                    <h3 class="text-2xl font-black font-serif mb-3 leading-snug group-hover:text-brand-orange transition-colors">${post.title}</h3>
-                                    <div class="mt-6 pt-4 border-t border-slate-300/30 dark:border-slate-500/20 text-sm opacity-60 font-bold flex justify-between items-center">
-                                        <span>${post.date}</span>
-                                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
-                                            <i class="ph-bold ph-arrow-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
+                    </div>
                 `;
             });
-
-            html += `
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            `;
-            dynamicContent.innerHTML = html;
+            html += '</div>';
+            document.getElementById('dynamic-content').innerHTML = html;
         }
 
-        // --- RENDERIZAÇÃO: ARTIGO COMPLETO ---
         function renderArticle(id) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             const post = POSTS.find(p => p.id === id);
-            if(!post) return;
-
-            const parsedContent = marked.parse(post.content);
-
-            let html = `
-                <article class="max-w-4xl mx-auto animate-fade-up relative z-10 pt-4">
-                    <button onclick="renderHome()" class="mb-10 w-12 h-12 rounded-full liquid-glass flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors border-none shadow-md">
-                        <i class="ph-bold ph-arrow-left text-xl"></i>
-                    </button>
-
-                    <header class="mb-12 text-center md:text-left">
-                        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border backdrop-blur-md mb-6 ${getCategoryStyle(post.category)}">
-                            ${post.category}
-                        </span>
-                        <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif font-black mb-8 leading-[1.1]">${post.title}</h1>
-                        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-bold opacity-60">
-                            <span class="flex items-center gap-2 bg-slate-200 dark:bg-white/10 px-4 py-2 rounded-full"><i class="ph-fill ph-user-circle text-lg text-brand-pink"></i> ${post.author}</span>
-                            <span class="flex items-center gap-2 bg-slate-200 dark:bg-white/10 px-4 py-2 rounded-full"><i class="ph-bold ph-calendar-blank text-lg text-brand-orange"></i> ${post.date}</span>
-                        </div>
-                    </header>
-
-                    <div class="liquid-glass p-2 rounded-[2.5rem] mb-12 shadow-2xl no-hover">
-                        <img src="${post.image}" alt="${post.title}" class="w-full h-auto max-h-[600px] object-cover rounded-[2rem]">
+            document.getElementById('dynamic-content').innerHTML = `
+                <div class="max-w-3xl mx-auto liquid-glass p-8 md:p-16 rounded-3xl animate-in fade-in zoom-in duration-500">
+                    <button onclick="renderHome()" class="mb-8 font-bold flex items-center gap-2 hover:opacity-60"><i class="ph ph-arrow-left"></i> VOLTAR</button>
+                    <h1 class="text-5xl font-black uppercase mb-8">${post.title}</h1>
+                    <div class="prose dark:prose-invert max-w-none">
+                        <p class="text-xl leading-relaxed opacity-80">${post.content}</p>
                     </div>
-
-                    <div class="liquid-glass no-hover rounded-[3rem] p-8 md:p-16 shadow-xl relative">
-                        <div class="w-20 h-1 bg-gradient-to-r from-brand-pink to-brand-orange rounded-full mb-10"></div>
-                        
-                        <div class="markdown-content font-serif">
-                            ${parsedContent}
-                        </div>
-                        
-                        <!-- Botões de Compartilhar -->
-                        <div class="mt-16 pt-8 border-t border-slate-300/30 dark:border-white/10 flex items-center justify-between">
-                            <span class="font-bold uppercase tracking-widest text-xs opacity-50">Compartilhe</span>
-                            <div class="flex gap-4">
-                                <button class="w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-cyan hover:text-white transition-colors text-xl"><i class="ph-fill ph-twitter-logo"></i></button>
-                                <button class="w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-colors text-xl"><i class="ph-fill ph-whatsapp-logo"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            `;
-            dynamicContent.innerHTML = html;
-        }
-
-        // --- RENDERIZAÇÃO: CATEGORIAS (FILTRO) ---
-        function filterCategory(categoryName) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            const filteredPosts = POSTS.filter(p => p.category === categoryName || categoryName === 'Críticas');
-
-            let html = `
-                <div class="flex flex-col items-center justify-center mb-16 animate-fade-up text-center pt-8">
-                    <h1 class="text-5xl md:text-7xl font-serif font-black mb-4">
-                        ${categoryName}
-                    </h1>
-                    <div class="w-16 h-1.5 bg-gradient-to-r from-brand-pink to-brand-orange rounded-full"></div>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
             `;
-
-                if(categoryName === 'Críticas') {
-                 CRITICAS.forEach((critica, i) => {
-                    const delay = `delay-${(i%3)*100}`;
-                    html += `
-                        <div class="liquid-glass rounded-[2rem] p-8 border-t-4 border-t-purple-500 animate-fade-up ${delay}">
-                            <div class="text-xl tracking-widest mb-6">${critica.rating}</div>
-                            <h4 class="font-black text-2xl font-serif mb-4 leading-tight">${critica.title}</h4>
-                            <p class="text-lg opacity-80 leading-relaxed italic font-serif">"${critica.text}"</p>
-                        </div>
-                    `;
-                 });
-            } else {
-                filteredPosts.forEach((post, i) => {
-                    const delay = `delay-${(i%3)*100}`;
-                    const excerpt = post.content.replace(/<[^>]*>?/gm, '').substring(0, 100) + '...';
-                    html += `
-                        <div class="relative group cursor-pointer animate-fade-up ${delay} h-full" onclick="renderArticle(${post.id})">
-                            <!-- Quadro Editorial de Fundo -->
-                            <div class="absolute inset-0 rounded-[2.5rem] md:rounded-[2rem] transform translate-x-2 translate-y-3 md:translate-x-3 md:translate-y-4 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-6 ${getEditorialFrameColor(i)} opacity-90 dark:opacity-60"></div>
-                            
-                            <article class="relative liquid-glass rounded-[2.5rem] md:rounded-[2rem] p-4 flex flex-col h-full z-10">
-                                <div class="w-full h-56 overflow-hidden rounded-[1.5rem] mb-5">
-                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}">
-                                </div>
-                                <div class="px-3 pb-3 flex-grow flex flex-col">
-                                    <h3 class="text-2xl font-black font-serif mb-4 leading-snug group-hover:text-brand-pink transition-colors">${post.title}</h3>
-                                    <p class="text-sm opacity-70 mb-6 flex-grow font-serif leading-relaxed">${excerpt}</p>
-                                    <div class="mt-auto pt-4 border-t border-slate-300/30 dark:border-white/10 text-xs font-bold opacity-50 flex items-center gap-2">
-                                        <i class="ph-bold ph-clock"></i> ${post.date}
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    `;
-                });
-            }
-
-            html += `</div>`;
-            dynamicContent.innerHTML = html;
         }
 
-        // --- INICIALIZAÇÃO ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Verifica o tema inicial para configurar o botão
-            const html = document.documentElement;
-            const icon = document.querySelector('#theme-toggle i');
-            if (!html.classList.contains('dark')) {
-                // Começa no claro, então mostra a lua
-                icon.className = 'ph-fill ph-moon text-xl text-slate-800 transition-transform';
-            }
+        function filterCategory(cat) {
+            document.getElementById('dynamic-content').innerHTML = `<h1 class="text-4xl font-black mb-12 uppercase opacity-80">CATEGORIA: ${cat}</h1><div class="text-center p-20">Em breve, notícias em ${cat}...</div>`;
+        }
 
-            // Simula o tempo de rede para mostrar o loading charmoso
-            setTimeout(() => {
-                if (window.auth && window.db) {
-                    window.signInAnonymously(window.auth).then(() => {
-                        const articlesRef = window.collection(window.db, 'artifacts', window.appId, 'public', 'data', 'articles');
-                        window.onSnapshot(articlesRef, (snapshot) => {
-                            const newPosts = [];
-                            snapshot.forEach((doc) => newPosts.push({ id: doc.id, ...doc.data() }));
-                            
-                            if(newPosts.length === 0) {
-                                POSTS = [...FALLBACK_POSTS];
-                            } else {
-                                POSTS = newPosts.sort((a, b) => b.timestamp - a.timestamp);
-                            }
-                            renderHome();
-                        }, (error) => {
-                            POSTS = [...FALLBACK_POSTS];
-                            renderHome();
-                        });
-                    }).catch(() => {
-                        POSTS = [...FALLBACK_POSTS];
-                        renderHome();
-                    });
-                } else {
-                    POSTS = [...FALLBACK_POSTS];
-                    renderHome();
-                }
-            }, 1200); // Carregamento visual charmoso
-        });
+        renderHome();
     </script>
 </body>
 </html>
