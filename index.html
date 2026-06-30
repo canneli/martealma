@@ -4,40 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marte Alma | Cultura e Entretenimento</title>
-    
-    <!-- SUPORTE ADSENSE: Substitua pelo seu ID Client real -->
+
+    <!-- ============================================================
+         PAINEL DE EDIÇÃO FÁCIL
+         Tudo que você normalmente precisa trocar está sinalizado com
+         um bloco "EDITE AQUI" — procure por essas tags no arquivo.
+         1) Cores e identidade visual -> tag [EDITE AQUI: CORES]
+         2) Matérias (quando o Firebase estiver offline) -> [EDITE AQUI: POSTS]
+         3) Críticas -> [EDITE AQUI: CRITICAS]
+         4) Menus -> [EDITE AQUI: MENU]
+         5) IDs do AdSense -> [EDITE AQUI: ADSENSE]
+         ============================================================ -->
+
+    <!-- [EDITE AQUI: ADSENSE] Substitua pelo seu ID Client real -->
     <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Marked.js para Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
+
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts: par de tipografia mais imponente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,400..900&display=swap" rel="stylesheet">
 
-    <!-- Configuração do Tailwind -->
+    <!-- ============================================================
+         [EDITE AQUI: CORES] — Configuração do Tailwind
+         Troque os valores hex abaixo para mudar a identidade visual
+         do site inteiro automaticamente.
+         ============================================================ -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Nunito', 'sans-serif'], 
+                        sans: ['Nunito', 'sans-serif'],
                         serif: ['Outfit', 'sans-serif'],
+                        display: ['Bricolage Grotesque', 'Outfit', 'sans-serif'],
                     },
                     colors: {
                         brand: {
-                            pink: '#ec4899',    /* Rosa Vibrante */
-                            orange: '#f97316',  /* Laranja */
-                            cyan: '#06b6d4',    /* Ciano */
+                            pink: '#ec4899',
+                            orange: '#f97316',
+                            cyan: '#06b6d4',
+                            violet: '#8b5cf6',
                             dark: '#0a0a0f'
                         }
+                    },
+                    boxShadow: {
+                        glow: '0 0 80px -10px rgba(236,72,153,0.45)',
                     }
                 }
             }
@@ -46,158 +67,273 @@
 
     <style>
         :root {
-            /* MODO CLARO (Padrão, super iluminado e translúcido) */
+            /* MODO CLARO */
             --bg-color: #f8fafc;
             --text-color: #0f172a;
-            
-            /* Liquid Glass Ultra Chic - Modo Claro */
-            --glass-bg: rgba(255, 255, 255, 0.45);
-            --glass-blur: blur(32px);
-            --glass-border-top: rgba(255, 255, 255, 0.9);
-            --glass-border-left: rgba(255, 255, 255, 0.6);
-            --glass-border-bottom: rgba(255, 255, 255, 0.2);
-            --glass-shadow: 0 12px 40px 0 rgba(236, 72, 153, 0.05); /* Sombra rosada bem sutil */
-            --blob-opacity: 0.8;
+
+            --glass-bg: rgba(255, 255, 255, 0.42);
+            --glass-bg-strong: rgba(255, 255, 255, 0.65);
+            --glass-blur: blur(34px);
+            --glass-border-top: rgba(255, 255, 255, 0.95);
+            --glass-border-left: rgba(255, 255, 255, 0.65);
+            --glass-border-bottom: rgba(255, 255, 255, 0.18);
+            --glass-shadow: 0 12px 45px 0 rgba(236, 72, 153, 0.08), 0 2px 8px rgba(15,23,42,0.04);
+            --blob-opacity: 0.85;
+            --noise-opacity: 0.025;
         }
 
         .dark {
             /* MODO ESCURO */
             --bg-color: #050508;
             --text-color: #f8fafc;
-            
-            /* Liquid Glass Ultra Chic - Modo Escuro */
-            --glass-bg: rgba(15, 15, 22, 0.55);
-            --glass-blur: blur(32px);
-            --glass-border-top: rgba(255, 255, 255, 0.15);
+
+            --glass-bg: rgba(15, 15, 22, 0.5);
+            --glass-bg-strong: rgba(20, 20, 30, 0.72);
+            --glass-blur: blur(34px);
+            --glass-border-top: rgba(255, 255, 255, 0.16);
             --glass-border-left: rgba(255, 255, 255, 0.08);
-            --glass-border-bottom: rgba(0, 0, 0, 0.5);
-            --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.8);
-            --blob-opacity: 0.35;
+            --glass-border-bottom: rgba(0, 0, 0, 0.55);
+            --glass-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255,255,255,0.02) inset;
+            --blob-opacity: 0.4;
+            --noise-opacity: 0.05;
         }
+
+        html { scrollbar-gutter: stable; }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             overflow-x: hidden;
             transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1), color 0.6s ease;
+            cursor: default;
         }
 
-        /* O EFEITO LIQUID GLASS PREMIUM */
+        /* Textura de ruído sutil para dar sensação premium ao vidro */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: var(--noise-opacity);
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ===================== LIQUID GLASS PREMIUM ===================== */
         .liquid-glass {
-            background: var(--glass-bg); 
-            backdrop-filter: var(--glass-blur); 
-            -webkit-backdrop-filter: var(--glass-blur);
+            position: relative;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur) saturate(160%);
+            -webkit-backdrop-filter: var(--glass-blur) saturate(160%);
             border-top: 1.5px solid var(--glass-border-top);
             border-left: 1px solid var(--glass-border-left);
             border-bottom: 1px solid var(--glass-border-bottom);
             border-right: 1px solid var(--glass-border-bottom);
-            box-shadow: var(--glass-shadow); 
+            box-shadow: var(--glass-shadow);
             border-radius: 1.5rem;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            isolation: isolate;
+        }
+
+        /* Brilho especular que percorre a borda — assinatura visual do site */
+        .liquid-glass::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(120deg, rgba(255,255,255,0.5), transparent 30%, transparent 70%, rgba(236,72,153,0.35));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.7;
+            z-index: 1;
         }
 
         .liquid-glass-header {
-            border-radius: 0 0 1.5rem 1.5rem;
+            border-radius: 0 0 1.75rem 1.75rem;
             border-top: none;
             border-left: none;
             border-right: none;
         }
 
         .liquid-glass:hover:not(.no-hover) {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px 0 rgba(236, 72, 153, 0.15);
-            background: rgba(255, 255, 255, 0.55);
-        }
-        
-        .dark .liquid-glass:hover:not(.no-hover) {
-            box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.9);
-            background: rgba(25, 25, 35, 0.65);
-            border-top-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 24px 60px 0 rgba(236, 72, 153, 0.18), 0 2px 8px rgba(15,23,42,0.05);
+            background: rgba(255, 255, 255, 0.58);
         }
 
-        /* ORBES NEON DE FUNDO (Cores do Entretenimento) */
+        .dark .liquid-glass:hover:not(.no-hover) {
+            box-shadow: 0 24px 60px 0 rgba(0, 0, 0, 0.95);
+            background: rgba(26, 26, 38, 0.68);
+            border-top-color: rgba(255, 255, 255, 0.28);
+        }
+
+        /* ===================== ORBES NEON DE FUNDO ===================== */
         .blob {
             position: fixed;
-            filter: blur(100px); 
+            filter: blur(110px);
             z-index: -1;
-            opacity: var(--blob-opacity); 
-            animation: float 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: var(--blob-opacity);
+            animation: float 28s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 50%;
             transition: opacity 0.8s ease;
+            will-change: transform;
         }
 
-        .blob-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: radial-gradient(circle, #ec4899 0%, transparent 70%); animation-delay: 0s; } /* Rosa */
-        .blob-2 { bottom: -20%; right: -10%; width: 65vw; height: 65vw; background: radial-gradient(circle, #f97316 0%, transparent 70%); animation-delay: -5s; } /* Laranja */
-        .blob-3 { top: 30%; left: 30%; width: 45vw; height: 45vw; background: radial-gradient(circle, #06b6d4 0%, transparent 70%); animation-delay: -10s; } /* Ciano */
+        .blob-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: radial-gradient(circle, #ec4899 0%, transparent 70%); animation-delay: 0s; }
+        .blob-2 { bottom: -20%; right: -10%; width: 65vw; height: 65vw; background: radial-gradient(circle, #f97316 0%, transparent 70%); animation-delay: -6s; }
+        .blob-3 { top: 30%; left: 30%; width: 45vw; height: 45vw; background: radial-gradient(circle, #06b6d4 0%, transparent 70%); animation-delay: -12s; }
+        .blob-4 { top: 60%; left: 70%; width: 35vw; height: 35vw; background: radial-gradient(circle, #8b5cf6 0%, transparent 70%); animation-delay: -18s; opacity: calc(var(--blob-opacity) * 0.6); }
 
         @keyframes float {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(5%, 5%) scale(1.1) rotate(15deg); }
-            66% { transform: translate(-5%, 2%) scale(0.9) rotate(-15deg); }
-            100% { transform: translate(2%, -5%) scale(1.1) rotate(5deg); }
+            33% { transform: translate(6%, 6%) scale(1.12) rotate(18deg); }
+            66% { transform: translate(-6%, 3%) scale(0.88) rotate(-15deg); }
+            100% { transform: translate(3%, -6%) scale(1.1) rotate(8deg); }
         }
 
-        /* Animações de entrada */
+        /* Glow que segue o cursor (acompanha mousemove via JS) */
+        #cursor-glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+        @media (min-width: 768px) { #cursor-glow { opacity: 1; } }
+
+        /* ===================== ANIMAÇÕES DE ENTRADA ===================== */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(48px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.85); }
+            70% { transform: scale(1.04); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .animate-fade-up {
             opacity: 0;
-            animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        
+        .animate-pop-in {
+            opacity: 0;
+            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
         .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* Revelação ao rolar a página (ativada via IntersectionObserver) */
+        .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Texto com gradiente animado — usado nos títulos imponentes */
+        .text-gradient-flow {
+            background: linear-gradient(90deg, #ec4899, #f97316, #8b5cf6, #ec4899);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        /* Skeleton shimmer para carregamento */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(150,150,150,0.12) 25%, rgba(150,150,150,0.25) 37%, rgba(150,150,150,0.12) 63%);
+            background-size: 400% 100%;
+            animation: shimmer 1.6s ease infinite;
+        }
+
+        /* Transição de página suave entre Home / Artigo / Categoria */
+        .page-transition { animation: fadeIn 0.5s ease forwards; }
+
+        /* Botões e elementos "magnéticos" no hover */
+        .magnetic { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
+        .magnetic:hover { transform: scale(1.06); }
+        .magnetic:active { transform: scale(0.96); }
 
         /* Estilos de Conteúdo (Markdown) */
-        .markdown-content p { margin-bottom: 1.5rem; line-height: 1.8; color: inherit; opacity: 0.85; font-size: 1.15rem; } 
-        .markdown-content h1, .markdown-content h2, .markdown-content h3 { font-weight: 800; margin-top: 2.5rem; margin-bottom: 1rem; font-family: 'Outfit', sans-serif; }
-        .markdown-content h2 { font-size: 1.8rem; color: #ec4899; }
+        .markdown-content p { margin-bottom: 1.5rem; line-height: 1.85; color: inherit; opacity: 0.86; font-size: 1.18rem; }
+        .markdown-content h1, .markdown-content h2, .markdown-content h3 { font-weight: 800; margin-top: 2.5rem; margin-bottom: 1rem; font-family: 'Bricolage Grotesque', sans-serif; }
+        .markdown-content h2 { font-size: 1.9rem; background: linear-gradient(90deg,#ec4899,#f97316); -webkit-background-clip:text; background-clip:text; color: transparent; display:inline-block; }
         .markdown-content a { color: #f97316; text-decoration: none; border-bottom: 2px solid rgba(249, 115, 22, 0.3); transition: all 0.2s;}
         .markdown-content a:hover { border-bottom-color: #f97316; }
-        .markdown-content img { border-radius: 1.5rem; width: 100%; height: auto; margin: 2rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .dark .markdown-content img { box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .markdown-content blockquote { border-left: 4px solid #06b6d4; padding: 1.5rem 1.5rem 1.5rem 2rem; font-style: italic; background: rgba(6, 182, 212, 0.05); border-radius: 0 1rem 1rem 0; margin: 2rem 0;}
+        .markdown-content img { border-radius: 1.5rem; width: 100%; height: auto; margin: 2rem 0; box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+        .dark .markdown-content img { box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+        .markdown-content blockquote { border-left: 4px solid #06b6d4; padding: 1.5rem 1.5rem 1.5rem 2rem; font-style: italic; background: rgba(6, 182, 212, 0.06); border-radius: 0 1.25rem 1.25rem 0; margin: 2rem 0;}
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.3); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box;}
-        ::-webkit-scrollbar-thumb:hover { background-color: rgba(150,150,150,0.5); }
+        ::-webkit-scrollbar-thumb:hover { background-color: rgba(236,72,153,0.5); }
+
+        /* Acessibilidade: respeita preferência por menos animação */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+            .blob { animation: none; }
+        }
+
+        :focus-visible { outline: 2px solid #ec4899; outline-offset: 3px; border-radius: 0.5rem; }
     </style>
 </head>
 
 <body class="antialiased selection:bg-brand-pink selection:text-white flex flex-col min-h-screen">
 
+    <!-- Glow que acompanha o cursor -->
+    <div id="cursor-glow"></div>
+
     <!-- Orbes Animados de Fundo -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
 
-    <!-- CABEÇALHO SUPERIOR (Header Fixo) -->
-    <header class="fixed top-0 left-0 right-0 z-40 liquid-glass liquid-glass-header no-hover py-3 px-4 md:px-8 flex justify-between items-center transition-all duration-300">
-        
+    <!-- Barra de progresso de leitura -->
+    <div id="reading-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet z-[70] transition-all duration-150" style="width:0%"></div>
+
+    <!-- CABEÇALHO SUPERIOR -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 liquid-glass liquid-glass-header no-hover py-3 px-4 md:px-8 flex justify-between items-center transition-all duration-500">
+
         <div class="flex items-center gap-4">
-            <!-- Botão Menu Hambúrguer -->
-            <button onclick="toggleSidebar()" class="w-12 h-12 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/5 dark:hover:bg-white/10 transition backdrop-blur-md border border-white/40 dark:border-white/10 text-slate-800 dark:text-white">
+            <button onclick="toggleSidebar()" aria-label="Abrir menu" class="magnetic w-12 h-12 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/5 dark:hover:bg-white/10 transition backdrop-blur-md border border-white/40 dark:border-white/10 text-slate-800 dark:text-white">
                 <i class="ph ph-list text-2xl"></i>
             </button>
 
-            <!-- Logo -->
             <a href="#" onclick="renderHome()" class="flex items-center gap-2 group hidden sm:flex">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-pink to-brand-orange flex items-center justify-center text-white shadow-lg shadow-brand-pink/30 group-hover:rotate-45 transition-transform duration-500">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-pink via-brand-orange to-brand-violet bg-[length:200%_200%] animate-[gradientShift_5s_ease_infinite] flex items-center justify-center text-white shadow-lg shadow-brand-pink/30 group-hover:rotate-45 transition-transform duration-500">
                     <i class="ph-fill ph-planet text-2xl"></i>
                 </div>
                 <div class="flex flex-col leading-none">
-                    <span class="font-serif text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
+                    <span class="font-display text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
                 </div>
             </a>
         </div>
 
-        <!-- Tópicos Centrais (Desktop) -->
+        <!-- [EDITE AQUI: MENU] Tópicos Centrais (Desktop) -->
         <nav class="hidden md:flex items-center gap-2 bg-slate-200/30 dark:bg-black/20 p-1.5 rounded-full backdrop-blur-md border border-white/40 dark:border-white/10">
             <button onclick="filterCategory('Pop')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Pop</button>
             <button onclick="filterCategory('Cinema')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Cinema</button>
@@ -205,32 +341,29 @@
             <button onclick="filterCategory('Críticas')" class="px-5 py-2 rounded-full text-sm font-bold text-brand-orange hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Críticas</button>
         </nav>
 
-        <!-- Ações da Direita -->
         <div class="flex items-center gap-3">
-            <!-- Botão de Pesquisa (Agora Funcional) -->
-            <button onclick="toggleSearch()" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
+            <button onclick="toggleSearch()" aria-label="Buscar" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
                 <i class="ph-bold ph-magnifying-glass text-xl text-slate-800 dark:text-white"></i>
             </button>
-            
-            <!-- Toggle de Tema (Claro/Escuro) -->
-            <button onclick="toggleTheme()" id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
+
+            <button onclick="toggleTheme()" id="theme-toggle" aria-label="Alternar tema" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
                 <i class="ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-transform"></i>
             </button>
         </div>
     </header>
 
-    <!-- BARRA LATERAL (Escondida por padrão) -->
+    <!-- BARRA LATERAL -->
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 p-6 flex flex-col liquid-glass no-hover transform -translate-x-full transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) rounded-none md:rounded-r-[2rem] border-y-0 border-l-0 shadow-2xl">
-        
+
         <div class="flex justify-between items-center mb-10">
             <a href="#" onclick="renderHome(); toggleSidebar();" class="flex items-center gap-2 group">
                 <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-pink to-brand-orange flex items-center justify-center text-white">
                     <i class="ph-fill ph-planet text-xl"></i>
                 </div>
-                <span class="font-serif text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
+                <span class="font-display text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
             </a>
-            
-            <button onclick="toggleSidebar()" class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-brand-pink hover:text-white dark:bg-white/10 dark:hover:bg-brand-pink transition-colors">
+
+            <button onclick="toggleSidebar()" aria-label="Fechar menu" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-brand-pink hover:text-white dark:bg-white/10 dark:hover:bg-brand-pink transition-colors">
                 <i class="ph-bold ph-x text-lg"></i>
             </button>
         </div>
@@ -256,7 +389,7 @@
         </nav>
 
         <div class="mt-auto pt-8 border-t border-slate-300/30 dark:border-white/10">
-            <button class="w-full flex justify-center items-center gap-2 px-4 py-4 rounded-2xl bg-gradient-to-r from-brand-pink to-brand-orange text-white hover:opacity-90 transition-opacity text-sm font-black uppercase tracking-wider shadow-lg shadow-brand-pink/20">
+            <button class="magnetic w-full flex justify-center items-center gap-2 px-4 py-4 rounded-2xl bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet bg-[length:200%_200%] animate-[gradientShift_6s_ease_infinite] text-white hover:opacity-90 transition-opacity text-sm font-black uppercase tracking-wider shadow-lg shadow-brand-pink/20">
                 <i class="ph-fill ph-bell-ringing text-lg"></i> Assinar Alertas
             </button>
             <div class="flex justify-center gap-6 text-2xl mt-6 opacity-60">
@@ -268,24 +401,20 @@
         </div>
     </aside>
 
-    <!-- OVERLAY GERAL (Mobile sidebar) -->
     <div id="mobile-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
 
     <!-- OVERLAY E MODAL DE BUSCA -->
     <div id="search-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xl z-[60] hidden opacity-0 transition-opacity duration-300 flex items-start justify-center pt-24 px-4" onclick="closeSearchOnOutsideClick(event)">
-        <div class="w-full max-w-3xl liquid-glass !bg-white/80 dark:!bg-slate-900/80 rounded-[2rem] shadow-2xl overflow-hidden transform -translate-y-10 transition-transform duration-300 border border-slate-300/50 dark:border-white/10" id="search-modal">
-            <!-- Header da Busca -->
+        <div class="w-full max-w-3xl liquid-glass !bg-white/85 dark:!bg-slate-900/85 rounded-[2rem] shadow-2xl overflow-hidden transform -translate-y-10 transition-transform duration-300 border border-slate-300/50 dark:border-white/10" id="search-modal">
             <div class="p-6 border-b border-slate-200 dark:border-white/10 flex items-center gap-4">
                 <i class="ph-bold ph-magnifying-glass text-3xl text-brand-pink"></i>
-                <input type="text" id="search-input" placeholder="Buscar matérias, filmes, artistas..." class="flex-grow bg-transparent text-xl md:text-2xl font-serif font-bold outline-none text-slate-800 dark:text-white placeholder-slate-400">
-                <button onclick="toggleSearch()" class="p-3 bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 rounded-full transition">
+                <input type="text" id="search-input" placeholder="Buscar matérias, filmes, artistas..." class="flex-grow bg-transparent text-xl md:text-2xl font-display font-bold outline-none text-slate-800 dark:text-white placeholder-slate-400">
+                <button onclick="toggleSearch()" aria-label="Fechar busca" class="magnetic p-3 bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 rounded-full transition">
                     <i class="ph-bold ph-x text-xl"></i>
                 </button>
             </div>
-            <!-- Resultados -->
             <div id="search-results" class="max-h-[60vh] overflow-y-auto p-4 flex flex-col gap-2">
-                <!-- Estado Inicial -->
-                <p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-serif text-lg">Digite algo para começar a explorar o universo Marte Alma...</p>
+                <p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-display text-lg">Digite algo para começar a explorar o universo Marte Alma...</p>
             </div>
         </div>
     </div>
@@ -293,12 +422,12 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="flex-grow w-full pt-28 pb-12">
         <div class="max-w-[1400px] mx-auto p-4 md:p-8 lg:px-12">
-            
+
             <!-- BLOCO ADSENSE: Header Banner -->
             <div class="w-full mb-10 flex justify-center animate-fade-up">
                 <div class="w-full max-w-4xl bg-slate-200/30 dark:bg-white/5 border border-dashed border-slate-300 dark:border-white/20 rounded-2xl p-2 flex flex-col items-center justify-center min-h-[90px] relative overflow-hidden">
                     <span class="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-1">Publicidade</span>
-                    <!-- INS AdSense Real (Ative preenchendo as chaves client/slot) -->
+                    <!-- [EDITE AQUI: ADSENSE] -->
                     <ins class="adsbygoogle"
                          style="display:block; width:100%; height:90px; min-width:250px;"
                          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -314,14 +443,25 @@
             </div>
 
             <div id="dynamic-content">
-                <!-- Estado de Carregamento -->
-                <div class="flex flex-col justify-center items-center h-64 gap-4 animate-fade-up">
-                    <div class="w-16 h-16 border-4 border-brand-pink/30 border-t-brand-pink rounded-full animate-spin"></div>
-                    <p class="font-serif font-bold text-brand-pink tracking-widest animate-pulse">SINTONIZANDO MARTE...</p>
+                <!-- Estado de Carregamento (skeleton imponente) -->
+                <div class="flex flex-col gap-10 animate-fade-up">
+                    <div class="skeleton w-full h-[450px] md:h-[600px] rounded-[2.5rem]"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <div class="skeleton h-72 rounded-[2rem]"></div>
+                        <div class="skeleton h-72 rounded-[2rem]"></div>
+                        <div class="skeleton h-72 rounded-[2rem] hidden xl:block"></div>
+                    </div>
+                    <p class="text-center font-display font-bold text-brand-pink tracking-widest animate-pulse">SINTONIZANDO MARTE...</p>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- BOTÃO VOLTAR AO TOPO -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Voltar ao topo"
+        class="magnetic fixed bottom-6 left-6 z-40 w-14 h-14 rounded-full liquid-glass no-hover flex items-center justify-center text-brand-pink text-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300 shadow-xl">
+        <i class="ph-bold ph-arrow-up"></i>
+    </button>
 
     <!-- AVISO DE COOKIES LGPD -->
     <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[400px] z-50 liquid-glass !bg-white/90 dark:!bg-slate-900/90 p-6 translate-y-[150%] transition-transform duration-700 ease-out flex flex-col gap-4 border border-slate-300/50 dark:border-white/10 shadow-2xl">
@@ -330,12 +470,12 @@
                 <i class="ph-fill ph-cookie text-2xl"></i>
             </div>
             <div>
-                <h4 class="font-black font-serif text-lg mb-1 leading-tight">Privacidade & Cookies</h4>
+                <h4 class="font-black font-display text-lg mb-1 leading-tight">Privacidade & Cookies</h4>
                 <p class="text-sm opacity-80 leading-relaxed font-medium">Usamos cookies para personalizar sua experiência, exibir anúncios relevantes (Google AdSense) e analisar nosso tráfego. Ao continuar, você concorda com essas condições.</p>
             </div>
         </div>
         <div class="flex gap-3 mt-2">
-            <button onclick="acceptCookies()" class="flex-1 bg-gradient-to-r from-brand-pink to-brand-orange text-white py-3 rounded-xl font-black text-sm uppercase tracking-wider hover:opacity-90 transition shadow-lg shadow-brand-pink/20">
+            <button onclick="acceptCookies()" class="magnetic flex-1 bg-gradient-to-r from-brand-pink to-brand-orange text-white py-3 rounded-xl font-black text-sm uppercase tracking-wider hover:opacity-90 transition shadow-lg shadow-brand-pink/20">
                 Aceitar & Fechar
             </button>
         </div>
@@ -353,74 +493,66 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
-        
+
         window.db = db; window.auth = auth; window.appId = appId;
         window.signInAnonymously = signInAnonymously;
         window.collection = collection; window.onSnapshot = onSnapshot;
     </script>
 
     <script>
-        // --- GERENCIAMENTO DE COOKIES ---
+        // ============================================================
+        // GERENCIAMENTO DE COOKIES
+        // ============================================================
         function checkCookies() {
-            // Checa se o usuário já aceitou
             if (!localStorage.getItem('cookiesAccepted')) {
-                // Anima o banner entrando na tela após 1.5s
                 setTimeout(() => {
-                    const banner = document.getElementById('cookie-banner');
-                    banner.classList.remove('translate-y-[150%]');
-                }, 1500); 
+                    document.getElementById('cookie-banner').classList.remove('translate-y-[150%]');
+                }, 1500);
             }
         }
-
         function acceptCookies() {
-            // Salva no localStorage e esconde o banner
             localStorage.setItem('cookiesAccepted', 'true');
-            const banner = document.getElementById('cookie-banner');
-            banner.classList.add('translate-y-[150%]');
+            document.getElementById('cookie-banner').classList.add('translate-y-[150%]');
         }
 
-        // --- SISTEMA DE BUSCA ---
+        // ============================================================
+        // SISTEMA DE BUSCA
+        // ============================================================
         function toggleSearch() {
             const overlay = document.getElementById('search-overlay');
             const modal = document.getElementById('search-modal');
             const input = document.getElementById('search-input');
 
             if (overlay.classList.contains('hidden')) {
-                // Abrir Busca
                 overlay.classList.remove('hidden');
                 setTimeout(() => {
                     overlay.classList.remove('opacity-0');
                     modal.classList.remove('-translate-y-10');
                     input.focus();
                 }, 10);
-                document.body.style.overflow = 'hidden'; // Impede scroll da pagina de fundo
+                document.body.style.overflow = 'hidden';
             } else {
-                // Fechar Busca
                 overlay.classList.add('opacity-0');
                 modal.classList.add('-translate-y-10');
                 setTimeout(() => {
                     overlay.classList.add('hidden');
-                    input.value = ''; // Reseta input ao fechar
-                    document.getElementById('search-results').innerHTML = '<p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-serif text-lg">Digite algo para começar a explorar o universo Marte Alma...</p>';
+                    input.value = '';
+                    document.getElementById('search-results').innerHTML = '<p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-display text-lg">Digite algo para começar a explorar o universo Marte Alma...</p>';
                 }, 300);
                 document.body.style.overflow = '';
             }
         }
 
-        // Fechar a busca clicando fora do modal
         function closeSearchOnOutsideClick(e) {
-            if (e.target.id === 'search-overlay') {
-                toggleSearch();
-            }
+            if (e.target.id === 'search-overlay') toggleSearch();
         }
 
-        // Lógica de filtragem e renderização da busca
         document.getElementById('search-input').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase().trim();
             const resultsContainer = document.getElementById('search-results');
-            
+
             if (term.length < 2) {
-                resultsContainer.innerHTML = '<p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-serif text-lg">Digite mais letras para iniciar a busca...</p>';
+                resultsContainer.innerHTML = '<p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-display text-lg">Digite mais letras para iniciar a busca...</p>';
                 return;
             }
 
@@ -430,23 +562,22 @@
                 resultsContainer.innerHTML = `
                     <div class="flex flex-col items-center justify-center p-10 opacity-60">
                         <i class="ph-fill ph-ghost text-5xl mb-3"></i>
-                        <p class="text-center font-bold font-serif text-lg">Nenhum sinal encontrado no radar.</p>
+                        <p class="text-center font-bold font-display text-lg">Nenhum sinal encontrado no radar.</p>
                     </div>`;
                 return;
             }
 
-            resultsContainer.innerHTML = results.map(post => `
-                <div onclick="renderArticle('${post.id}'); toggleSearch();" class="p-3 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer rounded-2xl flex items-center gap-4 transition-colors">
-                    <img src="${post.image}" class="w-20 h-20 rounded-xl object-cover shadow-sm">
+            resultsContainer.innerHTML = results.map((post, i) => `
+                <div onclick="renderArticle('${post.id}'); toggleSearch();" class="animate-fade-up p-3 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer rounded-2xl flex items-center gap-4 transition-colors" style="animation-delay:${i * 60}ms">
+                    <img src="${post.image}" class="w-20 h-20 rounded-xl object-cover shadow-sm" loading="lazy">
                     <div class="flex flex-col">
                         <span class="text-[10px] uppercase tracking-widest font-black ${getCategoryStyleTextOnly(post.category)} mb-1">${post.category}</span>
-                        <h4 class="font-bold text-lg font-serif leading-tight">${post.title}</h4>
+                        <h4 class="font-bold text-lg font-display leading-tight">${post.title}</h4>
                     </div>
                 </div>
             `).join('');
         });
 
-        // Cor de texto baseada na categoria para os resultados de busca
         function getCategoryStyleTextOnly(category) {
             switch(category.toLowerCase()) {
                 case 'pop': return 'text-brand-pink';
@@ -456,18 +587,18 @@
             }
         }
 
-
-        // --- FUNÇÕES DA INTERFACE ---
-        
+        // ============================================================
+        // FUNÇÕES DA INTERFACE
+        // ============================================================
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('mobile-overlay');
-            
+
             if (sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full');
                 overlay.classList.remove('hidden');
                 setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-                document.body.style.overflow = 'hidden'; 
+                document.body.style.overflow = 'hidden';
             } else {
                 sidebar.classList.add('-translate-x-full');
                 overlay.classList.add('opacity-0');
@@ -479,21 +610,86 @@
         function toggleTheme() {
             const html = document.documentElement;
             const isDark = html.classList.toggle('dark');
+            localStorage.setItem('marteAlmaTheme', isDark ? 'dark' : 'light');
             const icon = document.querySelector('#theme-toggle i');
-            
+
             icon.classList.add('-rotate-90', 'opacity-0');
-            
+
             setTimeout(() => {
                 if (isDark) {
                     icon.className = 'ph-fill ph-sun text-xl text-brand-orange transition-all duration-300 rotate-0 opacity-100';
                 } else {
-                    icon.className = 'ph-fill ph-moon text-xl text-slate-800 transition-all duration-300 rotate-0 opacity-100';
+                    icon.className = 'ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-all duration-300 rotate-0 opacity-100';
                 }
             }, 150);
         }
 
-        // --- DADOS (Falsos/Fallback) ---
-        
+        // Glow que acompanha o cursor + parallax leve nos blobs
+        (function setupCursorEffects() {
+            const glow = document.getElementById('cursor-glow');
+            const blobs = document.querySelectorAll('.blob');
+            let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+            let raf = null;
+
+            window.addEventListener('mousemove', (e) => {
+                mx = e.clientX; my = e.clientY;
+                if (!raf) raf = requestAnimationFrame(updateEffects);
+            });
+
+            function updateEffects() {
+                glow.style.left = mx + 'px';
+                glow.style.top = my + 'px';
+                const cx = (mx / window.innerWidth - 0.5);
+                const cy = (my / window.innerHeight - 0.5);
+                blobs.forEach((b, i) => {
+                    const strength = (i + 1) * 8;
+                    b.style.marginLeft = (cx * strength) + 'px';
+                    b.style.marginTop = (cy * strength) + 'px';
+                });
+                raf = null;
+            }
+        })();
+
+        // Header que reage ao scroll + barra de progresso + botão "voltar ao topo"
+        (function setupScrollEffects() {
+            const header = document.getElementById('main-header');
+            const progress = document.getElementById('reading-progress');
+            const backToTop = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                header.style.boxShadow = y > 30 ? '0 8px 32px rgba(0,0,0,0.12)' : '';
+                header.style.transform = y > 30 ? 'scale(0.99)' : 'scale(1)';
+
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight > 0 ? (y / docHeight) * 100 : 0;
+                progress.style.width = pct + '%';
+
+                if (y > 600) {
+                    backToTop.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                } else {
+                    backToTop.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                }
+            }, { passive: true });
+        })();
+
+        // Revela elementos com a classe .reveal conforme entram na tela
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+        function observeReveals() {
+            document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => revealObserver.observe(el));
+        }
+
+        // ============================================================
+        // [EDITE AQUI: CORES/ESTILO POR CATEGORIA]
+        // ============================================================
         function getCategoryStyle(category) {
             switch(category.toLowerCase()) {
                 case 'pop': return 'text-brand-pink bg-brand-pink/10 border-brand-pink/30';
@@ -508,6 +704,16 @@
             return cores[index % cores.length];
         }
 
+        // ============================================================
+        // [EDITE AQUI: POSTS]
+        // Estes são os artigos usados automaticamente caso o Firebase
+        // esteja offline ou sem dados. Para adicionar uma matéria nova,
+        // copie um bloco { ... } inteiro, cole logo abaixo do anterior,
+        // troque o "id" (precisa ser único) e preencha os campos.
+        // O campo "content" aceita Markdown: ### para subtítulo,
+        // *texto* para itálico, > para citação, linhas em branco
+        // separam parágrafos.
+        // ============================================================
         const FALLBACK_POSTS = [
             {
                 id: "1",
@@ -541,9 +747,24 @@
                 featured: false,
                 timestamp: 1719200000,
                 content: `A terceira temporada elevou o suspense corporativo a níveis angustiantes de perfeição narrativa e visual.`
+            },
+            {
+                id: "4",
+                title: "Dua Lipa anuncia turnê surpresa por estádios da América Latina",
+                category: "Pop",
+                date: "22 Jun, 2026",
+                author: "Redação Marte",
+                image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=900&auto=format&fit=crop",
+                featured: false,
+                timestamp: 1718940000,
+                content: `Os ingressos esgotaram em minutos. A artista promete um show com cenografia inspirada em arquitetura futurista.`
             }
         ];
 
+        // ============================================================
+        // [EDITE AQUI: CRITICAS]
+        // Para adicionar uma crítica nova, copie um bloco inteiro.
+        // ============================================================
         const CRITICAS = [
             { title: "The White Lotus - T3", rating: "⭐⭐⭐⭐⭐", text: "Ácida, luxuosa e terrivelmente engraçada. O resort na Ásia entrega o melhor mistério até agora." },
             { title: "Dua Lipa - Radical Optimism", rating: "⭐⭐⭐⭐", text: "Um pop efervescente e psicodélico que te obriga a dançar, mesmo nas faixas mais reflexivas." },
@@ -552,6 +773,17 @@
 
         let POSTS = [];
         const dynamicContent = document.getElementById('dynamic-content');
+
+        function swapContent(html) {
+            dynamicContent.style.opacity = '0';
+            setTimeout(() => {
+                dynamicContent.innerHTML = html;
+                dynamicContent.classList.add('page-transition');
+                dynamicContent.style.opacity = '1';
+                observeReveals();
+                setTimeout(() => dynamicContent.classList.remove('page-transition'), 600);
+            }, 180);
+        }
 
         // --- RENDERIZAÇÃO: HOME ---
         function renderHome() {
@@ -562,24 +794,28 @@
             const recentPosts = POSTS.filter(p => p.id !== featuredPost.id);
 
             let html = `
-                <!-- DESTAQUE PRINCIPAL -->
-                <div class="mb-16 cursor-pointer group animate-fade-up relative z-10" onclick="renderArticle('${featuredPost.id}')">
-                    <div class="absolute inset-0 rounded-[3rem] transform translate-x-3 translate-y-4 md:translate-x-5 md:translate-y-5 transition-transform duration-500 group-hover:translate-x-6 group-hover:translate-y-8 ${getEditorialFrameColor(0)} opacity-90 dark:opacity-60 shadow-lg"></div>
-                    
-                    <article class="liquid-glass overflow-hidden relative h-[550px] lg:h-[650px] rounded-[2.5rem] p-2 z-10">
+                <!-- DESTAQUE PRINCIPAL: hero imponente -->
+                <div class="mb-20 cursor-pointer group animate-fade-up relative z-10" onclick="renderArticle('${featuredPost.id}')">
+                    <div class="absolute inset-0 rounded-[3rem] transform translate-x-3 translate-y-4 md:translate-x-6 md:translate-y-6 transition-transform duration-500 group-hover:translate-x-8 group-hover:translate-y-10 ${getEditorialFrameColor(0)} bg-[length:200%_200%] opacity-90 dark:opacity-60 shadow-glow"></div>
+
+                    <article class="liquid-glass overflow-hidden relative h-[560px] lg:h-[680px] rounded-[2.5rem] p-2 z-10">
                         <div class="relative w-full h-full rounded-[2rem] overflow-hidden">
-                            <img src="${featuredPost.image}" alt="${featuredPost.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                            
+                            <img src="${featuredPost.image}" alt="${featuredPost.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.8s] ease-out" loading="eager">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
+
+                            <span class="absolute top-8 right-8 px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest bg-white/15 backdrop-blur-md border border-white/30 text-white flex items-center gap-2 animate-pop-in delay-300">
+                                <i class="ph-fill ph-fire text-brand-orange"></i> Destaque do dia
+                            </span>
+
                             <div class="absolute bottom-0 left-0 w-full p-8 md:p-14">
                                 <span class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border backdrop-blur-md mb-6 ${getCategoryStyle(featuredPost.category)}">
                                     ${featuredPost.category}
                                 </span>
-                                <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif font-black text-white mb-6 leading-[1.05] drop-shadow-2xl max-w-4xl group-hover:text-brand-pink transition-colors duration-500">
+                                <h1 class="text-4xl md:text-6xl lg:text-8xl font-display font-black text-white mb-6 leading-[1.0] drop-shadow-2xl max-w-4xl transition-colors duration-500">
                                     ${featuredPost.title}
                                 </h1>
                                 <p class="text-white/90 font-bold flex items-center gap-3 text-sm md:text-base">
-                                    <span class="opacity-60 font-medium">Por</span> ${featuredPost.author} 
+                                    <span class="opacity-60 font-medium">Por</span> ${featuredPost.author}
                                     <span class="text-brand-pink">&bull;</span> ${featuredPost.date}
                                 </p>
                             </div>
@@ -587,29 +823,31 @@
                     </article>
                 </div>
 
-                <!-- GRID DE NOTÍCIAS & CRÍTICAS -->
-                <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 md:gap-10 relative z-10">
-                    <div class="xl:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                <div class="flex items-center gap-4 mb-10 reveal">
+                    <h2 class="text-3xl md:text-4xl font-display font-black text-gradient-flow">Mais do universo</h2>
+                    <div class="flex-grow h-px bg-gradient-to-r from-slate-300/50 dark:from-white/20 to-transparent"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10 relative z-10">
             `;
 
             recentPosts.forEach((post, index) => {
-                const delay = index % 2 === 0 ? 'delay-100' : 'delay-200';
                 html += `
-                        <div class="relative group cursor-pointer animate-fade-up ${delay} h-full" onclick="renderArticle('${post.id}')">
+                        <div class="reveal relative group cursor-pointer h-full" style="transition-delay:${(index % 3) * 90}ms" onclick="renderArticle('${post.id}')">
                             <div class="absolute inset-0 rounded-[2.5rem] md:rounded-[2rem] transform translate-x-2 translate-y-3 md:translate-x-3 md:translate-y-4 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-6 ${getEditorialFrameColor(index + 1)} opacity-90 dark:opacity-60"></div>
-                            
+
                             <article class="relative liquid-glass rounded-[2.5rem] md:rounded-[2rem] p-4 flex flex-col h-full z-10">
                                 <div class="w-full h-56 overflow-hidden rounded-[1.5rem] mb-5 relative">
-                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}">
+                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}" loading="lazy">
                                     <div class="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border backdrop-blur-xl ${getCategoryStyle(post.category)}">
                                         ${post.category}
                                     </div>
                                 </div>
                                 <div class="px-3 pb-3 flex-grow flex flex-col justify-between">
-                                    <h3 class="text-2xl font-black font-serif mb-3 leading-snug group-hover:text-brand-orange transition-colors">${post.title}</h3>
+                                    <h3 class="text-2xl font-black font-display mb-3 leading-snug group-hover:text-brand-orange transition-colors">${post.title}</h3>
                                     <div class="mt-6 pt-4 border-t border-slate-300/30 dark:border-slate-500/20 text-sm opacity-60 font-bold flex justify-between items-center">
                                         <span>${post.date}</span>
-                                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors">
+                                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white group-hover:rotate-45 transition-all duration-300">
                                             <i class="ph-bold ph-arrow-right"></i>
                                         </div>
                                     </div>
@@ -619,19 +857,13 @@
                 `;
             });
 
-            html += `
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            `;
-            dynamicContent.innerHTML = html;
+            html += `</div>`;
+            swapContent(html);
         }
 
         // --- RENDERIZAÇÃO: ARTIGO COMPLETO ---
         function renderArticle(id) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            // Busca o post convertendo tudo para string por segurança na validação
             const post = POSTS.find(p => String(p.id) === String(id));
             if(!post) return;
 
@@ -639,7 +871,7 @@
 
             let html = `
                 <article class="max-w-4xl mx-auto animate-fade-up relative z-10 pt-4">
-                    <button onclick="renderHome()" class="mb-10 w-12 h-12 rounded-full liquid-glass flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors border-none shadow-md">
+                    <button onclick="renderHome()" class="magnetic mb-10 w-12 h-12 rounded-full liquid-glass flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors border-none shadow-md">
                         <i class="ph-bold ph-arrow-left text-xl"></i>
                     </button>
 
@@ -647,7 +879,7 @@
                         <span class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border backdrop-blur-md mb-6 ${getCategoryStyle(post.category)}">
                             ${post.category}
                         </span>
-                        <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif font-black mb-8 leading-[1.1]">${post.title}</h1>
+                        <h1 class="text-4xl md:text-5xl lg:text-7xl font-display font-black mb-8 leading-[1.05]">${post.title}</h1>
                         <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-bold opacity-60">
                             <span class="flex items-center gap-2 bg-slate-200 dark:bg-white/10 px-4 py-2 rounded-full"><i class="ph-fill ph-user-circle text-lg text-brand-pink"></i> ${post.author}</span>
                             <span class="flex items-center gap-2 bg-slate-200 dark:bg-white/10 px-4 py-2 rounded-full"><i class="ph-bold ph-calendar-blank text-lg text-brand-orange"></i> ${post.date}</span>
@@ -660,15 +892,14 @@
 
                     <div class="liquid-glass no-hover rounded-[3rem] p-8 md:p-16 shadow-xl relative">
                         <div class="w-20 h-1 bg-gradient-to-r from-brand-pink to-brand-orange rounded-full mb-10"></div>
-                        
+
                         <div class="markdown-content font-serif">
                             ${parsedContent}
                         </div>
 
-                        <!-- BLOCO ADSENSE DENTRO DO ARTIGO -->
                         <div class="my-12 bg-slate-100/50 dark:bg-white/5 rounded-3xl p-4 flex flex-col items-center justify-center min-h-[250px] border border-dashed border-slate-300 dark:border-white/20 text-center relative overflow-hidden">
                             <span class="text-xs uppercase tracking-widest opacity-30 font-bold mb-2">Publicidade</span>
-                            <!-- INS AdSense Real (In-Article) -->
+                            <!-- [EDITE AQUI: ADSENSE] -->
                             <ins class="adsbygoogle"
                                  style="display:block; text-align:center; min-width:250px;"
                                  data-ad-layout="in-article"
@@ -676,72 +907,71 @@
                                  data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
                                  data-ad-slot="XXXXXXXXXX"></ins>
                         </div>
-                        
-                        <!-- Botões de Compartilhar -->
+
                         <div class="mt-16 pt-8 border-t border-slate-300/30 dark:border-white/10 flex items-center justify-between">
                             <span class="font-bold uppercase tracking-widest text-xs opacity-50">Compartilhe</span>
                             <div class="flex gap-4">
-                                <button class="w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-cyan hover:text-white transition-colors text-xl"><i class="ph-fill ph-twitter-logo"></i></button>
-                                <button class="w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-colors text-xl"><i class="ph-fill ph-whatsapp-logo"></i></button>
+                                <button class="magnetic w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-cyan hover:text-white transition-colors text-xl"><i class="ph-fill ph-twitter-logo"></i></button>
+                                <button class="magnetic w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-colors text-xl"><i class="ph-fill ph-whatsapp-logo"></i></button>
                             </div>
                         </div>
                     </div>
                 </article>
             `;
-            dynamicContent.innerHTML = html;
-            
-            // Renderiza o anúncio dinâmico com um pequeno atraso para o DOM processar as larguras
+            swapContent(html);
+
             setTimeout(() => {
-                try {
-                    (window.adsbygoogle = window.adsbygoogle || []).push({});
-                } catch(e) {
-                    console.log("AdSense Error (In-Article):", e);
-                }
-            }, 200);
+                try { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
+                catch(e) { console.log("AdSense Error (In-Article):", e); }
+            }, 400);
         }
 
         // --- RENDERIZAÇÃO: CATEGORIAS (FILTRO) ---
         function filterCategory(categoryName) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            
+
             const filteredPosts = POSTS.filter(p => p.category === categoryName || categoryName === 'Críticas');
 
             let html = `
                 <div class="flex flex-col items-center justify-center mb-16 animate-fade-up text-center pt-8">
-                    <h1 class="text-5xl md:text-7xl font-serif font-black mb-4">
+                    <h1 class="text-5xl md:text-7xl font-display font-black mb-4 text-gradient-flow">
                         ${categoryName}
                     </h1>
                     <div class="w-16 h-1.5 bg-gradient-to-r from-brand-pink to-brand-orange rounded-full"></div>
                 </div>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
             `;
 
-                if(categoryName === 'Críticas') {
-                 CRITICAS.forEach((critica, i) => {
-                    const delay = `delay-${(i%3)*100}`;
+            if(categoryName === 'Críticas') {
+                CRITICAS.forEach((critica, i) => {
                     html += `
-                        <div class="liquid-glass rounded-[2rem] p-8 border-t-4 border-t-purple-500 animate-fade-up ${delay}">
+                        <div class="reveal liquid-glass rounded-[2rem] p-8 border-t-4 border-t-purple-500" style="transition-delay:${(i%3)*90}ms">
                             <div class="text-xl tracking-widest mb-6">${critica.rating}</div>
-                            <h4 class="font-black text-2xl font-serif mb-4 leading-tight">${critica.title}</h4>
+                            <h4 class="font-black text-2xl font-display mb-4 leading-tight">${critica.title}</h4>
                             <p class="text-lg opacity-80 leading-relaxed italic font-serif">"${critica.text}"</p>
                         </div>
                     `;
-                 });
+                });
+            } else if (filteredPosts.length === 0) {
+                html += `
+                    <div class="col-span-full flex flex-col items-center justify-center py-20 opacity-60 reveal">
+                        <i class="ph-fill ph-planet text-6xl mb-4 text-brand-pink"></i>
+                        <p class="font-display font-bold text-xl">Nenhuma matéria por aqui ainda. Volte em breve!</p>
+                    </div>`;
             } else {
                 filteredPosts.forEach((post, i) => {
-                    const delay = `delay-${(i%3)*100}`;
                     const excerpt = post.content.replace(/<[^>]*>?/gm, '').substring(0, 100) + '...';
                     html += `
-                        <div class="relative group cursor-pointer animate-fade-up ${delay} h-full" onclick="renderArticle('${post.id}')">
+                        <div class="reveal relative group cursor-pointer h-full" style="transition-delay:${(i%3)*90}ms" onclick="renderArticle('${post.id}')">
                             <div class="absolute inset-0 rounded-[2.5rem] md:rounded-[2rem] transform translate-x-2 translate-y-3 md:translate-x-3 md:translate-y-4 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-6 ${getEditorialFrameColor(i)} opacity-90 dark:opacity-60"></div>
-                            
+
                             <article class="relative liquid-glass rounded-[2.5rem] md:rounded-[2rem] p-4 flex flex-col h-full z-10">
                                 <div class="w-full h-56 overflow-hidden rounded-[1.5rem] mb-5">
-                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}">
+                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}" loading="lazy">
                                 </div>
                                 <div class="px-3 pb-3 flex-grow flex flex-col">
-                                    <h3 class="text-2xl font-black font-serif mb-4 leading-snug group-hover:text-brand-pink transition-colors">${post.title}</h3>
+                                    <h3 class="text-2xl font-black font-display mb-4 leading-snug group-hover:text-brand-pink transition-colors">${post.title}</h3>
                                     <p class="text-sm opacity-70 mb-6 flex-grow font-serif leading-relaxed">${excerpt}</p>
                                     <div class="mt-auto pt-4 border-t border-slate-300/30 dark:border-white/10 text-xs font-bold opacity-50 flex items-center gap-2">
                                         <i class="ph-bold ph-clock"></i> ${post.date}
@@ -754,18 +984,26 @@
             }
 
             html += `</div>`;
-            dynamicContent.innerHTML = html;
+            swapContent(html);
         }
 
-        // --- INICIALIZAÇÃO ---
+        // ============================================================
+        // INICIALIZAÇÃO
+        // ============================================================
         document.addEventListener('DOMContentLoaded', () => {
             const html = document.documentElement;
             const icon = document.querySelector('#theme-toggle i');
-            if (!html.classList.contains('dark')) {
-                icon.className = 'ph-fill ph-moon text-xl text-slate-800 transition-transform';
+
+            // Lembra a preferência de tema do visitante
+            const savedTheme = localStorage.getItem('marteAlmaTheme');
+            if (savedTheme === 'dark') html.classList.add('dark');
+
+            if (html.classList.contains('dark')) {
+                icon.className = 'ph-fill ph-sun text-xl text-brand-orange transition-transform';
+            } else {
+                icon.className = 'ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-transform';
             }
 
-            // Inicia o sistema de Cookies
             checkCookies();
 
             setTimeout(() => {
@@ -775,14 +1013,10 @@
                         window.onSnapshot(articlesRef, (snapshot) => {
                             const newPosts = [];
                             snapshot.forEach((doc) => newPosts.push({ id: doc.id, ...doc.data() }));
-                            
-                            if(newPosts.length === 0) {
-                                POSTS = [...FALLBACK_POSTS];
-                            } else {
-                                POSTS = newPosts.sort((a, b) => b.timestamp - a.timestamp);
-                            }
+
+                            POSTS = newPosts.length === 0 ? [...FALLBACK_POSTS] : newPosts.sort((a, b) => b.timestamp - a.timestamp);
                             renderHome();
-                        }, (error) => {
+                        }, () => {
                             POSTS = [...FALLBACK_POSTS];
                             renderHome();
                         });
@@ -794,7 +1028,7 @@
                     POSTS = [...FALLBACK_POSTS];
                     renderHome();
                 }
-            }, 1200); 
+            }, 900);
         });
     </script>
 </body>
