@@ -232,6 +232,25 @@
             100% { opacity: 1; transform: scale(1); }
         }
 
+        /* --- ANIMAÇÕES DA NOVA LOGO --- */
+        @keyframes eyeBlink {
+            0%, 92%, 98%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+        }
+        @keyframes orbitRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        .animate-eye {
+            animation: eyeBlink 5s infinite;
+            transform-origin: center;
+        }
+        .animate-orbit {
+            animation: orbitRotate 8s linear infinite;
+            transform-origin: center;
+        }
+
         .animate-fade-up {
             opacity: 0;
             animation: fadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -323,12 +342,22 @@
                 <i class="ph ph-list text-2xl"></i>
             </button>
 
-            <a href="#" onclick="renderHome()" class="flex items-center gap-2 group hidden sm:flex">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-pink via-brand-orange to-brand-violet bg-[length:200%_200%] animate-[gradientShift_5s_ease_infinite] flex items-center justify-center text-white shadow-lg shadow-brand-pink/30 group-hover:rotate-45 transition-transform duration-500">
-                    <i class="ph-fill ph-planet text-2xl"></i>
-                </div>
+            <a href="#" onclick="renderHome()" class="flex items-center gap-3 group hidden sm:flex">
+                <svg viewBox="0 0 100 100" class="w-11 h-11 overflow-visible drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <g class="animate-eye">
+                        <!-- Esclera do Olho -->
+                        <path d="M 5 50 C 25 20, 75 20, 95 50 C 75 80, 25 80, 5 50 Z" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Planeta Marte (Pupila) -->
+                        <circle cx="50" cy="50" r="14" fill="#f97316" class="animate-pulse" />
+                        <!-- Anéis Orbitais -->
+                        <g class="animate-orbit">
+                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="10 4" transform="rotate(-25 50 50)" />
+                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 8" transform="rotate(35 50 50)" />
+                        </g>
+                    </g>
+                </svg>
                 <div class="flex flex-col leading-none">
-                    <span class="font-display text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
+                    <span class="font-display text-2xl font-black tracking-[0.1em] uppercase group-hover:tracking-[0.2em] transition-all duration-500">MARTE<span class="text-brand-orange">ALMA</span></span>
                 </div>
             </a>
         </div>
@@ -356,11 +385,17 @@
     <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 p-6 flex flex-col liquid-glass no-hover transform -translate-x-full transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) rounded-none md:rounded-r-[2rem] border-y-0 border-l-0 shadow-2xl">
 
         <div class="flex justify-between items-center mb-10">
-            <a href="#" onclick="renderHome(); toggleSidebar();" class="flex items-center gap-2 group">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-brand-pink to-brand-orange flex items-center justify-center text-white">
-                    <i class="ph-fill ph-planet text-xl"></i>
-                </div>
-                <span class="font-display text-2xl font-black tracking-tight">Marte<span class="text-brand-pink">Alma</span></span>
+            <a href="#" onclick="renderHome(); toggleSidebar();" class="flex items-center gap-3 group">
+                <svg viewBox="0 0 100 100" class="w-9 h-9 overflow-visible drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <g class="animate-eye">
+                        <path d="M 5 50 C 25 20, 75 20, 95 50 C 75 80, 25 80, 5 50 Z" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="50" cy="50" r="14" fill="#f97316" class="animate-pulse" />
+                        <g class="animate-orbit">
+                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="10 4" transform="rotate(-25 50 50)" />
+                        </g>
+                    </g>
+                </svg>
+                <span class="font-display text-xl font-black tracking-[0.1em] uppercase">MARTE<span class="text-brand-orange">ALMA</span></span>
             </a>
 
             <button onclick="toggleSidebar()" aria-label="Fechar menu" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-brand-pink hover:text-white dark:bg-white/10 dark:hover:bg-brand-pink transition-colors">
@@ -456,6 +491,40 @@
             </div>
         </div>
     </main>
+
+    <!-- RODAPÉ PRINCIPAL AQUI -->
+    <footer class="w-full bg-slate-200/50 dark:bg-slate-900/40 backdrop-blur-md border-t border-slate-300/50 dark:border-white/10 py-10 relative z-10">
+        <div class="max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+            
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <svg viewBox="0 0 100 100" class="w-10 h-10 overflow-visible drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <g class="animate-eye">
+                        <path d="M 5 50 C 25 20, 75 20, 95 50 C 75 80, 25 80, 5 50 Z" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="50" cy="50" r="14" fill="#f97316" class="animate-pulse" />
+                        <g class="animate-orbit">
+                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="10 4" transform="rotate(-25 50 50)" />
+                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 8" transform="rotate(35 50 50)" />
+                        </g>
+                    </g>
+                </svg>
+                <span class="font-display text-2xl font-black tracking-[0.1em] uppercase group-hover:tracking-[0.2em] transition-all duration-500">MARTE<span class="text-brand-orange">ALMA</span></span>
+            </div>
+            
+            <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-bold opacity-80">
+                <a href="#" class="hover:text-brand-pink transition-colors">Sobre</a>
+                <a href="#" class="hover:text-brand-cyan transition-colors">Fale Conosco</a>
+                <a href="#" class="hover:text-brand-orange transition-colors">Publicidade</a>
+                <a href="#" class="hover:text-purple-500 transition-colors">Expediente</a>
+                <a href="#" class="hover:text-brand-pink transition-colors">Política de Privacidade</a>
+            </nav>
+
+            <div class="text-xs font-bold opacity-50 text-center md:text-right">
+                Copyright © 2026 Marte Alma<br>
+                <span class="font-normal opacity-70">Todos os direitos reservados.</span>
+            </div>
+
+        </div>
+    </footer>
 
     <!-- BOTÃO VOLTAR AO TOPO -->
     <button id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Voltar ao topo"
@@ -650,26 +719,48 @@
             }
         })();
 
-        // Header que reage ao scroll + barra de progresso + botão "voltar ao topo"
+        // Header que reage ao scroll (Esconde ao descer, mostra ao subir) + barra de progresso + botão "voltar ao topo"
         (function setupScrollEffects() {
             const header = document.getElementById('main-header');
             const progress = document.getElementById('reading-progress');
             const backToTop = document.getElementById('back-to-top');
+            
+            let lastScrollY = window.scrollY; // Variável para rastrear a posição anterior
 
             window.addEventListener('scroll', () => {
-                const y = window.scrollY;
-                header.style.boxShadow = y > 30 ? '0 8px 32px rgba(0,0,0,0.12)' : '';
-                header.style.transform = y > 30 ? 'scale(0.99)' : 'scale(1)';
-
+                const currentScrollY = window.scrollY;
+                
+                // Barra de progresso de leitura
                 const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const pct = docHeight > 0 ? (y / docHeight) * 100 : 0;
+                const pct = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
                 progress.style.width = pct + '%';
 
-                if (y > 600) {
+                // Botão de voltar ao topo
+                if (currentScrollY > 600) {
                     backToTop.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
                 } else {
                     backToTop.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
                 }
+
+                // Lógica Inteligente do Cabeçalho
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    // Rolando para baixo -> Esconde o cabeçalho (puxando pra cima)
+                    header.style.transform = 'translateY(-100%)';
+                    header.style.boxShadow = ''; // remove a sombra enquanto escondido
+                } else {
+                    // Rolando para cima ou muito perto do topo -> Mostra o cabeçalho
+                    if (currentScrollY > 30) {
+                        header.style.transform = 'translateY(0) scale(0.99)';
+                        header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
+                    } else {
+                        header.style.transform = 'translateY(0) scale(1)';
+                        header.style.boxShadow = '';
+                    }
+                }
+                
+                // Atualiza a posição da rolagem para a próxima verificação
+                lastScrollY = currentScrollY;
+                
             }, { passive: true });
         })();
 
@@ -706,13 +797,6 @@
 
         // ============================================================
         // [EDITE AQUI: POSTS]
-        // Estes são os artigos usados automaticamente caso o Firebase
-        // esteja offline ou sem dados. Para adicionar uma matéria nova,
-        // copie um bloco { ... } inteiro, cole logo abaixo do anterior,
-        // troque o "id" (precisa ser único) e preencha os campos.
-        // O campo "content" aceita Markdown: ### para subtítulo,
-        // *texto* para itálico, > para citação, linhas em branco
-        // separam parágrafos.
         // ============================================================
         const FALLBACK_POSTS = [
             {
@@ -761,10 +845,6 @@
             }
         ];
 
-        // ============================================================
-        // [EDITE AQUI: CRITICAS]
-        // Para adicionar uma crítica nova, copie um bloco inteiro.
-        // ============================================================
         const CRITICAS = [
             { title: "The White Lotus - T3", rating: "⭐⭐⭐⭐⭐", text: "Ácida, luxuosa e terrivelmente engraçada. O resort na Ásia entrega o melhor mistério até agora." },
             { title: "Dua Lipa - Radical Optimism", rating: "⭐⭐⭐⭐", text: "Um pop efervescente e psicodélico que te obriga a dançar, mesmo nas faixas mais reflexivas." },
