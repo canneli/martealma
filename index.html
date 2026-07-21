@@ -1,1115 +1,877 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth"> <!-- Começa no Modo Claro (sem a classe 'dark') -->
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marte Alma | Cultura e Entretenimento</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="description" content="Marte Alma — cultura pop, cinema, séries, música e crítica com olhar autoral." />
+  <title>Marte Alma | Cultura & Entretenimento</title>
 
-    <!-- ============================================================
-         PAINEL DE EDIÇÃO FÁCIL
-         Tudo que você normalmente precisa trocar está sinalizado com
-         um bloco "EDITE AQUI" — procure por essas tags no arquivo.
-         1) Cores e identidade visual -> tag [EDITE AQUI: CORES]
-         2) Matérias (quando o Firebase estiver offline) -> [EDITE AQUI: POSTS]
-         3) Críticas -> [EDITE AQUI: CRITICAS]
-         4) Menus -> [EDITE AQUI: MENU]
-         5) IDs do AdSense -> [EDITE AQUI: ADSENSE]
-         ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Syne:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- [EDITE AQUI: ADSENSE] Substitua pelo seu ID Client real -->
-    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Marked.js para Markdown -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- Google Fonts: par de tipografia mais imponente -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Bricolage+Grotesque:opsz,wght@12..96,400..900&display=swap" rel="stylesheet">
-
-    <!-- ============================================================
-         [EDITE AQUI: CORES] — Configuração do Tailwind
-         Troque os valores hex abaixo para mudar a identidade visual
-         do site inteiro automaticamente.
-         ============================================================ -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Nunito', 'sans-serif'],
-                        serif: ['Outfit', 'sans-serif'],
-                        display: ['Bricolage Grotesque', 'Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            pink: '#ec4899',
-                            orange: '#f97316',
-                            cyan: '#06b6d4',
-                            violet: '#8b5cf6',
-                            dark: '#0a0a0f'
-                        }
-                    },
-                    boxShadow: {
-                        glow: '0 0 80px -10px rgba(236,72,153,0.45)',
-                    }
-                }
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            display: ['Syne', 'sans-serif'],
+            brand: ['Unbounded', 'sans-serif']
+          },
+          colors: {
+            brand: {
+              pink: '#ff4fa3',
+              orange: '#ff7a1a',
+              cyan: '#24c6dc',
+              violet: '#8b5cf6',
+              ink: '#0a0a0f'
             }
+          }
         }
-    </script>
+      }
+    };
+  </script>
 
-    <style>
-        :root {
-            /* MODO CLARO */
-            --bg-color: #f8fafc;
-            --text-color: #0f172a;
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7fa;
+      --surface: rgba(255,255,255,.72);
+      --surface-strong: rgba(255,255,255,.90);
+      --text: #12121a;
+      --muted: #6f7280;
+      --line: rgba(18,18,26,.10);
+      --shadow: 0 18px 60px rgba(41, 34, 63, .10);
+    }
 
-            --glass-bg: rgba(255, 255, 255, 0.42);
-            --glass-bg-strong: rgba(255, 255, 255, 0.65);
-            --glass-blur: blur(34px);
-            --glass-border-top: rgba(255, 255, 255, 0.95);
-            --glass-border-left: rgba(255, 255, 255, 0.65);
-            --glass-border-bottom: rgba(255, 255, 255, 0.18);
-            --glass-shadow: 0 12px 45px 0 rgba(236, 72, 153, 0.08), 0 2px 8px rgba(15,23,42,0.04);
-            --blob-opacity: 0.85;
-            --noise-opacity: 0.025;
-        }
+    .dark {
+      color-scheme: dark;
+      --bg: #07070b;
+      --surface: rgba(18,18,26,.68);
+      --surface-strong: rgba(18,18,26,.92);
+      --text: #f7f7fb;
+      --muted: #a6a6b3;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 18px 70px rgba(0,0,0,.44);
+    }
 
-        .dark {
-            /* MODO ESCURO */
-            --bg-color: #050508;
-            --text-color: #f8fafc;
+    * { box-sizing: border-box; }
+    html { scrollbar-gutter: stable; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background .35s ease, color .35s ease;
+    }
 
-            --glass-bg: rgba(15, 15, 22, 0.5);
-            --glass-bg-strong: rgba(20, 20, 30, 0.72);
-            --glass-blur: blur(34px);
-            --glass-border-top: rgba(255, 255, 255, 0.16);
-            --glass-border-left: rgba(255, 255, 255, 0.08);
-            --glass-border-bottom: rgba(0, 0, 0, 0.55);
-            --glass-shadow: 0 20px 60px 0 rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255,255,255,0.02) inset;
-            --blob-opacity: 0.4;
-            --noise-opacity: 0.05;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255,79,163,.16), transparent 34%),
+        radial-gradient(circle at 92% 18%, rgba(255,122,26,.13), transparent 34%),
+        radial-gradient(circle at 50% 80%, rgba(36,198,220,.10), transparent 34%);
+    }
 
-        html { scrollbar-gutter: stable; }
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: .025;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-            transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1), color 0.6s ease;
-            cursor: default;
-        }
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      box-shadow: var(--shadow);
+    }
 
-        /* Textura de ruído sutil para dar sensação premium ao vidro */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            opacity: var(--noise-opacity);
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
+    .glass-strong {
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(30px) saturate(160%);
+      -webkit-backdrop-filter: blur(30px) saturate(160%);
+      box-shadow: var(--shadow);
+    }
 
-        /* ===================== LIQUID GLASS PREMIUM ===================== */
-        .liquid-glass {
-            position: relative;
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur) saturate(160%);
-            -webkit-backdrop-filter: var(--glass-blur) saturate(160%);
-            border-top: 1.5px solid var(--glass-border-top);
-            border-left: 1px solid var(--glass-border-left);
-            border-bottom: 1px solid var(--glass-border-bottom);
-            border-right: 1px solid var(--glass-border-bottom);
-            box-shadow: var(--glass-shadow);
-            border-radius: 1.5rem;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            isolation: isolate;
-        }
+    .headline-gradient {
+      background: linear-gradient(96deg,#ff4fa3 0%,#ff7a1a 43%,#8b5cf6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-        /* Brilho especular que percorre a borda — assinatura visual do site */
-        .liquid-glass::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1px;
-            background: linear-gradient(120deg, rgba(255,255,255,0.5), transparent 30%, transparent 70%, rgba(236,72,153,0.35));
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0.7;
-            z-index: 1;
-        }
+    .logo-eye { filter: drop-shadow(0 8px 18px rgba(255,122,26,.18)); }
+    .logo-orbit { transform-origin: 50px 50px; animation: orbit 9s linear infinite; }
+    .logo-blink { transform-origin: 50px 50px; animation: blink 6s ease-in-out infinite; }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+    @keyframes blink { 0%,94%,100% { transform: scaleY(1); } 97% { transform: scaleY(.10); } }
 
-        .liquid-glass-header {
-            border-radius: 0 0 1.75rem 1.75rem;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-        }
+    .category-strip { scrollbar-width: none; }
+    .category-strip::-webkit-scrollbar { display: none; }
 
-        .liquid-glass:hover:not(.no-hover) {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 24px 60px 0 rgba(236, 72, 153, 0.18), 0 2px 8px rgba(15,23,42,0.05);
-            background: rgba(255, 255, 255, 0.58);
-        }
+    .story-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,5,9,.94) 4%, rgba(5,5,9,.52) 46%, rgba(5,5,9,.08) 78%);
+      pointer-events: none;
+    }
 
-        .dark .liquid-glass:hover:not(.no-hover) {
-            box-shadow: 0 24px 60px 0 rgba(0, 0, 0, 0.95);
-            background: rgba(26, 26, 38, 0.68);
-            border-top-color: rgba(255, 255, 255, 0.28);
-        }
+    .card-hover { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
+    @media (hover:hover) {
+      .card-hover:hover { transform: translateY(-5px); box-shadow: 0 24px 70px rgba(31,25,48,.14); }
+      .dark .card-hover:hover { box-shadow: 0 24px 70px rgba(0,0,0,.55); }
+    }
 
-        /* ===================== ORBES NEON DE FUNDO ===================== */
-        .blob {
-            position: fixed;
-            filter: blur(110px);
-            z-index: -1;
-            opacity: var(--blob-opacity);
-            animation: float 28s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 50%;
-            transition: opacity 0.8s ease;
-            will-change: transform;
-        }
+    .article-body {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.03rem, 1.2vw, 1.14rem);
+      line-height: 1.9;
+      letter-spacing: -.01em;
+    }
+    .article-body p { margin: 0 0 1.55rem; color: color-mix(in srgb, var(--text) 87%, transparent); }
+    .article-body h2, .article-body h3 { font-family: 'Syne', sans-serif; line-height: 1.08; margin: 2.7rem 0 1.1rem; }
+    .article-body h2 { font-size: clamp(1.8rem, 4vw, 2.65rem); }
+    .article-body h3 { font-size: clamp(1.35rem, 3vw, 1.8rem); }
+    .article-body blockquote {
+      margin: 2.3rem 0;
+      padding: 1.4rem 1.6rem;
+      border-left: 4px solid #ff7a1a;
+      background: rgba(255,122,26,.07);
+      border-radius: 0 1.2rem 1.2rem 0;
+      font-family: 'Syne', sans-serif;
+      font-weight: 650;
+      font-size: 1.18em;
+    }
+    .article-body img { width: 100%; border-radius: 1.4rem; margin: 2rem 0; }
+    .article-body a { color: #ff7a1a; text-decoration: underline; text-underline-offset: 3px; }
 
-        .blob-1 { top: -10%; left: -10%; width: 55vw; height: 55vw; background: radial-gradient(circle, #ec4899 0%, transparent 70%); animation-delay: 0s; }
-        .blob-2 { bottom: -20%; right: -10%; width: 65vw; height: 65vw; background: radial-gradient(circle, #f97316 0%, transparent 70%); animation-delay: -6s; }
-        .blob-3 { top: 30%; left: 30%; width: 45vw; height: 45vw; background: radial-gradient(circle, #06b6d4 0%, transparent 70%); animation-delay: -12s; }
-        .blob-4 { top: 60%; left: 70%; width: 35vw; height: 35vw; background: radial-gradient(circle, #8b5cf6 0%, transparent 70%); animation-delay: -18s; opacity: calc(var(--blob-opacity) * 0.6); }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(6%, 6%) scale(1.12) rotate(18deg); }
-            66% { transform: translate(-6%, 3%) scale(0.88) rotate(-15deg); }
-            100% { transform: translate(3%, -6%) scale(1.1) rotate(8deg); }
-        }
+    .skeleton {
+      background: linear-gradient(90deg, rgba(130,130,150,.10), rgba(130,130,150,.22), rgba(130,130,150,.10));
+      background-size: 300% 100%; animation: shimmer 1.4s infinite linear;
+    }
+    @keyframes shimmer { to { background-position: -300% 0; } }
 
-        /* Glow que segue o cursor (acompanha mousemove via JS) */
-        #cursor-glow {
-            position: fixed;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            background: radial-gradient(circle, rgba(236,72,153,0.10) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: opacity 0.4s ease;
-            opacity: 0;
-        }
-        @media (min-width: 768px) { #cursor-glow { opacity: 1; } }
+    #reading-progress { transform-origin: left center; }
 
-        /* ===================== ANIMAÇÕES DE ENTRADA ===================== */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(48px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.85); }
-            70% { transform: scale(1.04); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+    @media (max-width: 767px) {
+      .desktop-nav { display: none !important; }
+      .hero-title { font-size: clamp(2rem, 10.5vw, 3.8rem); }
+      .mobile-safe { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+    }
 
-        /* --- ANIMAÇÕES DA NOVA LOGO --- */
-        @keyframes eyeBlink {
-            0%, 92%, 98%, 100% { transform: scaleY(1); }
-            95% { transform: scaleY(0.1); }
-        }
-        @keyframes orbitRotate {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-        .animate-eye {
-            animation: eyeBlink 5s infinite;
-            transform-origin: center;
-        }
-        .animate-orbit {
-            animation: orbitRotate 8s linear infinite;
-            transform-origin: center;
-        }
 
-        .animate-fade-up {
-            opacity: 0;
-            animation: fadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-pop-in {
-            opacity: 0;
-            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
+    /* ===================== MARTE ALMA / MAXIMALISMO EDITORIAL ===================== */
+    .font-brand { font-family: 'Unbounded', sans-serif; }
 
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-        .delay-400 { animation-delay: 400ms; }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 52px 52px;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 84%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 84%);
+    }
 
-        /* Revelação ao rolar a página (ativada via IntersectionObserver) */
-        .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
-        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .cosmos-orb {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(90px);
+      opacity: .48;
+      pointer-events: none;
+      z-index: -2;
+      animation: cosmicFloat 18s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    .cosmos-orb.one { width: 46vw; height: 46vw; left: -15vw; top: 5vh; background: #ff4fa3; }
+    .cosmos-orb.two { width: 42vw; height: 42vw; right: -13vw; top: 28vh; background: #ff7a1a; animation-delay: -5s; }
+    .cosmos-orb.three { width: 34vw; height: 34vw; left: 35vw; bottom: -14vw; background: #24c6dc; animation-delay: -9s; }
+    @keyframes cosmicFloat { to { transform: translate3d(5vw,-4vh,0) scale(1.15) rotate(9deg); } }
 
-        /* Texto com gradiente animado — usado nos títulos imponentes */
-        .text-gradient-flow {
-            background: linear-gradient(90deg, #ec4899, #f97316, #8b5cf6, #ec4899);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientShift 8s ease infinite;
-        }
+    .glass, .glass-strong { position: relative; isolation: isolate; overflow: hidden; }
+    .glass::after, .glass-strong::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: -1;
+      background: linear-gradient(125deg, rgba(255,255,255,.26), transparent 22%, transparent 73%, rgba(255,79,163,.12));
+      opacity: .72;
+    }
 
-        /* Skeleton shimmer para carregamento */
-        .skeleton {
-            background: linear-gradient(90deg, rgba(150,150,150,0.12) 25%, rgba(150,150,150,0.25) 37%, rgba(150,150,150,0.12) 63%);
-            background-size: 400% 100%;
-            animation: shimmer 1.6s ease infinite;
-        }
+    .headline-gradient {
+      background-size: 220% 220%;
+      animation: headlineFlow 7s ease-in-out infinite;
+    }
+    @keyframes headlineFlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* Transição de página suave entre Home / Artigo / Categoria */
-        .page-transition { animation: fadeIn 0.5s ease forwards; }
+    .maxi-title {
+      text-shadow: 0 10px 35px rgba(255,79,163,.13);
+      letter-spacing: -.055em;
+    }
 
-        /* Botões e elementos "magnéticos" no hover */
-        .magnetic { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); }
-        .magnetic:hover { transform: scale(1.06); }
-        .magnetic:active { transform: scale(0.96); }
+    .now-ribbon {
+      position: relative;
+      border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: var(--shadow);
+      padding: .38rem .42rem;
+      overflow: hidden;
+    }
+    .now-ribbon::before {
+      content: "";
+      position: absolute;
+      inset: -120% -10%;
+      background: conic-gradient(from 90deg, transparent, rgba(255,79,163,.16), transparent 28%, rgba(36,198,220,.14), transparent 56%, rgba(255,122,26,.17), transparent 76%);
+      animation: ribbonSpin 13s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes ribbonSpin { to { transform: rotate(360deg); } }
 
-        /* Estilos de Conteúdo (Markdown) */
-        .markdown-content p { margin-bottom: 1.5rem; line-height: 1.85; color: inherit; opacity: 0.86; font-size: 1.18rem; }
-        .markdown-content h1, .markdown-content h2, .markdown-content h3 { font-weight: 800; margin-top: 2.5rem; margin-bottom: 1rem; font-family: 'Bricolage Grotesque', sans-serif; }
-        .markdown-content h2 { font-size: 1.9rem; background: linear-gradient(90deg,#ec4899,#f97316); -webkit-background-clip:text; background-clip:text; color: transparent; display:inline-block; }
-        .markdown-content a { color: #f97316; text-decoration: none; border-bottom: 2px solid rgba(249, 115, 22, 0.3); transition: all 0.2s;}
-        .markdown-content a:hover { border-bottom-color: #f97316; }
-        .markdown-content img { border-radius: 1.5rem; width: 100%; height: auto; margin: 2rem 0; box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
-        .dark .markdown-content img { box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
-        .markdown-content blockquote { border-left: 4px solid #06b6d4; padding: 1.5rem 1.5rem 1.5rem 2rem; font-style: italic; background: rgba(6, 182, 212, 0.06); border-radius: 0 1.25rem 1.25rem 0; margin: 2rem 0;}
+    .hero-shell { position: relative; padding: 0 0 13px 0; }
+    .hero-backplate {
+      position: absolute;
+      inset: 14px -10px -2px 14px;
+      border-radius: 2.8rem;
+      background: linear-gradient(135deg,#ff4fa3 0%,#ff7a1a 34%,#8b5cf6 67%,#24c6dc 100%);
+      box-shadow: 0 28px 80px rgba(255,79,163,.18);
+      transform: rotate(.45deg);
+      opacity: .95;
+      transition: transform .5s cubic-bezier(.16,1,.3,1);
+    }
+    .hero-shell:hover .hero-backplate { transform: translate(7px,6px) rotate(1deg); }
+    .hero-feature {
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 35px 100px rgba(12,7,18,.32);
+    }
+    .hero-feature::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.13), inset 0 1px 0 rgba(255,255,255,.3);
+    }
+    .hero-feature .hero-title {
+      text-wrap: balance;
+      text-shadow: 0 12px 45px rgba(0,0,0,.45);
+    }
+    .hero-sigil {
+      position: absolute;
+      z-index: 12;
+      top: 22px;
+      right: 22px;
+      width: 84px;
+      height: 84px;
+      border: 1px solid rgba(255,255,255,.36);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: rgba(10,10,15,.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      animation: sigilRotate 16s linear infinite;
+      box-shadow: 0 10px 35px rgba(0,0,0,.2);
+    }
+    .hero-sigil::after { content:"✦"; font-size: 1.6rem; animation: sigilRotate 16s linear infinite reverse; }
+    @keyframes sigilRotate { to { transform: rotate(360deg); } }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 10px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(150,150,150,0.3); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box;}
-        ::-webkit-scrollbar-thumb:hover { background-color: rgba(236,72,153,0.5); }
+    .hero-index {
+      position: absolute;
+      z-index: 12;
+      left: 22px;
+      top: 22px;
+      color: white;
+      font-family: 'Unbounded', sans-serif;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(9,9,15,.22);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: .7rem .85rem;
+      border-radius: 999px;
+    }
 
-        /* Acessibilidade: respeita preferência por menos animação */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-            .blob { animation: none; }
-        }
+    .radar-card {
+      border-radius: 2.1rem;
+      background:
+        linear-gradient(var(--surface), var(--surface)) padding-box,
+        linear-gradient(145deg, rgba(255,79,163,.62), rgba(255,122,26,.32), rgba(36,198,220,.55)) border-box;
+      border: 1px solid transparent;
+      box-shadow: 0 24px 80px rgba(69,31,82,.13);
+    }
+    .radar-card::before {
+      content:"";
+      position:absolute;
+      width:190px;height:190px;
+      right:-90px;top:-90px;
+      border-radius:50%;
+      border:1px solid rgba(255,122,26,.24);
+      box-shadow:0 0 0 24px rgba(255,79,163,.035),0 0 0 48px rgba(36,198,220,.025);
+      pointer-events:none;
+    }
 
-        :focus-visible { outline: 2px solid #ec4899; outline-offset: 3px; border-radius: 0.5rem; }
-    </style>
+    .editorial-card {
+      position: relative;
+      border-radius: 1.9rem;
+      overflow: visible;
+    }
+    .editorial-card::before {
+      content:"";
+      position:absolute;
+      z-index:-1;
+      inset: 9px -7px -9px 9px;
+      border-radius: inherit;
+      background: var(--accent-card, #ff4fa3);
+      opacity:.8;
+      transition: transform .35s cubic-bezier(.16,1,.3,1);
+    }
+    .editorial-card:nth-child(4n+2) { --accent-card:#24c6dc; }
+    .editorial-card:nth-child(4n+3) { --accent-card:#ff7a1a; }
+    .editorial-card:nth-child(4n+4) { --accent-card:#8b5cf6; }
+    @media (hover:hover) { .editorial-card:hover::before { transform: translate(5px,6px) rotate(.7deg); } }
+
+    .editorial-card > .glass-card-inner {
+      height:100%;
+      border-radius:inherit;
+      overflow:hidden;
+      background: var(--surface);
+      border:1px solid var(--line);
+      backdrop-filter: blur(24px) saturate(165%);
+      -webkit-backdrop-filter: blur(24px) saturate(165%);
+      box-shadow: var(--shadow);
+    }
+
+    .section-kicker { font-family:'Unbounded',sans-serif; font-size:.61rem; letter-spacing:.18em; text-transform:uppercase; }
+
+    .newsletter-max {
+      border-radius: 2.8rem;
+      background:
+        radial-gradient(circle at 7% 8%, rgba(255,79,163,.23), transparent 30%),
+        radial-gradient(circle at 88% 90%, rgba(36,198,220,.18), transparent 34%),
+        var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: 0 28px 100px rgba(91,35,88,.15);
+    }
+    .newsletter-max::before {
+      content:"MARTE ALMA ✦ MARTE ALMA ✦ MARTE ALMA ✦";
+      position:absolute;
+      right:-70px;
+      top:32px;
+      transform:rotate(11deg);
+      font-family:'Unbounded',sans-serif;
+      font-size:clamp(.62rem,1vw,.78rem);
+      letter-spacing:.14em;
+      opacity:.08;
+      white-space:nowrap;
+    }
+
+    @media (max-width: 767px) {
+      .cosmos-orb { filter: blur(70px); opacity: .34; }
+      .cosmos-orb.one { width: 95vw; height: 95vw; left:-55vw; }
+      .cosmos-orb.two { width: 90vw; height: 90vw; right:-56vw; }
+      .cosmos-orb.three { width: 85vw; height: 85vw; left:10vw; }
+      .hero-shell { padding-bottom: 9px; }
+      .hero-backplate { inset: 9px -5px 0 8px; border-radius: 2.15rem; }
+      .hero-sigil { width:58px;height:58px;right:14px;top:14px; }
+      .hero-sigil::after { font-size:1.2rem; }
+      .hero-index { left:14px;top:14px;font-size:.5rem;padding:.55rem .65rem; }
+      .radar-card { border-radius:1.8rem; }
+      .editorial-card::before { inset:7px -4px -7px 7px; }
+      .newsletter-max { border-radius:2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
+    }
+  </style>
 </head>
+<body class="font-sans antialiased selection:bg-brand-pink selection:text-white">
+  <div class="noise"></div>
+  <div class="cosmos-orb one"></div>
+  <div class="cosmos-orb two"></div>
+  <div class="cosmos-orb three"></div>
+  <div id="reading-progress" class="fixed top-0 left-0 z-[80] h-[3px] w-0 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet"></div>
 
-<body class="antialiased selection:bg-brand-pink selection:text-white flex flex-col min-h-screen">
+  <!-- HEADER -->
+  <header class="fixed top-0 inset-x-0 z-50 px-3 pt-3 md:px-6 md:pt-4">
+    <div class="glass-strong mx-auto max-w-[1500px] h-[66px] md:h-[74px] rounded-[1.4rem] md:rounded-[1.7rem] px-3 md:px-5 flex items-center justify-between">
+      <div class="flex items-center gap-2 md:gap-3 min-w-0">
+        <button id="menu-button" class="w-11 h-11 shrink-0 rounded-full grid place-items-center hover:bg-black/5 dark:hover:bg-white/[.08] transition" aria-label="Abrir menu">
+          <i class="ph-bold ph-list text-[1.35rem]"></i>
+        </button>
+        <button data-go-home class="flex items-center gap-2.5 min-w-0 text-left">
+          <svg viewBox="0 0 100 100" class="logo-eye w-9 h-9 md:w-11 md:h-11 shrink-0 overflow-visible">
+            <g class="logo-blink">
+              <path d="M5 50 C25 20 75 20 95 50 C75 80 25 80 5 50Z" fill="rgba(255,122,26,.10)" stroke="#ff7a1a" stroke-width="4" stroke-linecap="round" />
+              <circle cx="50" cy="50" r="14" fill="#ff7a1a"/>
+              <g class="logo-orbit"><ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#ff7a1a" stroke-width="2" stroke-dasharray="10 5" transform="rotate(-25 50 50)" /></g>
+            </g>
+          </svg>
+          <div class="min-w-0">
+            <div class="font-brand font-black uppercase tracking-[.08em] text-[1rem] sm:text-[1.12rem] md:text-[1.25rem] whitespace-nowrap">MARTE<span class="text-brand-orange">ALMA</span></div>
+            <div class="hidden sm:block text-[.64rem] uppercase tracking-[.24em] opacity-45 font-bold mt-.5">cultura em outra órbita</div>
+          </div>
+        </button>
+      </div>
 
-    <!-- Glow que acompanha o cursor -->
-    <div id="cursor-glow"></div>
+      <nav class="desktop-nav hidden lg:flex items-center gap-1 rounded-full p-1 bg-black/[.035] dark:bg-white/[.04] border border-black/[.05] dark:border-white/[.07]">
+        <button data-category="Pop" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Pop</button>
+        <button data-category="Cinema" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Cinema</button>
+        <button data-category="Séries" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Séries</button>
+        <button data-category="Críticas" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Críticas</button>
+      </nav>
 
-    <!-- Orbes Animados de Fundo -->
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="blob blob-4"></div>
-
-    <!-- Barra de progresso de leitura -->
-    <div id="reading-progress" class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet z-[70] transition-all duration-150" style="width:0%"></div>
-
-    <!-- CABEÇALHO SUPERIOR -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-40 liquid-glass liquid-glass-header no-hover py-3 px-4 md:px-8 flex justify-between items-center transition-all duration-500">
-
-        <div class="flex items-center gap-4">
-            <button onclick="toggleSidebar()" aria-label="Abrir menu" class="magnetic w-12 h-12 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/5 dark:hover:bg-white/10 transition backdrop-blur-md border border-white/40 dark:border-white/10 text-slate-800 dark:text-white">
-                <i class="ph ph-list text-2xl"></i>
-            </button>
-
-            <a href="#" onclick="renderHome()" class="flex items-center gap-3 group hidden sm:flex">
-                <svg viewBox="0 0 100 100" class="w-11 h-11 overflow-visible drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <g class="animate-eye">
-                        <!-- Esclera do Olho -->
-                        <path d="M 5 50 C 25 20, 75 20, 95 50 C 75 80, 25 80, 5 50 Z" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <!-- Planeta Marte (Pupila) -->
-                        <circle cx="50" cy="50" r="14" fill="#f97316" class="animate-pulse" />
-                        <!-- Anéis Orbitais -->
-                        <g class="animate-orbit">
-                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="10 4" transform="rotate(-25 50 50)" />
-                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 8" transform="rotate(35 50 50)" />
-                        </g>
-                    </g>
-                </svg>
-                <div class="flex flex-col leading-none">
-                    <span class="font-display text-2xl font-black tracking-[0.1em] uppercase group-hover:tracking-[0.2em] transition-all duration-500">MARTE<span class="text-brand-orange">ALMA</span></span>
-                </div>
-            </a>
-        </div>
-
-        <!-- [EDITE AQUI: MENU] Tópicos Centrais (Desktop) -->
-        <nav class="hidden md:flex items-center gap-2 bg-slate-200/30 dark:bg-black/20 p-1.5 rounded-full backdrop-blur-md border border-white/40 dark:border-white/10">
-            <button onclick="filterCategory('Pop')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Pop</button>
-            <button onclick="filterCategory('Cinema')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Cinema</button>
-            <button onclick="filterCategory('Séries')" class="px-5 py-2 rounded-full text-sm font-bold hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Séries</button>
-            <button onclick="filterCategory('Críticas')" class="px-5 py-2 rounded-full text-sm font-bold text-brand-orange hover:bg-white/60 dark:hover:bg-white/10 transition-colors">Críticas</button>
-        </nav>
-
-        <div class="flex items-center gap-3">
-            <button onclick="toggleSearch()" aria-label="Buscar" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
-                <i class="ph-bold ph-magnifying-glass text-xl text-slate-800 dark:text-white"></i>
-            </button>
-
-            <button onclick="toggleTheme()" id="theme-toggle" aria-label="Alternar tema" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 transition backdrop-blur-md border border-white/40 dark:border-white/10">
-                <i class="ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-transform"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- BARRA LATERAL -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-80 p-6 flex flex-col liquid-glass no-hover transform -translate-x-full transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) rounded-none md:rounded-r-[2rem] border-y-0 border-l-0 shadow-2xl">
-
-        <div class="flex justify-between items-center mb-10">
-            <a href="#" onclick="renderHome(); toggleSidebar();" class="flex items-center gap-3 group">
-                <svg viewBox="0 0 100 100" class="w-9 h-9 overflow-visible drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <g class="animate-eye">
-                        <path d="M 5 50 C 25 20, 75 20, 95 50 C 75 80, 25 80, 5 50 Z" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="50" cy="50" r="14" fill="#f97316" class="animate-pulse" />
-                        <g class="animate-orbit">
-                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="10 4" transform="rotate(-25 50 50)" />
-                        </g>
-                    </g>
-                </svg>
-                <span class="font-display text-xl font-black tracking-[0.1em] uppercase">MARTE<span class="text-brand-orange">ALMA</span></span>
-            </a>
-
-            <button onclick="toggleSidebar()" aria-label="Fechar menu" class="magnetic w-10 h-10 rounded-full flex items-center justify-center bg-slate-200/50 hover:bg-brand-pink hover:text-white dark:bg-white/10 dark:hover:bg-brand-pink transition-colors">
-                <i class="ph-bold ph-x text-lg"></i>
-            </button>
-        </div>
-
-        <nav class="flex-grow flex flex-col gap-3">
-            <p class="text-xs font-bold uppercase tracking-widest opacity-40 mb-2 pl-2">Descubra</p>
-            <button onclick="filterCategory('Pop'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-brand-pink/20 text-brand-pink flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-sparkle text-xl"></i></div>
-                Cultura Pop
-            </button>
-            <button onclick="filterCategory('Cinema'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-brand-cyan/20 text-brand-cyan flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-film-strip text-xl"></i></div>
-                Cinema
-            </button>
-            <button onclick="filterCategory('Séries'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-television text-xl"></i></div>
-                Séries
-            </button>
-            <button onclick="filterCategory('Críticas'); toggleSidebar();" class="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-slate-200/50 dark:hover:bg-white/5 transition-colors font-bold text-left w-full group">
-                <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform"><i class="ph-fill ph-star-half text-xl"></i></div>
-                Críticas
-            </button>
-        </nav>
-
-        <div class="mt-auto pt-8 border-t border-slate-300/30 dark:border-white/10">
-            <button class="magnetic w-full flex justify-center items-center gap-2 px-4 py-4 rounded-2xl bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet bg-[length:200%_200%] animate-[gradientShift_6s_ease_infinite] text-white hover:opacity-90 transition-opacity text-sm font-black uppercase tracking-wider shadow-lg shadow-brand-pink/20">
-                <i class="ph-fill ph-bell-ringing text-lg"></i> Assinar Alertas
-            </button>
-            <div class="flex justify-center gap-6 text-2xl mt-6 opacity-60">
-                <a href="#" class="hover:text-brand-pink hover:opacity-100 transition hover:scale-110"><i class="ph-fill ph-instagram-logo"></i></a>
-                <a href="#" class="hover:text-brand-cyan hover:opacity-100 transition hover:scale-110"><i class="ph-fill ph-tiktok-logo"></i></a>
-                <a href="#" class="hover:text-slate-800 dark:hover:text-white hover:opacity-100 transition hover:scale-110"><i class="ph-fill ph-x-logo"></i></a>
-            </div>
-            <p class="text-center text-xs font-bold mt-6 opacity-40">© 2026 Marte Alma</p>
-        </div>
-    </aside>
-
-    <div id="mobile-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300"></div>
-
-    <!-- OVERLAY E MODAL DE BUSCA -->
-    <div id="search-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xl z-[60] hidden opacity-0 transition-opacity duration-300 flex items-start justify-center pt-24 px-4" onclick="closeSearchOnOutsideClick(event)">
-        <div class="w-full max-w-3xl liquid-glass !bg-white/85 dark:!bg-slate-900/85 rounded-[2rem] shadow-2xl overflow-hidden transform -translate-y-10 transition-transform duration-300 border border-slate-300/50 dark:border-white/10" id="search-modal">
-            <div class="p-6 border-b border-slate-200 dark:border-white/10 flex items-center gap-4">
-                <i class="ph-bold ph-magnifying-glass text-3xl text-brand-pink"></i>
-                <input type="text" id="search-input" placeholder="Buscar matérias, filmes, artistas..." class="flex-grow bg-transparent text-xl md:text-2xl font-display font-bold outline-none text-slate-800 dark:text-white placeholder-slate-400">
-                <button onclick="toggleSearch()" aria-label="Fechar busca" class="magnetic p-3 bg-slate-200/50 hover:bg-slate-300/50 dark:bg-white/10 dark:hover:bg-white/20 rounded-full transition">
-                    <i class="ph-bold ph-x text-xl"></i>
-                </button>
-            </div>
-            <div id="search-results" class="max-h-[60vh] overflow-y-auto p-4 flex flex-col gap-2">
-                <p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-display text-lg">Digite algo para começar a explorar o universo Marte Alma...</p>
-            </div>
-        </div>
+      <div class="flex items-center gap-1.5 md:gap-2">
+        <button id="search-button" class="w-10 h-10 md:w-11 md:h-11 rounded-full grid place-items-center hover:bg-black/5 dark:hover:bg-white/[.08] transition" aria-label="Buscar">
+          <i class="ph-bold ph-magnifying-glass text-xl"></i>
+        </button>
+        <button id="theme-button" class="w-10 h-10 md:w-11 md:h-11 rounded-full grid place-items-center hover:bg-black/5 dark:hover:bg-white/[.08] transition" aria-label="Alternar tema">
+          <i class="ph-fill ph-moon text-xl"></i>
+        </button>
+      </div>
     </div>
+  </header>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="flex-grow w-full pt-28 pb-12">
-        <div class="max-w-[1400px] mx-auto p-4 md:p-8 lg:px-12">
-
-            <!-- BLOCO ADSENSE: Header Banner -->
-            <div class="w-full mb-10 flex justify-center animate-fade-up">
-                <div class="w-full max-w-4xl bg-slate-200/30 dark:bg-white/5 border border-dashed border-slate-300 dark:border-white/20 rounded-2xl p-2 flex flex-col items-center justify-center min-h-[90px] relative overflow-hidden">
-                    <span class="text-[10px] uppercase tracking-widest opacity-40 font-bold mb-1">Publicidade</span>
-                    <!-- [EDITE AQUI: ADSENSE] -->
-                    <ins class="adsbygoogle"
-                         style="display:block; width:100%; height:90px; min-width:250px;"
-                         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                         data-ad-slot="XXXXXXXXXX"
-                         data-ad-format="auto"
-                         data-full-width-responsive="true"></ins>
-                    <script>
-                         setTimeout(function() {
-                             try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
-                         }, 500);
-                    </script>
-                </div>
-            </div>
-
-            <div id="dynamic-content">
-                <!-- Estado de Carregamento (skeleton imponente) -->
-                <div class="flex flex-col gap-10 animate-fade-up">
-                    <div class="skeleton w-full h-[450px] md:h-[600px] rounded-[2.5rem]"></div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                        <div class="skeleton h-72 rounded-[2rem]"></div>
-                        <div class="skeleton h-72 rounded-[2rem]"></div>
-                        <div class="skeleton h-72 rounded-[2rem] hidden xl:block"></div>
-                    </div>
-                    <p class="text-center font-display font-bold text-brand-pink tracking-widest animate-pulse">SINTONIZANDO MARTE...</p>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- RODAPÉ PRINCIPAL AQUI -->
-    <footer class="w-full bg-slate-200/50 dark:bg-slate-900/40 backdrop-blur-md border-t border-slate-300/50 dark:border-white/10 py-10 relative z-10">
-        <div class="max-w-[1400px] mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
-            
-            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-                <svg viewBox="0 0 100 100" class="w-10 h-10 overflow-visible drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
-                    <g class="animate-eye">
-                        <path d="M 5 50 C 25 20, 75 20, 95 50 C 75 80, 25 80, 5 50 Z" fill="rgba(249,115,22,0.15)" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="50" cy="50" r="14" fill="#f97316" class="animate-pulse" />
-                        <g class="animate-orbit">
-                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="10 4" transform="rotate(-25 50 50)" />
-                            <ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4 8" transform="rotate(35 50 50)" />
-                        </g>
-                    </g>
-                </svg>
-                <span class="font-display text-2xl font-black tracking-[0.1em] uppercase group-hover:tracking-[0.2em] transition-all duration-500">MARTE<span class="text-brand-orange">ALMA</span></span>
-            </div>
-            
-            <nav class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-sm font-bold opacity-80">
-                <a href="#" class="hover:text-brand-pink transition-colors">Sobre</a>
-                <a href="#" class="hover:text-brand-cyan transition-colors">Fale Conosco</a>
-                <a href="#" class="hover:text-brand-orange transition-colors">Publicidade</a>
-                <a href="#" class="hover:text-purple-500 transition-colors">Expediente</a>
-                <a href="#" class="hover:text-brand-pink transition-colors">Política de Privacidade</a>
-            </nav>
-
-            <div class="text-xs font-bold opacity-50 text-center md:text-right">
-                Copyright © 2026 Marte Alma<br>
-                <span class="font-normal opacity-70">Todos os direitos reservados.</span>
-            </div>
-
-        </div>
-    </footer>
-
-    <!-- BOTÃO VOLTAR AO TOPO -->
-    <button id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Voltar ao topo"
-        class="magnetic fixed bottom-6 left-6 z-40 w-14 h-14 rounded-full liquid-glass no-hover flex items-center justify-center text-brand-pink text-2xl opacity-0 pointer-events-none translate-y-4 transition-all duration-300 shadow-xl">
-        <i class="ph-bold ph-arrow-up"></i>
-    </button>
-
-    <!-- AVISO DE COOKIES LGPD -->
-    <div id="cookie-banner" class="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[400px] z-50 liquid-glass !bg-white/90 dark:!bg-slate-900/90 p-6 translate-y-[150%] transition-transform duration-700 ease-out flex flex-col gap-4 border border-slate-300/50 dark:border-white/10 shadow-2xl">
-        <div class="flex items-start gap-4">
-            <div class="w-12 h-12 shrink-0 rounded-full bg-brand-orange/20 flex items-center justify-center text-brand-orange">
-                <i class="ph-fill ph-cookie text-2xl"></i>
-            </div>
-            <div>
-                <h4 class="font-black font-display text-lg mb-1 leading-tight">Privacidade & Cookies</h4>
-                <p class="text-sm opacity-80 leading-relaxed font-medium">Usamos cookies para personalizar sua experiência, exibir anúncios relevantes (Google AdSense) e analisar nosso tráfego. Ao continuar, você concorda com essas condições.</p>
-            </div>
-        </div>
-        <div class="flex gap-3 mt-2">
-            <button onclick="acceptCookies()" class="magnetic flex-1 bg-gradient-to-r from-brand-pink to-brand-orange text-white py-3 rounded-xl font-black text-sm uppercase tracking-wider hover:opacity-90 transition shadow-lg shadow-brand-pink/20">
-                Aceitar & Fechar
-            </button>
-        </div>
+  <!-- MENU LATERAL -->
+  <div id="menu-overlay" class="fixed inset-0 z-[60] bg-black/45 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity"></div>
+  <aside id="sidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[88vw] max-w-[390px] glass-strong rounded-r-[2rem] -translate-x-[105%] transition-transform duration-300 p-5 md:p-7 flex flex-col mobile-safe">
+    <div class="flex items-center justify-between mb-9">
+      <button data-go-home class="font-brand font-black text-xl tracking-[.08em] uppercase">MARTE<span class="text-brand-orange">ALMA</span></button>
+      <button id="menu-close" class="w-11 h-11 rounded-full bg-black/5 dark:bg-white/[.08] grid place-items-center"><i class="ph-bold ph-x text-xl"></i></button>
     </div>
+    <p class="text-[.68rem] uppercase tracking-[.24em] font-bold opacity-40 mb-3">Explorar</p>
+    <nav class="space-y-2">
+      <button data-category="Pop" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-pink/12 text-brand-pink grid place-items-center"><i class="ph-fill ph-sparkle text-xl"></i></span> Cultura Pop</button>
+      <button data-category="Cinema" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-cyan/12 text-brand-cyan grid place-items-center"><i class="ph-fill ph-film-strip text-xl"></i></span> Cinema</button>
+      <button data-category="Séries" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-television text-xl"></i></span> Séries</button>
+      <button data-category="Críticas" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas</button>
+    </nav>
+    <div class="mt-auto pt-7 border-t border-black/10 dark:border-white/10">
+      <div class="rounded-[1.4rem] p-4 bg-gradient-to-br from-brand-pink/12 via-brand-orange/8 to-brand-violet/12 border border-brand-pink/10">
+        <p class="font-display font-black text-lg mb-1">Não perca a próxima órbita.</p>
+        <p class="text-sm opacity-60 leading-relaxed mb-4">Receba as principais matérias e críticas do Marte Alma.</p>
+        <button class="w-full rounded-xl py-3 bg-brand-ink text-white dark:bg-white dark:text-black font-bold text-sm">Assinar newsletter</button>
+      </div>
+    </div>
+  </aside>
 
-    <!-- Scripts do Firebase -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+  <!-- BUSCA -->
+  <div id="search-overlay" class="fixed inset-0 z-[75] bg-[#07070b]/70 backdrop-blur-xl opacity-0 pointer-events-none transition-opacity p-3 md:p-6 flex justify-center items-start pt-24 md:pt-28">
+    <div id="search-modal" class="glass-strong w-full max-w-3xl rounded-[1.7rem] overflow-hidden translate-y-[-14px] transition-transform">
+      <div class="p-4 md:p-5 flex items-center gap-3 border-b border-black/10 dark:border-white/10">
+        <i class="ph-bold ph-magnifying-glass text-2xl text-brand-pink"></i>
+        <input id="search-input" class="min-w-0 flex-1 bg-transparent outline-none text-lg md:text-2xl font-display font-bold" placeholder="Busque artistas, filmes, séries..." />
+        <button id="search-close" class="w-10 h-10 rounded-full bg-black/5 dark:bg-white/[.08] grid place-items-center"><i class="ph-bold ph-x"></i></button>
+      </div>
+      <div id="search-results" class="p-3 md:p-4 max-h-[68vh] overflow-y-auto"></div>
+    </div>
+  </div>
 
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'marte-alma';
+  <main class="pt-[94px] md:pt-[112px] pb-16">
+    <div class="max-w-[1500px] mx-auto px-4 md:px-7 lg:px-10">
+      <!-- CATEGORY STRIP / MOBILE -->
+      <div class="category-strip flex lg:hidden overflow-x-auto gap-2 pb-3 -mx-4 px-4 mb-2">
+        <button data-go-home class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Início</button>
+        <button data-category="Pop" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Pop</button>
+        <button data-category="Cinema" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Cinema</button>
+        <button data-category="Séries" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Séries</button>
+        <button data-category="Críticas" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Críticas</button>
+      </div>
 
+      <div id="dynamic-content">
+        <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_380px] gap-5 md:gap-7">
+          <div class="skeleton h-[520px] rounded-[2rem]"></div>
+          <div class="hidden xl:block skeleton h-[520px] rounded-[2rem]"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-black/10 dark:border-white/10 py-10 md:py-14">
+    <div class="max-w-[1500px] mx-auto px-4 md:px-7 lg:px-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <div class="font-brand font-black text-2xl tracking-[.08em] uppercase mb-3">MARTE<span class="text-brand-orange">ALMA</span></div>
+        <p class="max-w-xl text-sm md:text-base opacity-55 leading-relaxed">Cultura pop, cinema, séries, música e crítica com identidade, contexto e uma pitada de outro planeta.</p>
+      </div>
+      <div class="text-sm opacity-55 md:text-right">
+        <div class="flex gap-5 md:justify-end mb-3 font-semibold"><a href="#">Sobre</a><a href="#">Expediente</a><a href="#">Privacidade</a></div>
+        <div>© 2026 Marte Alma. Todos os direitos reservados.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
+    import { getFirestore, collection, onSnapshot, query, where, limit } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+
+    // ==========================================================
+    // POSTS DE DEMONSTRAÇÃO / FALLBACK
+    // O site continua funcionando mesmo antes de você configurar Firebase.
+    // ==========================================================
+    const FALLBACK_POSTS = [
+      {
+        id: '1', slug: 'lady-gaga-retorno-pistas',
+        title: 'O retorno apoteótico de Lady Gaga às pistas de dança',
+        excerpt: 'Uma era que transforma pista, performance e imaginário pop em um mesmo espetáculo.',
+        category: 'Pop', author: 'Redação Marte', image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=85&w=1800&auto=format&fit=crop',
+        featured: true, status: 'published', publishedAt: new Date('2026-06-30T12:00:00'),
+        content: `A espera acabou. O novo capítulo da estrela pop chega às plataformas apostando em impacto visual, produção eletrônica e um senso de espetáculo que conversa diretamente com a pista.\n\n## Uma era construída como evento\n\nMais do que uma coleção de faixas, o projeto trabalha estética, coreografia e narrativa como partes de uma mesma experiência.\n\n> Pop funciona melhor quando parece maior do que a própria música.\n\nO resultado é uma fase desenhada para ser vista, comentada e revisitada.`
+      },
+      {
+        id: '2', slug: 'duna-messias-visual',
+        title: 'Duna: Messias mira um encerramento monumental',
+        excerpt: 'A escala aumenta, mas o maior desafio continua sendo humano: transformar destino em consequência.',
+        category: 'Cinema', author: 'João Crítico', image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=85&w=1400&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2026-06-28T10:00:00'),
+        content: `O universo de Duna sempre foi sobre grandiosidade e intimidade ao mesmo tempo. É justamente nessa tensão que uma conclusão precisa encontrar força.\n\n## Escala não é tudo\n\nO espetáculo importa, mas a consequência das escolhas é o que sustenta a saga.`
+      },
+      {
+        id: '3', slug: 'ruptura-melhor-serie',
+        title: 'Por que Ruptura continua parecendo a série mais afiada da TV?',
+        excerpt: 'Arquitetura, silêncio e paranoia corporativa transformados em linguagem de suspense.',
+        category: 'Séries', author: 'Alma Editorial', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=85&w=1400&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2026-06-25T09:00:00'),
+        content: `Poucas séries conseguem fazer de um corredor vazio uma ameaça. Ruptura entende que atmosfera também é roteiro.\n\n## O desconforto como método\n\nCada enquadramento parece esconder uma regra que o espectador ainda não conhece.`
+      },
+      {
+        id: '4', slug: 'dua-lipa-turne-america-latina',
+        title: 'Dua Lipa leva nova turnê para estádios da América Latina',
+        excerpt: 'Uma produção pensada para escala gigante sem abandonar a precisão coreográfica do pop de arena.',
+        category: 'Pop', author: 'Redação Marte', image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=85&w=1400&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2026-06-22T14:00:00'),
+        content: `A nova etapa da turnê amplia o formato do show para arenas e estádios, com cenografia modular e forte presença de dança.`
+      },
+      {
+        id: '5', slug: 'cinema-cor-imagem',
+        title: 'Quando a cor conta a história antes do diálogo',
+        excerpt: 'Como fotografia e direção de arte conseguem preparar emocionalmente uma cena sem dizer uma palavra.',
+        category: 'Críticas', author: 'Marte Crítica', image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=85&w=1400&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2026-06-18T15:00:00'),
+        content: `A cor não serve apenas para deixar um filme bonito. Ela organiza expectativa, memória e tensão.`
+      }
+    ];
+
+    let POSTS = [];
+    const content = document.getElementById('dynamic-content');
+    const $ = (s, root=document) => root.querySelector(s);
+    const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+
+    const escapeHtml = (value='') => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
+    const slugify = (value='') => value.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+
+    function normalizePost(post, index=0) {
+      const rawDate = post.publishedAt?.toDate ? post.publishedAt.toDate() : (post.publishedAt instanceof Date ? post.publishedAt : new Date(post.publishedAt || post.timestamp || Date.now()));
+      return {
+        ...post,
+        id: String(post.id ?? index),
+        title: post.title || 'Sem título',
+        slug: post.slug || slugify(post.title || `materia-${index}`),
+        excerpt: post.excerpt || stripMarkdown(post.content || '').slice(0, 170),
+        category: post.category || 'Pop',
+        author: post.author || 'Redação Marte',
+        image: post.image || 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=1400&auto=format&fit=crop',
+        featured: Boolean(post.featured),
+        status: post.status || 'published',
+        publishedAt: isNaN(rawDate) ? new Date() : rawDate,
+        content: post.content || ''
+      };
+    }
+
+    function stripMarkdown(text='') {
+      return text.replace(/[#_*`>\[\]()!-]/g, ' ').replace(/\s+/g,' ').trim();
+    }
+
+    function dateLabel(date) {
+      return new Intl.DateTimeFormat('pt-BR', { day:'2-digit', month:'short', year:'numeric' }).format(date).replace('.', '');
+    }
+
+    function readingTime(text='') {
+      const words = stripMarkdown(text).split(/\s+/).filter(Boolean).length;
+      return Math.max(1, Math.ceil(words / 210));
+    }
+
+    function categoryClass(category='') {
+      const c = category.toLowerCase();
+      if (c === 'pop') return 'text-brand-pink bg-brand-pink/10 border-brand-pink/20';
+      if (c === 'cinema') return 'text-brand-cyan bg-brand-cyan/10 border-brand-cyan/20';
+      if (c === 'séries' || c === 'series') return 'text-brand-orange bg-brand-orange/10 border-brand-orange/20';
+      return 'text-brand-violet bg-brand-violet/10 border-brand-violet/20';
+    }
+
+    function pill(category) {
+      return `<span class="inline-flex items-center px-3 py-1.5 rounded-full border text-[.66rem] font-extrabold uppercase tracking-[.15em] ${categoryClass(category)}">${escapeHtml(category)}</span>`;
+    }
+
+    function articleButton(post, extra='') {
+      return `data-open-article="${escapeHtml(post.slug)}" ${extra}`;
+    }
+
+    function renderHome() {
+      document.title = 'Marte Alma | Cultura & Entretenimento';
+      history.replaceState(null, '', location.pathname);
+      const featured = POSTS.find(p => p.featured) || POSTS[0];
+      if (!featured) return renderEmpty();
+      const others = POSTS.filter(p => p.id !== featured.id);
+      const trending = others.slice(0,4);
+      const latest = others.slice(0,9);
+
+      content.innerHTML = `
+        <section class="mb-7 md:mb-10 reveal is-visible">
+          <div class="now-ribbon flex items-center gap-2 text-xs md:text-sm font-semibold">
+            <span class="relative z-10 inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-gradient-to-r from-brand-pink to-brand-orange text-white shrink-0 font-brand text-[.55rem] tracking-[.1em]"><span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> AGORA</span>
+            <div class="relative z-10 min-w-0 overflow-hidden whitespace-nowrap flex-1 px-1">
+              <button ${articleButton(POSTS[0])} class="truncate w-full text-left opacity-75 hover:opacity-100 transition font-semibold">${escapeHtml(POSTS[0].title)}</button>
+            </div>
+            <i class="relative z-10 ph-fill ph-sparkle text-brand-orange text-lg mr-2 hidden sm:block"></i>
+          </div>
+        </section>
+
+        <section class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_380px] gap-5 md:gap-8 mb-16 md:mb-24">
+          <div class="hero-shell reveal is-visible">
+            <div class="hero-backplate"></div>
+            <article ${articleButton(featured)} class="hero-feature group cursor-pointer relative overflow-hidden rounded-[2rem] md:rounded-[2.7rem] min-h-[520px] md:min-h-[660px] story-media z-10">
+              <img src="${escapeHtml(featured.image)}" alt="${escapeHtml(featured.title)}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] group-hover:scale-[1.075]" fetchpriority="high" />
+              <div class="hero-index">MA / DESTAQUE</div>
+              <div class="hero-sigil"></div>
+              <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-8 md:p-11 lg:p-14 pt-24">
+                <div class="flex flex-wrap gap-2 items-center mb-4 md:mb-5">${pill(featured.category)}<span class="text-white/70 text-[.62rem] font-brand uppercase tracking-[.14em]">Primeira órbita</span></div>
+                <h1 class="hero-title maxi-title font-display font-extrabold text-white leading-[.88] max-w-5xl mb-5 md:mb-7">${escapeHtml(featured.title)}</h1>
+                <p class="text-white/84 text-sm sm:text-base md:text-xl max-w-3xl leading-relaxed mb-6 hidden sm:block font-medium">${escapeHtml(featured.excerpt)}</p>
+                <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm text-white/70 font-semibold"><span>${escapeHtml(featured.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(featured.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(featured.content)} min de leitura</span></div>
+              </div>
+            </article>
+          </div>
+
+          <aside class="radar-card glass p-5 md:p-6 xl:p-7 reveal is-visible">
+            <div class="flex items-center justify-between mb-5 relative z-10">
+              <div><p class="section-kicker opacity-40 mb-2">Radar Marte</p><h2 class="font-display font-extrabold text-3xl tracking-[-.04em]">Em alta<span class="text-brand-orange">.</span></h2></div>
+              <span class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-orange/20 to-brand-pink/10 text-brand-orange grid place-items-center border border-brand-orange/20"><i class="ph-fill ph-fire text-2xl"></i></span>
+            </div>
+            <div class="divide-y divide-black/10 dark:divide-white/10 relative z-10">
+              ${trending.map((post, i) => `
+                <button ${articleButton(post)} class="w-full text-left grid grid-cols-[44px_1fr] gap-3 py-4 group">
+                  <div class="font-brand font-black text-xl opacity-18 group-hover:text-brand-orange group-hover:opacity-100 transition">0${i+1}</div>
+                  <div><div class="section-kicker mb-1.5 ${categoryClass(post.category).split(' ')[0]}">${escapeHtml(post.category)}</div><h3 class="font-display font-bold text-[1.08rem] leading-[1.04] group-hover:text-brand-orange transition">${escapeHtml(post.title)}</h3></div>
+                </button>`).join('')}
+            </div>
+            <div class="mt-5 pt-5 border-t border-black/10 dark:border-white/10 flex items-center gap-3 opacity-55 relative z-10"><span class="w-8 h-8 rounded-full border border-current grid place-items-center"><i class="ph-bold ph-wave-sine"></i></span><span class="text-xs font-brand tracking-[.08em] uppercase">Sinal editorial ativo</span></div>
+          </aside>
+        </section>
+
+        <section class="mb-20 md:mb-28">
+          <div class="flex items-end justify-between gap-4 mb-8 md:mb-10 reveal">
+            <div><p class="section-kicker opacity-40 mb-3">Atualização contínua</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl xl:text-7xl leading-[.9]">Últimas<br class="hidden md:block"> notícias<span class="text-brand-pink">✦</span></h2></div>
+            <div class="hidden md:flex flex-1 items-center gap-4 max-w-xl mb-3"><div class="h-px flex-1 bg-gradient-to-r from-brand-pink/60 via-brand-orange/35 to-transparent"></div><span class="font-brand text-[.55rem] tracking-[.13em] uppercase opacity-30">Marte Alma / 2026</span></div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 md:gap-9">
+            ${latest.map((post,i) => `
+              <article ${articleButton(post)} class="editorial-card card-hover cursor-pointer reveal">
+                <div class="glass-card-inner flex flex-col">
+                  <div class="relative aspect-[16/10] overflow-hidden"><img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" loading="lazy" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"/><div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent opacity-60"></div><div class="absolute top-3 left-3">${pill(post.category)}</div><div class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/16 text-white backdrop-blur-xl border border-white/25 grid place-items-center"><i class="ph-bold ph-arrow-up-right"></i></div></div>
+                  <div class="p-5 md:p-6 flex flex-col flex-1">
+                    <div class="section-kicker opacity-30 mb-3">Órbita ${String(i+1).padStart(2,'0')}</div>
+                    <h3 class="font-display font-extrabold text-[1.55rem] md:text-[1.75rem] leading-[.98] tracking-[-.035em] mb-3">${escapeHtml(post.title)}</h3>
+                    <p class="text-sm opacity-60 leading-relaxed mb-6">${escapeHtml(post.excerpt)}</p>
+                    <div class="mt-auto pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between gap-3 text-xs font-semibold opacity-55"><span>${dateLabel(post.publishedAt)}</span><span>${readingTime(post.content)} min</span></div>
+                  </div>
+                </div>
+              </article>`).join('')}
+          </div>
+        </section>
+
+        <section class="newsletter-max reveal overflow-hidden p-6 md:p-10 lg:p-14 relative">
+          <div class="relative grid lg:grid-cols-[1fr_auto] gap-8 lg:items-center z-10">
+            <div><p class="section-kicker text-brand-pink mb-3">Newsletter Marte Alma</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl leading-[.9] mb-4 max-w-4xl">O universo pop<br>sem modo econômico.</h2><p class="opacity-65 max-w-2xl text-base md:text-lg">Notícias, críticas e lançamentos em uma seleção editorial com personalidade — sem transformar seu e-mail em um buraco negro.</p></div>
+            <form class="flex flex-col sm:flex-row gap-2 w-full lg:w-[470px]" onsubmit="event.preventDefault(); alert('Conecte este formulário ao Brevo, Mailchimp ou Resend quando quiser ativar a newsletter.');"><input type="email" required placeholder="seu@email.com" class="min-w-0 flex-1 rounded-2xl px-4 py-4 bg-white/[.55] dark:bg-black/20 border border-black/10 dark:border-white/10 outline-none focus:ring-2 ring-brand-pink/40"><button class="rounded-2xl px-5 py-4 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet text-white font-brand text-[.64rem] tracking-[.08em] uppercase shadow-xl shadow-brand-pink/15">Entrar em órbita</button></form>
+          </div>
+        </section>
+      `;
+      bindDynamicEvents(); observeReveals();
+    }
+
+    function renderCategory(category) {
+      const filtered = POSTS.filter(p => category === 'Críticas' ? p.category.toLowerCase() === 'críticas' : p.category.toLowerCase() === category.toLowerCase());
+      content.innerHTML = `
+        <section class="pt-5 md:pt-10">
+          <div class="mb-10 md:mb-16 reveal is-visible relative">
+            <button data-go-home class="text-sm font-bold opacity-55 hover:opacity-100 mb-8 inline-flex items-center gap-2"><span class="w-10 h-10 rounded-full glass grid place-items-center"><i class="ph-bold ph-arrow-left"></i></span> Voltar para a órbita</button>
+            <div class="relative overflow-hidden glass rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14">
+              <div class="absolute -right-10 -top-14 text-[8rem] md:text-[15rem] font-brand font-black opacity-[.035] leading-none select-none">${escapeHtml(category.slice(0,2).toUpperCase())}</div>
+              <p class="section-kicker opacity-45 mb-4">Marte Alma / editoria</p>
+              <h1 class="maxi-title font-display font-extrabold text-6xl md:text-8xl xl:text-[9rem] leading-[.78] headline-gradient relative z-10">${escapeHtml(category)}</h1>
+              <div class="mt-6 md:mt-8 h-1.5 w-28 rounded-full bg-gradient-to-r from-brand-pink via-brand-orange to-brand-cyan"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 md:gap-9">
+            ${filtered.length ? filtered.map((post,i) => `<article ${articleButton(post)} class="editorial-card card-hover cursor-pointer reveal"><div class="glass-card-inner"><div class="relative aspect-[16/10] overflow-hidden"><img src="${escapeHtml(post.image)}" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" alt="${escapeHtml(post.title)}"><div class="absolute top-3 left-3">${pill(post.category)}</div><div class="absolute bottom-3 right-3 font-brand text-[.55rem] tracking-[.1em] text-white bg-black/25 backdrop-blur-lg border border-white/20 px-3 py-2 rounded-full">0${i+1}</div></div><div class="p-5 md:p-6"><p class="section-kicker opacity-30 mb-3">Arquivo orbital</p><h2 class="font-display font-extrabold text-[1.65rem] leading-[.98] mt-1 mb-3">${escapeHtml(post.title)}</h2><p class="text-sm opacity-60 leading-relaxed">${escapeHtml(post.excerpt)}</p><div class="text-xs font-semibold opacity-45 mt-5 pt-4 border-t border-black/10 dark:border-white/10">${dateLabel(post.publishedAt)} · ${readingTime(post.content)} min</div></div></div></article>`).join('') : `<div class="col-span-full py-24 text-center opacity-50"><i class="ph-fill ph-planet text-6xl mb-4"></i><p class="font-display font-bold text-xl">Ainda não há matérias nesta editoria.</p></div>`}
+          </div>
+        </section>`;
+      bindDynamicEvents(); observeReveals(); closeMenu();
+    }
+
+    function renderArticle(slug, push=true) {
+      const post = POSTS.find(p => p.slug === slug || p.id === slug);
+      if (!post) return renderHome();
+      if (push) history.pushState({slug:post.slug}, '', `?artigo=${encodeURIComponent(post.slug)}`);
+      document.title = `${post.title} | Marte Alma`;
+      updateMeta(post);
+
+      const related = POSTS.filter(p => p.id !== post.id && p.category === post.category).slice(0,3);
+      const html = DOMPurify.sanitize(marked.parse(post.content || ''));
+      content.innerHTML = `
+        <article class="max-w-[1180px] mx-auto pt-4 md:pt-8">
+          <button data-go-home class="reveal is-visible w-12 h-12 rounded-full glass grid place-items-center mb-7 md:mb-10 hover:text-brand-orange transition" aria-label="Voltar"><i class="ph-bold ph-arrow-left"></i></button>
+
+          <header class="max-w-[1040px] mx-auto text-center mb-9 md:mb-14 reveal is-visible relative">
+            <div class="absolute left-1/2 -translate-x-1/2 -top-6 md:-top-10 text-[6rem] md:text-[11rem] font-brand font-black opacity-[.025] pointer-events-none select-none">MA</div>
+            <div class="mb-5 relative z-10">${pill(post.category)}</div>
+            <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / notícia em órbita</p>
+            <h1 class="maxi-title font-display font-extrabold text-[clamp(2.7rem,7.6vw,7rem)] leading-[.84] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
+            <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
+            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-xs md:text-sm font-semibold opacity-55 relative z-10"><span>${escapeHtml(post.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(post.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(post.content)} min de leitura</span></div>
+          </header>
+
+          <div class="hero-shell max-w-[1100px] mx-auto mb-10 md:mb-16 reveal">
+            <div class="hero-backplate"></div>
+            <div class="relative z-10 rounded-[2rem] md:rounded-[2.8rem] overflow-hidden shadow-2xl border border-white/20"><img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" class="w-full max-h-[720px] object-cover"><div class="absolute top-4 right-4 md:top-6 md:right-6 font-brand text-[.55rem] md:text-[.62rem] tracking-[.12em] text-white bg-black/25 backdrop-blur-xl border border-white/25 px-3 py-2 rounded-full">MARTE / ALMA</div></div>
+          </div>
+
+          <div class="grid lg:grid-cols-[1fr_86px] gap-8 items-start max-w-[940px] mx-auto">
+            <div class="glass rounded-[2rem] md:rounded-[2.6rem] p-5 sm:p-8 md:p-11 lg:p-14 reveal relative border border-brand-pink/10">
+              <div class="absolute top-0 left-8 md:left-12 w-28 h-1.5 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-cyan rounded-b-full"></div>
+              <div class="article-body">${html}</div>
+              <div class="mt-10 pt-6 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-2">${(post.tags || []).map(t => `<span class="px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-pink/8 to-brand-orange/8 border border-brand-pink/10 text-xs font-semibold">#${escapeHtml(t)}</span>`).join('')}</div>
+            </div>
+            <div class="hidden lg:flex sticky top-28 flex-col gap-2 reveal">
+              <span class="section-kicker opacity-30 text-center mb-1">Share</span>
+              <button data-share="x" class="w-12 h-12 rounded-full glass grid place-items-center hover:text-brand-cyan"><i class="ph-fill ph-x-logo"></i></button>
+              <button data-share="whatsapp" class="w-12 h-12 rounded-full glass grid place-items-center hover:text-green-500"><i class="ph-fill ph-whatsapp-logo"></i></button>
+              <button data-share="copy" class="w-12 h-12 rounded-full glass grid place-items-center hover:text-brand-orange"><i class="ph-bold ph-link"></i></button>
+            </div>
+          </div>
+
+          ${related.length ? `<section class="mt-18 md:mt-24"><div class="flex items-end gap-4 mb-8 reveal"><div><p class="section-kicker opacity-35 mb-2">Próxima órbita</p><h2 class="font-display font-extrabold text-4xl md:text-5xl leading-[.92]">Continue em <span class="headline-gradient">${escapeHtml(post.category)}</span></h2></div><div class="hidden md:block flex-1 h-px bg-gradient-to-r from-brand-pink/40 to-transparent mb-2"></div></div><div class="grid md:grid-cols-3 gap-7">${related.map((r,i) => `<article ${articleButton(r)} class="editorial-card cursor-pointer reveal card-hover"><div class="glass-card-inner"><div class="aspect-[16/10] overflow-hidden"><img src="${escapeHtml(r.image)}" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" alt="${escapeHtml(r.title)}"></div><div class="p-5"><div class="section-kicker opacity-25 mb-2">0${i+1}</div><h3 class="font-display font-extrabold text-xl leading-[1]">${escapeHtml(r.title)}</h3></div></div></article>`).join('')}</div></section>` : ''}
+        </article>`;
+      bindDynamicEvents(); bindShare(post); observeReveals(); window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function updateMeta(post) {
+      const description = post.excerpt || stripMarkdown(post.content).slice(0,160);
+      $('meta[name="description"]').setAttribute('content', description);
+      let json = $('#news-jsonld');
+      if (!json) { json = document.createElement('script'); json.type='application/ld+json'; json.id='news-jsonld'; document.head.appendChild(json); }
+      json.textContent = JSON.stringify({ '@context':'https://schema.org', '@type':'NewsArticle', headline:post.title, description, image:[post.image], datePublished:post.publishedAt.toISOString(), author:[{'@type':'Person','name':post.author}], publisher:{'@type':'Organization','name':MARTE_ALMA.siteName} });
+    }
+
+    function renderEmpty() { content.innerHTML = `<div class="py-28 text-center"><i class="ph-fill ph-planet text-6xl text-brand-orange"></i><h1 class="font-display font-black text-3xl mt-4">Nenhuma matéria publicada ainda.</h1></div>`; }
+
+    function bindDynamicEvents() {
+      $$('[data-open-article]', content).forEach(el => el.addEventListener('click', () => renderArticle(el.dataset.openArticle)));
+      $$('[data-go-home]', content).forEach(el => el.addEventListener('click', () => { history.pushState({},'',location.pathname); renderHome(); closeMenu(); }));
+    }
+
+    function bindShare(post) {
+      $$('[data-share]').forEach(btn => btn.addEventListener('click', async () => {
+        const url = location.href;
+        if (btn.dataset.share === 'whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(post.title + ' ' + url)}`,'_blank','noopener');
+        if (btn.dataset.share === 'x') window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(url)}`,'_blank','noopener');
+        if (btn.dataset.share === 'copy') { await navigator.clipboard.writeText(url); btn.innerHTML = '<i class="ph-bold ph-check"></i>'; setTimeout(()=>btn.innerHTML='<i class="ph-bold ph-link"></i>',1400); }
+      }));
+    }
+
+    // Busca
+    const searchOverlay = $('#search-overlay');
+    function openSearch(){ searchOverlay.classList.remove('opacity-0','pointer-events-none'); $('#search-modal').classList.remove('translate-y-[-14px]'); document.body.style.overflow='hidden'; setTimeout(()=>$('#search-input').focus(),80); renderSearch(''); }
+    function closeSearch(){ searchOverlay.classList.add('opacity-0','pointer-events-none'); $('#search-modal').classList.add('translate-y-[-14px]'); document.body.style.overflow=''; }
+    $('#search-button').addEventListener('click', openSearch); $('#search-close').addEventListener('click', closeSearch);
+    searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) closeSearch(); });
+    $('#search-input').addEventListener('input', e => renderSearch(e.target.value));
+    function renderSearch(term='') {
+      const q = term.trim().toLowerCase();
+      const results = q.length < 2 ? POSTS.slice(0,5) : POSTS.filter(p => [p.title,p.excerpt,p.category,p.author].join(' ').toLowerCase().includes(q)).slice(0,8);
+      $('#search-results').innerHTML = `${q.length<2 ? '<p class="px-2 py-3 text-xs uppercase tracking-[.18em] font-extrabold opacity-35">Sugestões</p>' : ''}${results.map(p => `<button data-search-slug="${escapeHtml(p.slug)}" class="w-full p-2.5 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition flex gap-3 text-left"><img src="${escapeHtml(p.image)}" class="w-20 h-16 object-cover rounded-xl"><div class="min-w-0"><div class="text-[.62rem] uppercase tracking-[.14em] font-extrabold ${categoryClass(p.category).split(' ')[0]}">${escapeHtml(p.category)}</div><div class="font-display font-bold leading-tight mt-1 line-clamp-2">${escapeHtml(p.title)}</div></div></button>`).join('') || '<div class="p-10 text-center opacity-45">Nenhum resultado encontrado.</div>'}`;
+      $$('[data-search-slug]').forEach(b => b.addEventListener('click',()=>{ closeSearch(); renderArticle(b.dataset.searchSlug); }));
+    }
+
+    // Menu
+    const sidebar = $('#sidebar'), menuOverlay = $('#menu-overlay');
+    function openMenu(){ sidebar.classList.remove('-translate-x-[105%]'); menuOverlay.classList.remove('opacity-0','pointer-events-none'); document.body.style.overflow='hidden'; }
+    function closeMenu(){ sidebar.classList.add('-translate-x-[105%]'); menuOverlay.classList.add('opacity-0','pointer-events-none'); document.body.style.overflow=''; }
+    $('#menu-button').addEventListener('click',openMenu); $('#menu-close').addEventListener('click',closeMenu); menuOverlay.addEventListener('click',closeMenu);
+
+    // Categorias globais
+    $$('[data-category]').forEach(btn => btn.addEventListener('click',()=>renderCategory(btn.dataset.category)));
+    $$('[data-go-home]').forEach(btn => btn.addEventListener('click',renderHome));
+
+    // Tema
+    const themeButton = $('#theme-button');
+    function applyTheme(mode){ document.documentElement.classList.toggle('dark', mode==='dark'); localStorage.setItem('marteAlmaTheme',mode); themeButton.innerHTML = mode==='dark' ? '<i class="ph-fill ph-sun text-xl text-brand-orange"></i>' : '<i class="ph-fill ph-moon text-xl"></i>'; }
+    applyTheme(localStorage.getItem('marteAlmaTheme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'));
+    themeButton.addEventListener('click',()=>applyTheme(document.documentElement.classList.contains('dark')?'light':'dark'));
+
+    // Reveals
+    const observer = new IntersectionObserver(entries => entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); observer.unobserve(e.target); }}),{threshold:.08,rootMargin:'0px 0px -30px'});
+    function observeReveals(){ $$('.reveal:not(.is-visible)').forEach(el=>observer.observe(el)); }
+
+    // Barra de progresso
+    addEventListener('scroll',()=>{ const max=document.documentElement.scrollHeight-innerHeight; $('#reading-progress').style.width=(max>0?(scrollY/max)*100:0)+'%'; },{passive:true});
+
+    // Navegação voltar/avançar
+    addEventListener('popstate',routeFromUrl);
+    function routeFromUrl(){ const slug=new URLSearchParams(location.search).get('artigo'); if(slug) renderArticle(slug,false); else renderHome(); }
+
+    // Firebase: se não estiver configurado, usa fallback automaticamente.
+    async function boot() {
+      const configured = firebaseConfig.apiKey && firebaseConfig.apiKey !== 'COLE_AQUI' && firebaseConfig.projectId && !firebaseConfig.projectId.startsWith('SEU-');
+      if (!configured) { POSTS = FALLBACK_POSTS.map(normalizePost).sort((a,b)=>b.publishedAt-a.publishedAt); return routeFromUrl(); }
+      try {
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
-
-        window.db = db; window.auth = auth; window.appId = appId;
-        window.signInAnonymously = signInAnonymously;
-        window.collection = collection; window.onSnapshot = onSnapshot;
-    </script>
-
-    <script>
-        // ============================================================
-        // GERENCIAMENTO DE COOKIES
-        // ============================================================
-        function checkCookies() {
-            if (!localStorage.getItem('cookiesAccepted')) {
-                setTimeout(() => {
-                    document.getElementById('cookie-banner').classList.remove('translate-y-[150%]');
-                }, 1500);
-            }
-        }
-        function acceptCookies() {
-            localStorage.setItem('cookiesAccepted', 'true');
-            document.getElementById('cookie-banner').classList.add('translate-y-[150%]');
-        }
-
-        // ============================================================
-        // SISTEMA DE BUSCA
-        // ============================================================
-        function toggleSearch() {
-            const overlay = document.getElementById('search-overlay');
-            const modal = document.getElementById('search-modal');
-            const input = document.getElementById('search-input');
-
-            if (overlay.classList.contains('hidden')) {
-                overlay.classList.remove('hidden');
-                setTimeout(() => {
-                    overlay.classList.remove('opacity-0');
-                    modal.classList.remove('-translate-y-10');
-                    input.focus();
-                }, 10);
-                document.body.style.overflow = 'hidden';
-            } else {
-                overlay.classList.add('opacity-0');
-                modal.classList.add('-translate-y-10');
-                setTimeout(() => {
-                    overlay.classList.add('hidden');
-                    input.value = '';
-                    document.getElementById('search-results').innerHTML = '<p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-display text-lg">Digite algo para começar a explorar o universo Marte Alma...</p>';
-                }, 300);
-                document.body.style.overflow = '';
-            }
-        }
-
-        function closeSearchOnOutsideClick(e) {
-            if (e.target.id === 'search-overlay') toggleSearch();
-        }
-
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase().trim();
-            const resultsContainer = document.getElementById('search-results');
-
-            if (term.length < 2) {
-                resultsContainer.innerHTML = '<p class="p-10 text-center text-slate-500 dark:text-slate-400 font-bold font-display text-lg">Digite mais letras para iniciar a busca...</p>';
-                return;
-            }
-
-            const results = POSTS.filter(p => p.title.toLowerCase().includes(term) || p.content.toLowerCase().includes(term) || p.category.toLowerCase().includes(term));
-
-            if (results.length === 0) {
-                resultsContainer.innerHTML = `
-                    <div class="flex flex-col items-center justify-center p-10 opacity-60">
-                        <i class="ph-fill ph-ghost text-5xl mb-3"></i>
-                        <p class="text-center font-bold font-display text-lg">Nenhum sinal encontrado no radar.</p>
-                    </div>`;
-                return;
-            }
-
-            resultsContainer.innerHTML = results.map((post, i) => `
-                <div onclick="renderArticle('${post.id}'); toggleSearch();" class="animate-fade-up p-3 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer rounded-2xl flex items-center gap-4 transition-colors" style="animation-delay:${i * 60}ms">
-                    <img src="${post.image}" class="w-20 h-20 rounded-xl object-cover shadow-sm" loading="lazy">
-                    <div class="flex flex-col">
-                        <span class="text-[10px] uppercase tracking-widest font-black ${getCategoryStyleTextOnly(post.category)} mb-1">${post.category}</span>
-                        <h4 class="font-bold text-lg font-display leading-tight">${post.title}</h4>
-                    </div>
-                </div>
-            `).join('');
-        });
-
-        function getCategoryStyleTextOnly(category) {
-            switch(category.toLowerCase()) {
-                case 'pop': return 'text-brand-pink';
-                case 'cinema': return 'text-brand-cyan';
-                case 'séries': return 'text-brand-orange';
-                default: return 'text-purple-500';
-            }
-        }
-
-        // ============================================================
-        // FUNÇÕES DA INTERFACE
-        // ============================================================
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobile-overlay');
-
-            if (sidebar.classList.contains('-translate-x-full')) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
-                document.body.style.overflow = 'hidden';
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('opacity-0');
-                setTimeout(() => overlay.classList.add('hidden'), 300);
-                document.body.style.overflow = '';
-            }
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.classList.toggle('dark');
-            localStorage.setItem('marteAlmaTheme', isDark ? 'dark' : 'light');
-            const icon = document.querySelector('#theme-toggle i');
-
-            icon.classList.add('-rotate-90', 'opacity-0');
-
-            setTimeout(() => {
-                if (isDark) {
-                    icon.className = 'ph-fill ph-sun text-xl text-brand-orange transition-all duration-300 rotate-0 opacity-100';
-                } else {
-                    icon.className = 'ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-all duration-300 rotate-0 opacity-100';
-                }
-            }, 150);
-        }
-
-        // Glow que acompanha o cursor + parallax leve nos blobs
-        (function setupCursorEffects() {
-            const glow = document.getElementById('cursor-glow');
-            const blobs = document.querySelectorAll('.blob');
-            let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-            let raf = null;
-
-            window.addEventListener('mousemove', (e) => {
-                mx = e.clientX; my = e.clientY;
-                if (!raf) raf = requestAnimationFrame(updateEffects);
-            });
-
-            function updateEffects() {
-                glow.style.left = mx + 'px';
-                glow.style.top = my + 'px';
-                const cx = (mx / window.innerWidth - 0.5);
-                const cy = (my / window.innerHeight - 0.5);
-                blobs.forEach((b, i) => {
-                    const strength = (i + 1) * 8;
-                    b.style.marginLeft = (cx * strength) + 'px';
-                    b.style.marginTop = (cy * strength) + 'px';
-                });
-                raf = null;
-            }
-        })();
-
-        // Header que reage ao scroll (Esconde ao descer, mostra ao subir) + barra de progresso + botão "voltar ao topo"
-        (function setupScrollEffects() {
-            const header = document.getElementById('main-header');
-            const progress = document.getElementById('reading-progress');
-            const backToTop = document.getElementById('back-to-top');
-            
-            let lastScrollY = window.scrollY; // Variável para rastrear a posição anterior
-
-            window.addEventListener('scroll', () => {
-                const currentScrollY = window.scrollY;
-                
-                // Barra de progresso de leitura
-                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const pct = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
-                progress.style.width = pct + '%';
-
-                // Botão de voltar ao topo
-                if (currentScrollY > 600) {
-                    backToTop.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-                } else {
-                    backToTop.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-                }
-
-                // Lógica Inteligente do Cabeçalho
-                if (currentScrollY > lastScrollY && currentScrollY > 100) {
-                    // Rolando para baixo -> Esconde o cabeçalho (puxando pra cima)
-                    header.style.transform = 'translateY(-100%)';
-                    header.style.boxShadow = ''; // remove a sombra enquanto escondido
-                } else {
-                    // Rolando para cima ou muito perto do topo -> Mostra o cabeçalho
-                    if (currentScrollY > 30) {
-                        header.style.transform = 'translateY(0) scale(0.99)';
-                        header.style.boxShadow = '0 8px 32px rgba(0,0,0,0.12)';
-                    } else {
-                        header.style.transform = 'translateY(0) scale(1)';
-                        header.style.boxShadow = '';
-                    }
-                }
-                
-                // Atualiza a posição da rolagem para a próxima verificação
-                lastScrollY = currentScrollY;
-                
-            }, { passive: true });
-        })();
-
-        // Revela elementos com a classe .reveal conforme entram na tela
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
-        function observeReveals() {
-            document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => revealObserver.observe(el));
-        }
-
-        // ============================================================
-        // [EDITE AQUI: CORES/ESTILO POR CATEGORIA]
-        // ============================================================
-        function getCategoryStyle(category) {
-            switch(category.toLowerCase()) {
-                case 'pop': return 'text-brand-pink bg-brand-pink/10 border-brand-pink/30';
-                case 'cinema': return 'text-brand-cyan bg-brand-cyan/10 border-brand-cyan/30';
-                case 'séries': return 'text-brand-orange bg-brand-orange/10 border-brand-orange/30';
-                default: return 'text-purple-500 bg-purple-500/10 border-purple-500/30';
-            }
-        }
-
-        function getEditorialFrameColor(index) {
-            const cores = ['bg-brand-pink', 'bg-brand-cyan', 'bg-brand-orange', 'bg-purple-500'];
-            return cores[index % cores.length];
-        }
-
-        // ============================================================
-        // [EDITE AQUI: POSTS]
-        // ============================================================
-        const FALLBACK_POSTS = [
-            {
-                id: "1",
-                title: "O Retorno Apoteótico de Lady Gaga às Pistas de Dança",
-                category: "Pop",
-                date: "30 Jun, 2026",
-                author: "Redação Marte",
-                image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1200&auto=format&fit=crop",
-                featured: true,
-                timestamp: 1719752000,
-                content: `A espera acabou. O novo álbum da rainha do pop aterra nas plataformas digitais redefinindo o que entendemos por música eletrônica.\n\n### Uma Era Neon\nDiferente de tudo que já fez, as novas faixas mergulham no *synth-pop* com vocais extraterrestres.\n\n> "Eu queria que as pessoas sentissem a gravidade zero na pista de dança", declarou em entrevista.`
-            },
-            {
-                id: "2",
-                title: "Duna: Messias encerra a trilogia com visual de cair o queixo",
-                category: "Cinema",
-                date: "28 Jun, 2026",
-                author: "João Crítico",
-                image: "https://images.unsplash.com/photo-1542451313056-b7c8e626645f?q=80&w=800&auto=format&fit=crop",
-                featured: false,
-                timestamp: 1719579200,
-                content: `Denis Villeneuve atinge o ápice da ficção científica cinematográfica com a conclusão da jornada de Paul Atreides.`
-            },
-            {
-                id: "3",
-                title: "Por que Ruptura (Severance) é a melhor série da década?",
-                category: "Séries",
-                date: "25 Jun, 2026",
-                author: "Alma Editorial",
-                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop",
-                featured: false,
-                timestamp: 1719200000,
-                content: `A terceira temporada elevou o suspense corporativo a níveis angustiantes de perfeição narrativa e visual.`
-            },
-            {
-                id: "4",
-                title: "Dua Lipa anuncia turnê surpresa por estádios da América Latina",
-                category: "Pop",
-                date: "22 Jun, 2026",
-                author: "Redação Marte",
-                image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=900&auto=format&fit=crop",
-                featured: false,
-                timestamp: 1718940000,
-                content: `Os ingressos esgotaram em minutos. A artista promete um show com cenografia inspirada em arquitetura futurista.`
-            }
-        ];
-
-        const CRITICAS = [
-            { title: "The White Lotus - T3", rating: "⭐⭐⭐⭐⭐", text: "Ácida, luxuosa e terrivelmente engraçada. O resort na Ásia entrega o melhor mistério até agora." },
-            { title: "Dua Lipa - Radical Optimism", rating: "⭐⭐⭐⭐", text: "Um pop efervescente e psicodélico que te obriga a dançar, mesmo nas faixas mais reflexivas." },
-            { title: "Deadpool & Wolverine", rating: "⭐⭐⭐", text: "Divertido, sangrento, mas recicla piadas que já parecem cansadas para o gênero de heróis." },
-        ];
-
-        let POSTS = [];
-        const dynamicContent = document.getElementById('dynamic-content');
-
-        function swapContent(html) {
-            dynamicContent.style.opacity = '0';
-            setTimeout(() => {
-                dynamicContent.innerHTML = html;
-                dynamicContent.classList.add('page-transition');
-                dynamicContent.style.opacity = '1';
-                observeReveals();
-                setTimeout(() => dynamicContent.classList.remove('page-transition'), 600);
-            }, 180);
-        }
-
-        // --- RENDERIZAÇÃO: HOME ---
-        function renderHome() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            if(POSTS.length === 0) return;
-
-            const featuredPost = POSTS.find(p => p.featured) || POSTS[0];
-            const recentPosts = POSTS.filter(p => p.id !== featuredPost.id);
-
-            let html = `
-                <!-- DESTAQUE PRINCIPAL: hero imponente -->
-                <div class="mb-20 cursor-pointer group animate-fade-up relative z-10" onclick="renderArticle('${featuredPost.id}')">
-                    <div class="absolute inset-0 rounded-[3rem] transform translate-x-3 translate-y-4 md:translate-x-6 md:translate-y-6 transition-transform duration-500 group-hover:translate-x-8 group-hover:translate-y-10 ${getEditorialFrameColor(0)} bg-[length:200%_200%] opacity-90 dark:opacity-60 shadow-glow"></div>
-
-                    <article class="liquid-glass overflow-hidden relative h-[560px] lg:h-[680px] rounded-[2.5rem] p-2 z-10">
-                        <div class="relative w-full h-full rounded-[2rem] overflow-hidden">
-                            <img src="${featuredPost.image}" alt="${featuredPost.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.8s] ease-out" loading="eager">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-
-                            <span class="absolute top-8 right-8 px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest bg-white/15 backdrop-blur-md border border-white/30 text-white flex items-center gap-2 animate-pop-in delay-300">
-                                <i class="ph-fill ph-fire text-brand-orange"></i> Destaque do dia
-                            </span>
-
-                            <div class="absolute bottom-0 left-0 w-full p-8 md:p-14">
-                                <span class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border backdrop-blur-md mb-6 ${getCategoryStyle(featuredPost.category)}">
-                                    ${featuredPost.category}
-                                </span>
-                                <h1 class="text-4xl md:text-6xl lg:text-8xl font-display font-black text-white mb-6 leading-[1.0] drop-shadow-2xl max-w-4xl transition-colors duration-500">
-                                    ${featuredPost.title}
-                                </h1>
-                                <p class="text-white/90 font-bold flex items-center gap-3 text-sm md:text-base">
-                                    <span class="opacity-60 font-medium">Por</span> ${featuredPost.author}
-                                    <span class="text-brand-pink">&bull;</span> ${featuredPost.date}
-                                </p>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="flex items-center gap-4 mb-10 reveal">
-                    <h2 class="text-3xl md:text-4xl font-display font-black text-gradient-flow">Mais do universo</h2>
-                    <div class="flex-grow h-px bg-gradient-to-r from-slate-300/50 dark:from-white/20 to-transparent"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-10 relative z-10">
-            `;
-
-            recentPosts.forEach((post, index) => {
-                html += `
-                        <div class="reveal relative group cursor-pointer h-full" style="transition-delay:${(index % 3) * 90}ms" onclick="renderArticle('${post.id}')">
-                            <div class="absolute inset-0 rounded-[2.5rem] md:rounded-[2rem] transform translate-x-2 translate-y-3 md:translate-x-3 md:translate-y-4 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-6 ${getEditorialFrameColor(index + 1)} opacity-90 dark:opacity-60"></div>
-
-                            <article class="relative liquid-glass rounded-[2.5rem] md:rounded-[2rem] p-4 flex flex-col h-full z-10">
-                                <div class="w-full h-56 overflow-hidden rounded-[1.5rem] mb-5 relative">
-                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}" loading="lazy">
-                                    <div class="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border backdrop-blur-xl ${getCategoryStyle(post.category)}">
-                                        ${post.category}
-                                    </div>
-                                </div>
-                                <div class="px-3 pb-3 flex-grow flex flex-col justify-between">
-                                    <h3 class="text-2xl font-black font-display mb-3 leading-snug group-hover:text-brand-orange transition-colors">${post.title}</h3>
-                                    <div class="mt-6 pt-4 border-t border-slate-300/30 dark:border-slate-500/20 text-sm opacity-60 font-bold flex justify-between items-center">
-                                        <span>${post.date}</span>
-                                        <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white group-hover:rotate-45 transition-all duration-300">
-                                            <i class="ph-bold ph-arrow-right"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                `;
-            });
-
-            html += `</div>`;
-            swapContent(html);
-        }
-
-        // --- RENDERIZAÇÃO: ARTIGO COMPLETO ---
-        function renderArticle(id) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            const post = POSTS.find(p => String(p.id) === String(id));
-            if(!post) return;
-
-            const parsedContent = marked.parse(post.content);
-
-            let html = `
-                <article class="max-w-4xl mx-auto animate-fade-up relative z-10 pt-4">
-                    <button onclick="renderHome()" class="magnetic mb-10 w-12 h-12 rounded-full liquid-glass flex items-center justify-center hover:bg-brand-pink hover:text-white transition-colors border-none shadow-md">
-                        <i class="ph-bold ph-arrow-left text-xl"></i>
-                    </button>
-
-                    <header class="mb-12 text-center md:text-left">
-                        <span class="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border backdrop-blur-md mb-6 ${getCategoryStyle(post.category)}">
-                            ${post.category}
-                        </span>
-                        <h1 class="text-4xl md:text-5xl lg:text-7xl font-display font-black mb-8 leading-[1.05]">${post.title}</h1>
-                        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm font-bold opacity-60">
-                            <span class="flex items-center gap-2 bg-slate-200 dark:bg-white/10 px-4 py-2 rounded-full"><i class="ph-fill ph-user-circle text-lg text-brand-pink"></i> ${post.author}</span>
-                            <span class="flex items-center gap-2 bg-slate-200 dark:bg-white/10 px-4 py-2 rounded-full"><i class="ph-bold ph-calendar-blank text-lg text-brand-orange"></i> ${post.date}</span>
-                        </div>
-                    </header>
-
-                    <div class="liquid-glass p-2 rounded-[2.5rem] mb-12 shadow-2xl no-hover">
-                        <img src="${post.image}" alt="${post.title}" class="w-full h-auto max-h-[600px] object-cover rounded-[2rem]">
-                    </div>
-
-                    <div class="liquid-glass no-hover rounded-[3rem] p-8 md:p-16 shadow-xl relative">
-                        <div class="w-20 h-1 bg-gradient-to-r from-brand-pink to-brand-orange rounded-full mb-10"></div>
-
-                        <div class="markdown-content font-serif">
-                            ${parsedContent}
-                        </div>
-
-                        <div class="my-12 bg-slate-100/50 dark:bg-white/5 rounded-3xl p-4 flex flex-col items-center justify-center min-h-[250px] border border-dashed border-slate-300 dark:border-white/20 text-center relative overflow-hidden">
-                            <span class="text-xs uppercase tracking-widest opacity-30 font-bold mb-2">Publicidade</span>
-                            <!-- [EDITE AQUI: ADSENSE] -->
-                            <ins class="adsbygoogle"
-                                 style="display:block; text-align:center; min-width:250px;"
-                                 data-ad-layout="in-article"
-                                 data-ad-format="fluid"
-                                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                                 data-ad-slot="XXXXXXXXXX"></ins>
-                        </div>
-
-                        <div class="mt-16 pt-8 border-t border-slate-300/30 dark:border-white/10 flex items-center justify-between">
-                            <span class="font-bold uppercase tracking-widest text-xs opacity-50">Compartilhe</span>
-                            <div class="flex gap-4">
-                                <button class="magnetic w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-brand-cyan hover:text-white transition-colors text-xl"><i class="ph-fill ph-twitter-logo"></i></button>
-                                <button class="magnetic w-12 h-12 rounded-full bg-slate-200 dark:bg-white/10 flex items-center justify-center hover:bg-green-500 hover:text-white transition-colors text-xl"><i class="ph-fill ph-whatsapp-logo"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            `;
-            swapContent(html);
-
-            setTimeout(() => {
-                try { (window.adsbygoogle = window.adsbygoogle || []).push({}); }
-                catch(e) { console.log("AdSense Error (In-Article):", e); }
-            }, 400);
-        }
-
-        // --- RENDERIZAÇÃO: CATEGORIAS (FILTRO) ---
-        function filterCategory(categoryName) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            const filteredPosts = POSTS.filter(p => p.category === categoryName || categoryName === 'Críticas');
-
-            let html = `
-                <div class="flex flex-col items-center justify-center mb-16 animate-fade-up text-center pt-8">
-                    <h1 class="text-5xl md:text-7xl font-display font-black mb-4 text-gradient-flow">
-                        ${categoryName}
-                    </h1>
-                    <div class="w-16 h-1.5 bg-gradient-to-r from-brand-pink to-brand-orange rounded-full"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10">
-            `;
-
-            if(categoryName === 'Críticas') {
-                CRITICAS.forEach((critica, i) => {
-                    html += `
-                        <div class="reveal liquid-glass rounded-[2rem] p-8 border-t-4 border-t-purple-500" style="transition-delay:${(i%3)*90}ms">
-                            <div class="text-xl tracking-widest mb-6">${critica.rating}</div>
-                            <h4 class="font-black text-2xl font-display mb-4 leading-tight">${critica.title}</h4>
-                            <p class="text-lg opacity-80 leading-relaxed italic font-serif">"${critica.text}"</p>
-                        </div>
-                    `;
-                });
-            } else if (filteredPosts.length === 0) {
-                html += `
-                    <div class="col-span-full flex flex-col items-center justify-center py-20 opacity-60 reveal">
-                        <i class="ph-fill ph-planet text-6xl mb-4 text-brand-pink"></i>
-                        <p class="font-display font-bold text-xl">Nenhuma matéria por aqui ainda. Volte em breve!</p>
-                    </div>`;
-            } else {
-                filteredPosts.forEach((post, i) => {
-                    const excerpt = post.content.replace(/<[^>]*>?/gm, '').substring(0, 100) + '...';
-                    html += `
-                        <div class="reveal relative group cursor-pointer h-full" style="transition-delay:${(i%3)*90}ms" onclick="renderArticle('${post.id}')">
-                            <div class="absolute inset-0 rounded-[2.5rem] md:rounded-[2rem] transform translate-x-2 translate-y-3 md:translate-x-3 md:translate-y-4 transition-transform duration-300 group-hover:translate-x-4 group-hover:translate-y-6 ${getEditorialFrameColor(i)} opacity-90 dark:opacity-60"></div>
-
-                            <article class="relative liquid-glass rounded-[2.5rem] md:rounded-[2rem] p-4 flex flex-col h-full z-10">
-                                <div class="w-full h-56 overflow-hidden rounded-[1.5rem] mb-5">
-                                    <img src="${post.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out" alt="${post.title}" loading="lazy">
-                                </div>
-                                <div class="px-3 pb-3 flex-grow flex flex-col">
-                                    <h3 class="text-2xl font-black font-display mb-4 leading-snug group-hover:text-brand-pink transition-colors">${post.title}</h3>
-                                    <p class="text-sm opacity-70 mb-6 flex-grow font-serif leading-relaxed">${excerpt}</p>
-                                    <div class="mt-auto pt-4 border-t border-slate-300/30 dark:border-white/10 text-xs font-bold opacity-50 flex items-center gap-2">
-                                        <i class="ph-bold ph-clock"></i> ${post.date}
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    `;
-                });
-            }
-
-            html += `</div>`;
-            swapContent(html);
-        }
-
-        // ============================================================
-        // INICIALIZAÇÃO
-        // ============================================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const html = document.documentElement;
-            const icon = document.querySelector('#theme-toggle i');
-
-            // Lembra a preferência de tema do visitante
-            const savedTheme = localStorage.getItem('marteAlmaTheme');
-            if (savedTheme === 'dark') html.classList.add('dark');
-
-            if (html.classList.contains('dark')) {
-                icon.className = 'ph-fill ph-sun text-xl text-brand-orange transition-transform';
-            } else {
-                icon.className = 'ph-fill ph-moon text-xl text-slate-800 dark:text-white transition-transform';
-            }
-
-            checkCookies();
-
-            setTimeout(() => {
-                if (window.auth && window.db) {
-                    window.signInAnonymously(window.auth).then(() => {
-                        const articlesRef = window.collection(window.db, 'artifacts', window.appId, 'public', 'data', 'articles');
-                        window.onSnapshot(articlesRef, (snapshot) => {
-                            const newPosts = [];
-                            snapshot.forEach((doc) => newPosts.push({ id: doc.id, ...doc.data() }));
-
-                            POSTS = newPosts.length === 0 ? [...FALLBACK_POSTS] : newPosts.sort((a, b) => b.timestamp - a.timestamp);
-                            renderHome();
-                        }, () => {
-                            POSTS = [...FALLBACK_POSTS];
-                            renderHome();
-                        });
-                    }).catch(() => {
-                        POSTS = [...FALLBACK_POSTS];
-                        renderHome();
-                    });
-                } else {
-                    POSTS = [...FALLBACK_POSTS];
-                    renderHome();
-                }
-            }, 900);
-        });
-    </script>
+        const q = query(collection(db,'articles'), where('status','==','published'), limit(100));
+        onSnapshot(q, snapshot => {
+          const live = snapshot.docs.map((d,i)=>normalizePost({id:d.id,...d.data()},i)).sort((a,b)=>b.publishedAt-a.publishedAt);
+          POSTS = live.length ? live : FALLBACK_POSTS.map(normalizePost);
+          routeFromUrl();
+        }, err => { console.warn('Firestore indisponível, usando fallback:',err); POSTS=FALLBACK_POSTS.map(normalizePost); routeFromUrl(); });
+      } catch (err) { console.warn('Firebase não configurado corretamente:',err); POSTS=FALLBACK_POSTS.map(normalizePost); routeFromUrl(); }
+    }
+    boot();
+  </script>
 </body>
 </html>
