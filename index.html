@@ -588,6 +588,12 @@
     // ==========================================================
     // Conteúdo inicial compartilhado com o editor da redação.
     // As versões salvas no banco têm prioridade.
+    let POSTS = [];
+    let auth, db, currentUser = null, stopComments = null;
+    const content = document.getElementById('dynamic-content');
+    const $ = (s, root=document) => root.querySelector(s);
+    const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+    const escapeHtml = (value='') => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
     const slugify = (value='') => value.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
     function normalizePost(post, index=0) {
@@ -938,6 +944,8 @@
 
     // Firebase: se não estiver configurado, usa fallback automaticamente.
     async function boot() {
+      POSTS = FALLBACK_POSTS.map(normalizePost).sort((a,b)=>b.publishedAt-a.publishedAt);
+      routeFromUrl();
       const configured = firebaseConfig.apiKey && firebaseConfig.apiKey !== 'COLE_AQUI' && firebaseConfig.projectId && !firebaseConfig.projectId.startsWith('SEU-');
       if (!configured) { POSTS = FALLBACK_POSTS.map(normalizePost).sort((a,b)=>b.publishedAt-a.publishedAt); return routeFromUrl(); }
       try {

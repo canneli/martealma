@@ -97,11 +97,3 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         content: `## Longo demais para tão pouco movimento\n\n*O Núcleo* tem uma premissa que poderia render aventura: o centro da Terra para de funcionar e uma equipe precisa atravessar o planeta para consertar o problema. Na prática, porém, há pouquíssimas coisas acontecendo para um filme tão longo.\n\n## A seriedade vira problema\n\nHilary Swank não consegue salvar uma trama que parece uma paródia feita sem perceber que é paródia. O longa insiste em elevar o absurdo sem construir personagens ou tensão que acompanhem esse esforço.\n\n> A viagem ao centro da Terra é longa; a sensação é que o filme faz questão de levar o público junto.`
       }
     ];
-
-    let POSTS = [];
-    let auth, db, currentUser = null, stopComments = null;
-    const content = document.getElementById('dynamic-content');
-    const $ = (s, root=document) => root.querySelector(s);
-    const $$ = (s, root=document) => [...root.querySelectorAll(s)];
-
-    const escapeHtml = (value='') => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
