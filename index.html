@@ -29,7 +29,7 @@
           fontFamily: {
             sans: ['Outfit', 'sans-serif'],
             display: ['Syne', 'sans-serif'],
-            brand: ['Unbounded', 'sans-serif']
+            brand: ['Outfit', 'sans-serif']
           },
           colors: {
             brand: {
@@ -48,24 +48,24 @@
   <style>
     :root {
       color-scheme: light;
-      --bg: #f7f7fa;
-      --surface: rgba(255,255,255,.72);
-      --surface-strong: rgba(255,255,255,.90);
-      --text: #12121a;
-      --muted: #6f7280;
-      --line: rgba(18,18,26,.10);
-      --shadow: 0 18px 60px rgba(41, 34, 63, .10);
+      --bg: #f4f0e9;
+      --surface: rgba(255,253,249,.92);
+      --surface-strong: rgba(255,253,249,.98);
+      --text: #201e1d;
+      --muted: #625e5a;
+      --line: rgba(32,30,29,.13);
+      --shadow: 0 18px 60px rgba(50, 38, 31, .11);
     }
 
     .dark {
       color-scheme: dark;
-      --bg: #07070b;
-      --surface: rgba(18,18,26,.68);
-      --surface-strong: rgba(18,18,26,.92);
-      --text: #f7f7fb;
-      --muted: #a6a6b3;
-      --line: rgba(255,255,255,.10);
-      --shadow: 0 18px 70px rgba(0,0,0,.44);
+      --bg: #171512;
+      --surface: rgba(35,32,28,.94);
+      --surface-strong: rgba(42,38,33,.98);
+      --text: #fbf6ee;
+      --muted: #c4bcb1;
+      --line: rgba(255,246,235,.16);
+      --shadow: 0 18px 70px rgba(0,0,0,.34);
     }
 
     * { box-sizing: border-box; }
@@ -86,9 +86,9 @@
       z-index: -3;
       pointer-events: none;
       background:
-        radial-gradient(circle at 8% 8%, rgba(255,79,163,.16), transparent 34%),
-        radial-gradient(circle at 92% 18%, rgba(255,122,26,.13), transparent 34%),
-        radial-gradient(circle at 50% 80%, rgba(36,198,220,.10), transparent 34%);
+        radial-gradient(circle at 8% 8%, rgba(255,79,163,.11), transparent 34%),
+        radial-gradient(circle at 92% 18%, rgba(255,122,26,.10), transparent 34%),
+        radial-gradient(circle at 50% 80%, rgba(36,198,220,.07), transparent 34%);
     }
 
     .noise {
@@ -188,9 +188,9 @@
 
 
     /* ===================== MARTE ALMA / MAXIMALISMO EDITORIAL ===================== */
-    /* Mantém a identidade, mas devolve legibilidade aos rótulos e números. */
-    .font-brand { font-family: 'Syne', sans-serif; letter-spacing: .04em; }
-    .review-score { font-family: 'Syne', sans-serif; font-variant-numeric: tabular-nums; }
+    /* Uma fonte só para leitura e rótulos: a antiga geometria esmagava palavras demais. */
+    .font-brand { font-family: 'Outfit', sans-serif; letter-spacing: .035em; }
+    .review-score { font-family: 'Outfit', sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.07em; }
 
     body::after {
       content: "";
@@ -210,7 +210,7 @@
       position: fixed;
       border-radius: 999px;
       filter: blur(90px);
-      opacity: .48;
+      opacity: .22;
       pointer-events: none;
       z-index: -2;
       animation: cosmicFloat 18s ease-in-out infinite alternate;
@@ -240,8 +240,8 @@
     @keyframes headlineFlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
     .maxi-title {
-      text-shadow: 0 10px 35px rgba(255,79,163,.13);
-      letter-spacing: -.055em;
+      text-shadow: 0 10px 35px rgba(255,79,163,.10);
+      letter-spacing: -.035em;
     }
 
     .now-ribbon {
@@ -321,9 +321,10 @@
       left: 22px;
       top: 22px;
       color: white;
-      font-family: 'Unbounded', sans-serif;
-      font-size: .62rem;
-      letter-spacing: .18em;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: .68rem;
+      letter-spacing: .11em;
       text-transform: uppercase;
       border: 1px solid rgba(255,255,255,.28);
       background: rgba(9,9,15,.22);
@@ -383,7 +384,7 @@
       box-shadow: var(--shadow);
     }
 
-    .section-kicker { font-family:'Unbounded',sans-serif; font-size:.61rem; letter-spacing:.18em; text-transform:uppercase; }
+    .section-kicker { font-family:'Outfit',sans-serif; font-weight:800; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; }
 
     .newsletter-max {
       border-radius: 2.8rem;
@@ -400,12 +401,29 @@
       right:-70px;
       top:32px;
       transform:rotate(11deg);
-      font-family:'Unbounded',sans-serif;
+      font-family:'Outfit',sans-serif;
       font-size:clamp(.62rem,1vw,.78rem);
       letter-spacing:.14em;
       opacity:.08;
       white-space:nowrap;
     }
+
+    .score-panel {
+      background: linear-gradient(135deg, #fff8ea, #fffdf8);
+      color: #201e1d;
+      border: 1px solid rgba(32,30,29,.14);
+      box-shadow: 0 18px 42px rgba(71,44,22,.15);
+    }
+    .dark .score-panel { background: linear-gradient(135deg, #f5e1b8, #fff5df); color: #221d17; }
+    .score-square {
+      background: #201e1d;
+      color: #fff8eb;
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    .score-filter[aria-pressed="true"] { background: #201e1d; color: #fff8eb; border-color: #201e1d; }
+    .dark .score-filter[aria-pressed="true"] { background: #fff8eb; color: #201e1d; border-color: #fff8eb; }
+    .rating-card { background: var(--surface-strong); border:1px solid var(--line); box-shadow: var(--shadow); }
 
     @media (max-width: 767px) {
       .cosmos-orb { filter: blur(70px); opacity: .34; }
@@ -420,6 +438,7 @@
       .radar-card { border-radius:1.8rem; }
       .editorial-card::before { inset:7px -4px -7px 7px; }
       .newsletter-max { border-radius:2rem; }
+      .score-panel { border-radius: 1.5rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -461,6 +480,7 @@
         <button data-category="Cinema" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Cinema</button>
         <button data-category="Séries" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Séries</button>
         <button data-category="Críticas" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Críticas</button>
+        <button data-reviews class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Notas</button>
       </nav>
 
       <div class="flex items-center gap-1.5 md:gap-2">
@@ -487,6 +507,7 @@
       <button data-category="Cinema" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-cyan/12 text-brand-cyan grid place-items-center"><i class="ph-fill ph-film-strip text-xl"></i></span> Cinema</button>
       <button data-category="Séries" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-television text-xl"></i></span> Séries</button>
       <button data-category="Críticas" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas</button>
+      <button data-reviews class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-squares-four text-xl"></i></span> Notas</button>
     </nav>
     <div class="mt-auto pt-7 border-t border-black/10 dark:border-white/10">
       <a href="admin.html" class="mb-4 w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold">
@@ -522,6 +543,7 @@
         <button data-category="Cinema" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Cinema</button>
         <button data-category="Séries" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Séries</button>
         <button data-category="Críticas" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Críticas</button>
+        <button data-reviews class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Notas</button>
       </div>
 
       <div id="dynamic-content">
@@ -564,6 +586,7 @@
         category: 'Críticas', author: 'Felipe R. Fonseca', image: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/50/76/be/5076be6d-5115-4f43-4da8-cae3c564133f/885288071498.jpg/1200x630wp-60.jpg',
         featured: true, status: 'published', publishedAt: new Date('2026-10-05T13:16:00'),
         reviewScore: 70,
+        reviewType: 'Música',
         reviewBreakdown: { cancoes: 72, producao: 76, coesao: 60, impacto: 72 },
         content: `**Nota: 7/10**
 
@@ -588,44 +611,68 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
 > Um disco mais interessante do que redondo.`
       },
       {
-        id: '1', slug: 'lady-gaga-retorno-pistas',
-        title: 'O retorno apoteótico de Lady Gaga às pistas de dança',
-        excerpt: 'Uma era que transforma pista, performance e imaginário pop em um mesmo espetáculo.',
-        category: 'Pop', author: 'Redação Marte', image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=85&w=1800&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2026-06-30T12:00:00'),
-        content: `A espera acabou. O novo capítulo da estrela pop chega às plataformas apostando em impacto visual, produção eletrônica e um senso de espetáculo que conversa diretamente com a pista.\n\n## Uma era construída como evento\n\nMais do que uma coleção de faixas, o projeto trabalha estética, coreografia e narrativa como partes de uma mesma experiência.\n\n> Pop funciona melhor quando parece maior do que a própria música.\n\nO resultado é uma fase desenhada para ser vista, comentada e revisitada.`
+        id: 'challengers', slug: 'challengers-triangulo-realista',
+        title: 'Challengers entende que desejo também é jogo de posição',
+        excerpt: 'A pouca interação entre Art e Patrick incomoda no começo, mas o desfecho encontra uma verdade emocional que sustenta o triângulo.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-06-04T12:00:00'), reviewScore: 70, reviewType: 'Filmes', reviewBreakdown: { roteiro: 68, atuações: 78, direção: 74, impacto: 70 },
+        content: `## O jogo não acontece só na quadra\n\n*Challengers* demora um pouco para tornar clara a medida da relação entre Art e Patrick. A falta de cenas mais diretas entre os dois pode dar a impressão de que o filme segura uma peça importante demais. Ainda assim, a ausência também ajuda a prender o espectador na perspectiva instável de Tashi.\n\n## Um final que resolve sem simplificar\n\nNo desfecho, o que parecia pouco desenvolvido encontra uma resposta mais realista. A relação entre os dois é feita de competição, ressentimento e desejo de reconhecimento. Não é uma solução confortável, mas também não é vazia.\n\n> O enredo funciona porque entende que nenhum dos três sabe separar amor, ego e ambição.`
       },
       {
-        id: '2', slug: 'duna-messias-visual',
-        title: 'Duna: Messias mira um encerramento monumental',
-        excerpt: 'A escala aumenta, mas o maior desafio continua sendo humano: transformar destino em consequência.',
-        category: 'Cinema', author: 'João Crítico', image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=85&w=1400&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2026-06-28T10:00:00'),
-        content: `O universo de Duna sempre foi sobre grandiosidade e intimidade ao mesmo tempo. É justamente nessa tensão que uma conclusão precisa encontrar força.\n\n## Escala não é tudo\n\nO espetáculo importa, mas a consequência das escolhas é o que sustenta a saga.`
+        id: 'puss-last-wish', slug: 'gato-de-botas-ultimo-pedido',
+        title: 'Gato de Botas 2 é o filme que fez o primeiro parecer ensaio',
+        excerpt: 'Joel Crawford supera a aventura anterior com uma animação mais afiada, mais bonita e muito mais segura do que quer ser.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-28T11:00:00'), reviewScore: 100, reviewType: 'Filmes', reviewBreakdown: { roteiro: 96, animação: 100, personagens: 100, impacto: 98 },
+        content: `## Quando a sequência encontra uma razão para existir\n\nJoel Crawford conseguiu fazer de *Gato de Botas 2: O Último Pedido* mais do que uma continuação simpática. O filme é tão mais inventivo e bem resolvido que, para quem quer entrar nesse canto do universo de *Shrek*, ele virou a recomendação óbvia antes do primeiro longa.\n\n## A aventura tem peso\n\nA animação é viva, os personagens têm função dramática e a história não trata o público infantil como se ele só precisasse de barulho e cor. O medo, o desejo de viver e a noção de limite aparecem numa aventura que se permite ser engraçada sem abrir mão de sentimento.\n\n> Um daqueles raros casos em que a franquia lembra que ainda pode ter imaginação.`
       },
       {
-        id: '3', slug: 'ruptura-melhor-serie',
-        title: 'Por que Ruptura continua parecendo a série mais afiada da TV?',
-        excerpt: 'Arquitetura, silêncio e paranoia corporativa transformados em linguagem de suspense.',
-        category: 'Séries', author: 'Alma Editorial', image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=85&w=1400&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2026-06-25T09:00:00'),
-        content: `Poucas séries conseguem fazer de um corredor vazio uma ameaça. Ruptura entende que atmosfera também é roteiro.\n\n## O desconforto como método\n\nCada enquadramento parece esconder uma regra que o espectador ainda não conhece.`
+        id: 'interstellar', slug: 'interstellar-ainda-olha-para-o-humano',
+        title: 'Interestelar é gigante porque não esquece das pessoas',
+        excerpt: 'O espetáculo visual é imenso, mas o que permanece é a tentativa de discutir uma ideia humana dentro de uma ficção científica de escala absurda.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-28T10:00:00'), reviewScore: 90, reviewType: 'Filmes', reviewBreakdown: { roteiro: 84, visual: 98, personagens: 88, impacto: 92 },
+        content: `## Ficção científica com pulso\n\n*Interestelar* é autêntico porque usa a escala cósmica para falar de uma filosofia humana bem simples: o que a gente faz quando o futuro exige que alguém fique para trás? Os efeitos visuais são lindos, mas não funcionam como vitrine solta. Eles servem à sensação de distância, urgência e perda.\n\n## Mais do que um quebra-cabeça\n\nOs personagens têm espaço para carregar essa ideia, e o filme não precisa escolher entre ser uma experiência visual e uma história emocional. Nem todas as explicações precisam ser recebidas da mesma forma por todo mundo, mas o sentimento que sustenta a viagem é direto.\n\n> É um filme que olha para o espaço para falar do tamanho das escolhas humanas.`
       },
       {
-        id: '4', slug: 'dua-lipa-turne-america-latina',
-        title: 'Dua Lipa leva nova turnê para estádios da América Latina',
-        excerpt: 'Uma produção pensada para escala gigante sem abandonar a precisão coreográfica do pop de arena.',
-        category: 'Pop', author: 'Redação Marte', image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=85&w=1400&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2026-06-22T14:00:00'),
-        content: `A nova etapa da turnê amplia o formato do show para arenas e estádios, com cenografia modular e forte presença de dança.`
+        id: 'saltburn', slug: 'saltburn-estranho-com-razao',
+        title: 'Saltburn incomoda de propósito e sabe a hora de virar a faca',
+        excerpt: 'A estranheza é a porta de entrada; a reviravolta é o momento em que o filme deixa claro que estava armando o terreno.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-28T09:00:00'), reviewScore: 90, reviewType: 'Filmes', reviewBreakdown: { roteiro: 90, direção: 92, atuações: 88, impacto: 90 },
+        content: `## Estranheza não é defeito quando tem função\n\n*Saltburn* provoca um desconforto constante, e isso faz parte do pacote. O filme se constrói em cima de situações que parecem excessivas, deslocadas e até meio suspeitas. É uma escolha que pode afastar, mas também mantém a narrativa em alerta.\n\n## A virada reorganiza tudo\n\nQuando a história revela de onde vinha essa energia estranha, a reviravolta não parece colocada só para chocar. Ela dá outro peso aos gestos, às relações e à ambição que o filme estava encenando.\n\n> Ele não pede para você gostar de cada escolha; pede para você perceber o plano por trás delas.`
       },
       {
-        id: '5', slug: 'cinema-cor-imagem',
-        title: 'Quando a cor conta a história antes do diálogo',
-        excerpt: 'Como fotografia e direção de arte conseguem preparar emocionalmente uma cena sem dizer uma palavra.',
-        category: 'Críticas', author: 'Marte Crítica', image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=85&w=1400&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2026-06-18T15:00:00'),
-        content: `A cor não serve apenas para deixar um filme bonito. Ela organiza expectativa, memória e tensão.`
+        id: 'top-gun-maverick', slug: 'top-gun-maverick-uma-sequencia-impecavel',
+        title: 'Top Gun: Maverick prova que uma sequência pode melhorar a lenda',
+        excerpt: 'Com uma história precisa e cenas de voo que têm consequência, o filme passa por cima do original de 1986 sem tratá-lo como descartável.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-28T08:00:00'), reviewScore: 100, reviewType: 'Filmes', reviewBreakdown: { roteiro: 98, ação: 100, personagens: 94, impacto: 100 },
+        content: `## Nostalgia só funciona quando o filme anda com as próprias pernas\n\n*Top Gun: Maverick* respeita o primeiro filme, mas não se apoia nele o tempo todo. A sequência encontra uma história clara para Pete Mitchell, cria uma missão que importa e faz cada cena de ação carregar algum risco emocional.\n\n## O espetáculo vem com consequência\n\nAs imagens aéreas são impressionantes porque não entram apenas para enfeitar. Elas ajudam a fazer da missão um teste de técnica, lealdade e amadurecimento. É difícil sair sem a sensação de que a continuação conseguiu ultrapassar o ponto de partida.\n\n> Uma sequência rara: fiel ao que existia, mas melhor porque sabe o que fazer com isso.`
+      },
+      {
+        id: 'halloween-1978', slug: 'halloween-1978-o-sucesso-de-jamie-lee-curtis',
+        title: 'Halloween já entendia o poder de Jamie Lee Curtis',
+        excerpt: 'O clássico abriu espaço para uma protagonista que transformou vulnerabilidade e inteligência em força — e o sucesso dela não foi acaso.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-27T18:00:00'), reviewScore: 100, reviewType: 'Filmes', reviewBreakdown: { direção: 100, suspense: 100, atuação: 96, legado: 100 },
+        content: `## Uma estrela nasce no meio do terror\n\nO sucesso de Jamie Lee Curtis é merecido, e *Halloween* deixa isso claro desde o começo. Laurie Strode não funciona porque o filme precisa de uma heroína pronta; ela funciona porque Curtis encontra a medida entre medo, atenção e sobrevivência.\n\n## O clássico não precisa gritar\n\nA simplicidade da trama ajuda o terror a ficar maior. O filme prefere construir clima, silêncio e presença em vez de explicar demais. É uma escolha que ainda sustenta o impacto do longa.\n\n> A carreira de Jamie Lee Curtis começou bem porque o filme enxergou muito mais nela do que uma vítima.`
+      },
+      {
+        id: 'avatar-way-water', slug: 'avatar-o-caminho-da-agua-e-o-prazer-de-rever',
+        title: 'Avatar: O Caminho da Água é lindo o bastante para merecer replay',
+        excerpt: 'A sequência entrega um mundo visualmente enorme e uma história que, mesmo com clichês, sabe ser vista de novo.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-27T16:00:00'), reviewScore: 80, reviewType: 'Filmes', reviewBreakdown: { roteiro: 72, visual: 100, personagens: 76, impacto: 82 },
+        content: `## O visual é parte da experiência\n\n*Avatar: O Caminho da Água* é uma ótima sequência porque constrói um universo que convida a ficar mais tempo nele. A beleza visual não aparece como um extra: ela organiza o ritmo, a escala e o prazer de descobrir cada novo espaço.\n\n## Clichês, mas com vontade de voltar\n\nO enredo tem caminhos conhecidos, e isso impede o filme de chegar a um lugar ainda mais forte. Mesmo assim, a história segura o suficiente para que a experiência não dependa só do efeito técnico. É um filme que aceita ser grandioso e ainda deixa vontade de rever.\n\n> Nem todo replay precisa de uma tese; às vezes ele vem porque o mundo ainda tem coisa para mostrar.`
+      },
+      {
+        id: 'the-core', slug: 'o-nucleo-uma-parodia-seria-demais',
+        title: 'O Núcleo tem pouca coisa acontecendo para tanto tempo de filme',
+        excerpt: 'Mesmo com Hilary Swank no elenco, a trama parece uma paródia séria demais de Viagem ao Centro da Terra.',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=85&w=1600&auto=format&fit=crop',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-27T14:00:00'), reviewScore: 50, reviewType: 'Filmes', reviewBreakdown: { roteiro: 42, visual: 58, personagens: 52, impacto: 46 },
+        content: `## Longo demais para tão pouco movimento\n\n*O Núcleo* tem uma premissa que poderia render aventura: o centro da Terra para de funcionar e uma equipe precisa atravessar o planeta para consertar o problema. Na prática, porém, há pouquíssimas coisas acontecendo para um filme tão longo.\n\n## A seriedade vira problema\n\nHilary Swank não consegue salvar uma trama que parece uma paródia feita sem perceber que é paródia. O longa insiste em elevar o absurdo sem construir personagens ou tensão que acompanhem esse esforço.\n\n> A viagem ao centro da Terra é longa; a sensação é que o filme faz questão de levar o público junto.`
       }
     ];
 
@@ -684,6 +731,49 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       return `data-open-article="${escapeHtml(post.slug)}" ${extra}`;
     }
 
+    function scoreVerdict(score) {
+      if (score >= 90) return 'essencial';
+      if (score >= 80) return 'muito bom';
+      if (score >= 70) return 'bom';
+      if (score >= 60) return 'irregular';
+      return 'fraco';
+    }
+
+    function reviewType(post) {
+      if (post.reviewType) return post.reviewType;
+      if (post.category === 'Cinema') return 'Filmes';
+      if (post.category === 'Séries') return 'Séries';
+      return 'Música';
+    }
+
+    function renderReviewCard(post) {
+      return `<article ${articleButton(post)} class="rating-card cursor-pointer rounded-[1.6rem] p-4 md:p-5 grid grid-cols-[82px_1fr] gap-4 hover:-translate-y-1 transition-transform">
+        <div class="score-square review-score rounded-2xl aspect-square grid place-items-center text-4xl font-black leading-none">${post.reviewScore}</div>
+        <div class="min-w-0"><div class="section-kicker opacity-55 mb-1">${escapeHtml(reviewType(post))} · ${scoreVerdict(post.reviewScore)}</div><h3 class="font-display font-extrabold text-xl leading-[1.02] tracking-[-.025em]">${escapeHtml(post.title)}</h3><p class="text-sm opacity-65 leading-relaxed mt-2 line-clamp-2">${escapeHtml(post.excerpt)}</p><div class="mt-3 text-xs font-bold opacity-50">${dateLabel(post.publishedAt)} · ${escapeHtml(post.author)}</div></div>
+      </article>`;
+    }
+
+    function renderReviews(active='Todos', push=true) {
+      if (push) history.pushState({reviews:true}, '', `${location.pathname}?notas=1`);
+      document.title = 'Notas | Marte Alma';
+      const reviews = POSTS.filter(p => Number.isFinite(Number(p.reviewScore)));
+      const types = ['Todos', 'Música', 'Filmes', 'Séries'];
+      const filtered = active === 'Todos' ? reviews : reviews.filter(p => reviewType(p) === active);
+      content.innerHTML = `<section class="pt-5 md:pt-10 max-w-[1180px] mx-auto">
+        <button data-go-home class="text-sm font-bold opacity-65 hover:opacity-100 mb-8 inline-flex items-center gap-2"><span class="w-10 h-10 rounded-full glass grid place-items-center"><i class="ph-bold ph-arrow-left"></i></span> Voltar para a órbita</button>
+        <header class="rounded-[2rem] md:rounded-[2.8rem] glass p-6 md:p-10 mb-8 md:mb-10 overflow-hidden relative">
+          <p class="section-kicker text-brand-orange mb-3">Índice de críticas</p><h1 class="maxi-title font-display font-extrabold text-5xl md:text-7xl leading-[.88] max-w-3xl">Notas que deixam claro o que a crítica achou.</h1>
+          <p class="max-w-2xl mt-5 text-base md:text-lg opacity-70 leading-relaxed">Cada obra recebe uma nota de 0 a 100. A nota resume a leitura, não substitui o texto: contexto, ambição e execução entram na conta.</p>
+          <div class="mt-7 flex flex-wrap gap-2">${types.map(type => `<button data-review-filter="${type}" aria-pressed="${type===active}" class="score-filter px-4 py-2 rounded-full border border-black/15 dark:border-white/20 text-sm font-bold transition">${type}</button>`).join('')}</div>
+        </header>
+        <div class="grid md:grid-cols-2 gap-5">${filtered.length ? filtered.map(renderReviewCard).join('') : `<div class="md:col-span-2 rounded-[1.6rem] rating-card p-10 text-center"><i class="ph-fill ph-film-strip text-4xl text-brand-orange"></i><p class="font-display font-bold text-xl mt-3">Ainda não há críticas publicadas nesta categoria.</p><p class="opacity-60 mt-2">Quando elas entrarem, aparecem aqui sem precisar reinventar o site inteiro.</p></div>`}</div>
+        <details class="mt-10 rounded-[1.6rem] glass p-5 md:p-7"><summary class="cursor-pointer font-display font-extrabold text-xl">Como a nota funciona</summary><div class="mt-4 max-w-3xl text-sm md:text-base opacity-70 leading-relaxed space-y-3"><p>Roteiro ou canções, direção ou produção, performances, coesão e impacto são avaliados conforme a obra. Não existe fórmula fixa que transforme arte em boletim de escola.</p><p>90–100: essencial · 80–89: muito bom · 70–79: bom · 60–69: irregular · abaixo de 60: fraco. O texto explica onde a obra ganha, tropeça ou simplesmente resolve se sabotar.</p></div></details>
+      </section>`;
+      bindDynamicEvents();
+      $$('[data-review-filter]', content).forEach(btn => btn.addEventListener('click', () => renderReviews(btn.dataset.reviewFilter)));
+      observeReveals(); closeMenu(); window.scrollTo({top:0, behavior:'smooth'});
+    }
+
     function renderHome() {
       document.title = 'Marte Alma | Cultura & Entretenimento';
       history.replaceState(null, '', location.pathname);
@@ -734,6 +824,14 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
             </div>
             <div class="mt-5 pt-5 border-t border-black/10 dark:border-white/10 flex items-center gap-3 opacity-55 relative z-10"><span class="w-8 h-8 rounded-full border border-current grid place-items-center"><i class="ph-bold ph-wave-sine"></i></span><span class="text-xs font-brand tracking-[.08em] uppercase">Sinal editorial ativo</span></div>
           </aside>
+        </section>
+
+        <section class="mb-20 md:mb-28 reveal">
+          <div class="flex flex-col lg:flex-row gap-6 lg:items-end lg:justify-between mb-7">
+            <div><p class="section-kicker text-brand-orange mb-3">Índice de críticas</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl leading-[.9]">A nota, sem<br>letra miúda.</h2></div>
+            <div class="max-w-md"><p class="opacity-65 leading-relaxed">Música, filmes e séries num arquivo único. A nota é de 0 a 100; a crítica é onde a conversa acontece.</p><button data-reviews class="mt-4 inline-flex items-center gap-2 font-bold text-sm hover:text-brand-orange transition">Ver todas as notas <i class="ph-bold ph-arrow-up-right"></i></button></div>
+          </div>
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">${POSTS.filter(p => Number.isFinite(Number(p.reviewScore))).slice(0,3).map(renderReviewCard).join('')}</div>
         </section>
 
         <section class="mb-20 md:mb-28">
@@ -806,7 +904,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
             <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / ${post.reviewScore != null ? 'crítica' : 'notícia em órbita'}</p>
             <h1 class="maxi-title font-display font-extrabold text-[clamp(2.7rem,7.6vw,7rem)] leading-[.84] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
             <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
-            ${post.reviewScore != null ? `<div class="mx-auto mb-8 max-w-md rounded-[1.8rem] border border-brand-orange/35 bg-brand-orange/[.08] p-4 md:p-5 flex items-center gap-5 text-left"><div class="review-score shrink-0 w-24 h-24 rounded-2xl bg-brand-orange text-brand-ink grid place-items-center font-black text-5xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-50 mb-1">Nota Marte Alma · 0–100</p><p class="font-display font-extrabold text-xl leading-tight">Boa, inquieta e irregular.</p><p class="text-sm opacity-60 mt-1">Um disco que troca de rota antes de perder a energia.</p></div></div>` : ''}
+            ${post.reviewScore != null ? `<div class="score-panel mx-auto mb-8 max-w-md rounded-[1.8rem] p-4 md:p-5 flex items-center gap-5 text-left"><div class="score-square review-score shrink-0 w-24 h-24 rounded-2xl grid place-items-center font-black text-5xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-60 mb-1">Nota Marte Alma · 0–100</p><p class="font-display font-extrabold text-xl leading-tight">${scoreVerdict(post.reviewScore)}</p><p class="text-sm opacity-70 mt-1">A crítica inteira explica o caminho até essa nota.</p></div></div>` : ''}
             <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-xs md:text-sm font-semibold opacity-55 relative z-10"><span>${escapeHtml(post.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(post.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(post.content)} min de leitura</span></div>
           </header>
 
@@ -850,6 +948,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
     function bindDynamicEvents() {
       $$('[data-open-article]', content).forEach(el => el.addEventListener('click', () => renderArticle(el.dataset.openArticle)));
       $$('[data-go-home]', content).forEach(el => el.addEventListener('click', () => { history.pushState({},'',location.pathname); renderHome(); closeMenu(); }));
+      $$('[data-reviews]', content).forEach(el => el.addEventListener('click', () => renderReviews()));
     }
 
     function bindShare(post) {
@@ -884,6 +983,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
     // Categorias globais
     $$('[data-category]').forEach(btn => btn.addEventListener('click',()=>renderCategory(btn.dataset.category)));
     $$('[data-go-home]').forEach(btn => btn.addEventListener('click',renderHome));
+    $$('[data-reviews]').forEach(btn => btn.addEventListener('click',()=>renderReviews()));
 
     // Tema
     const themeButton = $('#theme-button');
@@ -900,7 +1000,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
 
     // Navegação voltar/avançar
     addEventListener('popstate',routeFromUrl);
-    function routeFromUrl(){ const slug=new URLSearchParams(location.search).get('artigo'); if(slug) renderArticle(slug,false); else renderHome(); }
+    function routeFromUrl(){ const params=new URLSearchParams(location.search); const slug=params.get('artigo'); if(slug) renderArticle(slug,false); else if(params.get('notas')) renderReviews('Todos', false); else renderHome(); }
 
     // Firebase: se não estiver configurado, usa fallback automaticamente.
     async function boot() {
