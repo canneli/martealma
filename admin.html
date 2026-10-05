@@ -57,10 +57,12 @@
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
     import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, serverTimestamp, Timestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
 
     const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
+    // Mantém o acesso da redação neste navegador até a pessoa sair manualmente.
+    setPersistence(auth, browserLocalPersistence);
     const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
     let posts=[];
     const slugify=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');

@@ -482,6 +482,10 @@
       <button data-category="Críticas" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas</button>
     </nav>
     <div class="mt-auto pt-7 border-t border-black/10 dark:border-white/10">
+      <a href="admin.html" class="mb-4 w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold">
+        <span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-pencil-simple text-xl"></i></span>
+        <span>Área da redação</span>
+      </a>
       <div class="rounded-[1.4rem] p-4 bg-gradient-to-br from-brand-pink/12 via-brand-orange/8 to-brand-violet/12 border border-brand-pink/10">
         <p class="font-display font-black text-lg mb-1">Não perca a próxima órbita.</p>
         <p class="text-sm opacity-60 leading-relaxed mb-4">Receba as principais matérias e críticas do Marte Alma.</p>
@@ -546,11 +550,40 @@
     // ==========================================================
     const FALLBACK_POSTS = [
       {
+        id: 'lost-in-lust-pabllo-vittar-critica',
+        slug: 'lost-in-lust-pabllo-vittar-critica',
+        title: 'Lost in Lust é bagunçado, mas é uma bagunça que faz sentido',
+        excerpt: 'Pabllo Vittar mistura gêneros e referências no novo álbum. Nem tudo encaixa, mas o disco tem personalidade demais para ser ignorado.',
+        category: 'Críticas', author: 'Felipe R. Fonseca', image: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/50/76/be/5076be6d-5115-4f43-4da8-cae3c564133f/885288071498.jpg/1200x630wp-60.jpg',
+        featured: true, status: 'published', publishedAt: new Date('2026-10-05T13:16:00'),
+        content: `**Nota: 7/10**
+
+*Lost in Lust* é um álbum que vai deixar muita gente confusa na primeira audição. Não porque seja difícil de ouvir, mas porque ele muda muito de uma música para a outra. Você está em uma faixa com cara de house, aí vem uma batida de batekoo. Depois entra um funk mais experimental, depois um perreo. Parece que a Pabllo abriu todas as portas da pista de uma vez.
+
+E isso é uma coisa que funciona muito bem aqui no Brasil. A gente está acostumado com essa mistura. Em uma mesma noite, você pode ouvir funk, pop, eletrônico, reggaeton e música de aparelhagem sem achar que alguém perdeu o controle da playlist. Faz parte da forma como a gente escuta e vive música.
+
+Só que, para quem está ouvindo de fora, principalmente pensando no público internacional que o álbum quer alcançar, essas mudanças podem soar estranhas. O disco não tem medo de trocar de caminho, mas às vezes parece que ele muda antes de terminar de desenvolver uma ideia.
+
+## Uma bagunça que faz sentido
+
+A questão é que *Lost in Lust* não parece querer ser um álbum certinho. Ele não está tentando fazer tudo caber em uma estética única, com faixas que seguem a mesma fórmula e transições super amarradas. Pabllo prefere ir testando sons, referências e idiomas, mesmo que isso deixe o projeto menos redondo.
+
+Essa escolha tem seus pontos bons e ruins. O lado bom é que o álbum tem personalidade. Mesmo quando ele vai para uma sonoridade mais internacional, ainda existe algo muito brasileiro na forma como essas referências aparecem. Não parece que Pabllo está tentando apagar de onde veio para agradar um público maior.
+
+O lado ruim é que algumas faixas acabam parecendo mais interessantes separadas do que dentro do álbum. Tem momentos em que você sente que uma música poderia ter levado a outra de um jeito mais natural. Em vez disso, a sensação é de troca brusca, como se o disco estivesse sempre apertando “próxima”.
+
+Mas eu não acho que isso estrague o projeto. Na verdade, essa bagunça também é parte do que faz o álbum ter graça. *Lost in Lust* é sobre excesso, desejo, pista, impulso e mudança. Talvez ele fosse menos interessante se tentasse organizar tudo demais.
+
+No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita vontade de experimentar. Não é o disco mais coeso da Pabllo, mas é um dos que mais mostra que ela ainda está disposta a se arriscar.
+
+> Um disco mais interessante do que redondo.`
+      },
+      {
         id: '1', slug: 'lady-gaga-retorno-pistas',
         title: 'O retorno apoteótico de Lady Gaga às pistas de dança',
         excerpt: 'Uma era que transforma pista, performance e imaginário pop em um mesmo espetáculo.',
         category: 'Pop', author: 'Redação Marte', image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=85&w=1800&auto=format&fit=crop',
-        featured: true, status: 'published', publishedAt: new Date('2026-06-30T12:00:00'),
+        featured: false, status: 'published', publishedAt: new Date('2026-06-30T12:00:00'),
         content: `A espera acabou. O novo capítulo da estrela pop chega às plataformas apostando em impacto visual, produção eletrônica e um senso de espetáculo que conversa diretamente com a pista.\n\n## Uma era construída como evento\n\nMais do que uma coleção de faixas, o projeto trabalha estética, coreografia e narrativa como partes de uma mesma experiência.\n\n> Pop funciona melhor quando parece maior do que a própria música.\n\nO resultado é uma fase desenhada para ser vista, comentada e revisitada.`
       },
       {
