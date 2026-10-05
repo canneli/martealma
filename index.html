@@ -556,6 +556,8 @@
         excerpt: 'Pabllo Vittar mistura gêneros e referências no novo álbum. Nem tudo encaixa, mas o disco tem personalidade demais para ser ignorado.',
         category: 'Críticas', author: 'Felipe R. Fonseca', image: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/50/76/be/5076be6d-5115-4f43-4da8-cae3c564133f/885288071498.jpg/1200x630wp-60.jpg',
         featured: true, status: 'published', publishedAt: new Date('2026-10-05T13:16:00'),
+        reviewScore: 70,
+        reviewBreakdown: { cancoes: 72, producao: 76, coesao: 60, impacto: 72 },
         content: `**Nota: 7/10**
 
 *Lost in Lust* é um álbum que vai deixar muita gente confusa na primeira audição. Não porque seja difícil de ouvir, mas porque ele muda muito de uma música para a outra. Você está em uma faixa com cara de house, aí vem uma batida de batekoo. Depois entra um funk mais experimental, depois um perreo. Parece que a Pabllo abriu todas as portas da pista de uma vez.
@@ -794,9 +796,10 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
           <header class="max-w-[1040px] mx-auto text-center mb-9 md:mb-14 reveal is-visible relative">
             <div class="absolute left-1/2 -translate-x-1/2 -top-6 md:-top-10 text-[6rem] md:text-[11rem] font-brand font-black opacity-[.025] pointer-events-none select-none">MA</div>
             <div class="mb-5 relative z-10">${pill(post.category)}</div>
-            <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / notícia em órbita</p>
+            <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / ${post.reviewScore != null ? 'crítica' : 'notícia em órbita'}</p>
             <h1 class="maxi-title font-display font-extrabold text-[clamp(2.7rem,7.6vw,7rem)] leading-[.84] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
             <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
+            ${post.reviewScore != null ? `<div class="mx-auto mb-8 max-w-md rounded-[1.8rem] border border-brand-orange/35 bg-brand-orange/[.08] p-4 md:p-5 flex items-center gap-5 text-left"><div class="shrink-0 w-24 h-24 rounded-2xl bg-brand-orange text-brand-ink grid place-items-center font-brand font-black text-4xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-50 mb-1">Nota Marte Alma</p><p class="font-display font-extrabold text-xl leading-tight">Boa, inquieta e irregular.</p><p class="text-sm opacity-60 mt-1">Um disco que troca de rota antes de perder a energia.</p></div></div>` : ''}
             <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-xs md:text-sm font-semibold opacity-55 relative z-10"><span>${escapeHtml(post.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(post.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(post.content)} min de leitura</span></div>
           </header>
 
@@ -809,6 +812,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
             <div class="glass rounded-[2rem] md:rounded-[2.6rem] p-5 sm:p-8 md:p-11 lg:p-14 reveal relative border border-brand-pink/10">
               <div class="absolute top-0 left-8 md:left-12 w-28 h-1.5 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-cyan rounded-b-full"></div>
               <div class="article-body">${html}</div>
+              ${post.reviewBreakdown ? `<details class="mt-10 rounded-2xl border border-black/10 dark:border-white/10 p-5 md:p-6"><summary class="cursor-pointer font-display font-extrabold text-xl">Como chegamos à nota</summary><p class="mt-3 text-sm opacity-65 leading-relaxed">A nota considera as canções, a produção, a coesão do álbum e seu impacto dentro da trajetória da artista. Contexto importa, mas não substitui a música.</p><div class="mt-5 grid grid-cols-2 gap-3 text-sm">${Object.entries(post.reviewBreakdown).map(([label,score])=>`<div class="rounded-xl bg-black/[.04] dark:bg-white/[.06] p-3"><span class="opacity-55 capitalize">${escapeHtml(label)}</span><strong class="float-right font-brand text-brand-orange">${score}</strong></div>`).join('')}</div></details>` : ''}
               <div class="mt-10 pt-6 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-2">${(post.tags || []).map(t => `<span class="px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-pink/8 to-brand-orange/8 border border-brand-pink/10 text-xs font-semibold">#${escapeHtml(t)}</span>`).join('')}</div>
             </div>
             <div class="hidden lg:flex sticky top-28 flex-col gap-2 reveal">
