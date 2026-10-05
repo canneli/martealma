@@ -17,5 +17,5 @@ export const MARTE_ALMA = {
   siteName: "Marte Alma",
   siteUrl: "https://canneli.github.io/martealma/",
   adminEmail: "felip0fonseca@gmail.com",
-  adsenseClient: ""
+  adsenseClient: "ca-pub-5717617239498734"
 };

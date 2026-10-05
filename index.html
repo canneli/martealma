@@ -9,6 +9,7 @@
   <meta property="og:site_name" content="Marte Alma" />
   <meta property="og:locale" content="pt_BR" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="google-adsense-account" content="ca-pub-5717617239498734" />
   <link rel="canonical" href="https://canneli.github.io/martealma/" />
   <title>Marte Alma | Cultura & Entretenimento</title>
 
@@ -33,10 +34,10 @@
           },
           colors: {
             brand: {
-              pink: '#ff4fa3',
-              orange: '#ff7a1a',
-              cyan: '#24c6dc',
-              violet: '#8b5cf6',
+              pink: '#376b4c',
+              orange: '#996039',
+              cyan: '#35655e',
+              violet: '#62624b',
               ink: '#0a0a0f'
             }
           }
@@ -455,6 +456,7 @@
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
     }
   </style>
+  <link rel="stylesheet" href="./editorial.css">
 </head>
 <body class="font-sans antialiased selection:bg-brand-pink selection:text-white">
   <div class="noise"></div>
@@ -487,8 +489,8 @@
 
       <nav class="desktop-nav hidden lg:flex items-center gap-1 rounded-full p-1 bg-black/[.035] dark:bg-white/[.04] border border-black/[.05] dark:border-white/[.07]">
         <button data-go-home class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Início</button>
-        <button data-reviews class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Críticas</button>
-        <button data-reviews class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Notas</button>
+        <button data-category="Críticas" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Críticas</button>
+        <button data-reviews class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Catálogo e notas</button>
         <button data-news class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Notícias</button>
       </nav>
 
@@ -514,8 +516,8 @@
     <p class="text-[.68rem] uppercase tracking-[.24em] font-bold opacity-40 mb-3">Explorar</p>
     <nav class="space-y-2">
       <button data-go-home class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-pink/12 text-brand-pink grid place-items-center"><i class="ph-fill ph-house text-xl"></i></span> Início</button>
-      <button data-reviews class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas e notas</button>
-      <button data-reviews class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-squares-four text-xl"></i></span> Notas</button>
+      <button data-category="Críticas" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas</button>
+      <button data-reviews class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-squares-four text-xl"></i></span> Catálogo e notas</button>
       <button data-news class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-cyan/12 text-brand-cyan grid place-items-center"><i class="ph-fill ph-newspaper text-xl"></i></span> Notícias</button>
     </nav>
     <div class="mt-auto pt-7 border-t border-black/10 dark:border-white/10">
@@ -523,11 +525,6 @@
         <span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-pencil-simple text-xl"></i></span>
         <span>Área da redação</span>
       </a>
-      <div class="rounded-[1.4rem] p-4 bg-gradient-to-br from-brand-pink/12 via-brand-orange/8 to-brand-violet/12 border border-brand-pink/10">
-        <p class="font-display font-black text-lg mb-1">Não perca a próxima órbita.</p>
-        <p class="text-sm opacity-60 leading-relaxed mb-4">Receba as principais matérias e críticas do Marte Alma.</p>
-        <button class="w-full rounded-xl py-3 bg-brand-ink text-white dark:bg-white dark:text-black font-bold text-sm">Assinar newsletter</button>
-      </div>
     </div>
   </aside>
 
@@ -548,8 +545,8 @@
       <!-- CATEGORY STRIP / MOBILE -->
       <div class="category-strip flex lg:hidden overflow-x-auto gap-2 pb-3 -mx-4 px-4 mb-2">
         <button data-go-home class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Início</button>
-        <button data-reviews class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Críticas</button>
-        <button data-reviews class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Notas</button>
+        <button data-category="Críticas" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Críticas</button>
+        <button data-reviews class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Catálogo e notas</button>
         <button data-news class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Notícias</button>
       </div>
 
@@ -569,7 +566,7 @@
         <p class="max-w-xl text-sm md:text-base opacity-55 leading-relaxed">Cultura pop, cinema, séries, música e crítica com identidade, contexto e uma pitada de outro planeta.</p>
       </div>
       <div class="text-sm opacity-55 md:text-right">
-        <div class="flex gap-5 md:justify-end mb-3 font-semibold"><a href="#">Sobre</a><a href="#">Expediente</a><a href="#">Privacidade</a></div>
+        <div class="flex gap-5 md:justify-end mb-3 font-semibold"><a href="?pagina=sobre">Sobre</a><a href="?pagina=expediente">Expediente</a><a href="?pagina=privacidade">Privacidade</a></div>
         <div>© 2026 Marte Alma. Todos os direitos reservados.</div>
       </div>
     </div>
@@ -578,6 +575,9 @@
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { FALLBACK_POSTS } from './articles.js';
+    import { buildCatalog, workOf, criticIdFor, kindLabels } from './review-model.js';
+    import { createViews } from './public-views.js';
+    import { enableAds } from './adsense.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
     import { getFirestore, collection, onSnapshot, query, where, limit, orderBy, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
@@ -597,6 +597,7 @@
     const slugify = (value='') => value.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
     function normalizePost(post, index=0) {
+      const work = workOf(post);
       const rawDate = post.publishedAt?.toDate ? post.publishedAt.toDate() : (post.publishedAt instanceof Date ? post.publishedAt : new Date(post.publishedAt || post.timestamp || Date.now()));
       return {
         ...post,
@@ -606,7 +607,10 @@
         excerpt: post.excerpt || stripMarkdown(post.content || '').slice(0, 170),
         category: post.category || 'Pop',
         author: post.author || 'Redação Marte',
-        image: post.image || 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=1400&auto=format&fit=crop',
+        image: work.image || post.image || '',
+        poster: work.image || post.image || '',
+        workId: work.id, workKind: work.workKind, workTitle: work.workTitle, artist: work.artist, releaseYear: work.releaseYear,
+        spotifyEmbed: work.spotifyId ? `https://open.spotify.com/embed/album/${work.spotifyId}` : '',
         featured: Boolean(post.featured),
         status: post.status || 'published',
         publishedAt: isNaN(rawDate) ? new Date() : rawDate,
@@ -671,193 +675,17 @@
       </article>`;
     }
 
-    function renderReviews(active='Todos', push=true) {
-      if (push) history.pushState({reviews:true}, '', `${location.pathname}?notas=1`);
-      document.title = 'Notas | Marte Alma';
-      const reviews = POSTS.filter(p => Number.isFinite(Number(p.reviewScore)));
-      const types = ['Todos', 'Música', 'Filmes', 'Séries'];
-      const filtered = active === 'Todos' ? reviews : reviews.filter(p => reviewType(p) === active);
-      content.innerHTML = `<section class="pt-5 md:pt-10 max-w-[1180px] mx-auto">
-        <button data-go-home class="text-sm font-bold opacity-65 hover:opacity-100 mb-8 inline-flex items-center gap-2"><span class="w-10 h-10 rounded-full glass grid place-items-center"><i class="ph-bold ph-arrow-left"></i></span> Voltar para a órbita</button>
-        <header class="rounded-[2rem] md:rounded-[2.8rem] glass p-6 md:p-10 mb-8 md:mb-10 overflow-hidden relative">
-          <p class="section-kicker text-brand-orange mb-3">Índice de críticas</p><h1 class="maxi-title font-display font-extrabold text-5xl md:text-7xl leading-[.88] max-w-3xl">Notas que deixam claro o que a crítica achou.</h1>
-          <p class="max-w-2xl mt-5 text-base md:text-lg opacity-70 leading-relaxed">Cada obra recebe uma nota de 0 a 100. A nota resume a leitura, não substitui o texto: contexto, ambição e execução entram na conta.</p>
-          <div class="mt-7 flex flex-wrap gap-2">${types.map(type => `<button data-review-filter="${type}" aria-pressed="${type===active}" class="score-filter px-4 py-2 rounded-full border border-black/15 dark:border-white/20 text-sm font-bold transition">${type}</button>`).join('')}</div>
-        </header>
-        <div class="review-shelf flex gap-4 overflow-x-auto pb-5 -mx-2 px-2">${filtered.length ? filtered.map(renderReviewCard).join('') : `<div class="w-full rounded-[1.6rem] rating-card p-10 text-center"><i class="ph-fill ph-film-strip text-4xl text-brand-orange"></i><p class="font-display font-bold text-xl mt-3">Ainda não há críticas publicadas nesta categoria.</p><p class="opacity-60 mt-2">Quando elas entrarem, aparecem aqui.</p></div>`}</div>
-        <details class="mt-10 rounded-[1.6rem] glass p-5 md:p-7"><summary class="cursor-pointer font-display font-extrabold text-xl">Como a nota funciona</summary><div class="mt-4 max-w-3xl text-sm md:text-base opacity-70 leading-relaxed space-y-3"><p>Roteiro ou canções, direção ou produção, performances, coesão e impacto são avaliados conforme a obra. Não existe fórmula fixa que transforme arte em boletim de escola.</p><p>90–100: essencial · 80–89: muito bom · 70–79: bom · 60–69: irregular · abaixo de 60: fraco. O texto explica onde a obra ganha, tropeça ou simplesmente resolve se sabotar.</p></div></details>
-      </section>`;
-      bindDynamicEvents();
-      $$('[data-review-filter]', content).forEach(btn => btn.addEventListener('click', () => renderReviews(btn.dataset.reviewFilter)));
-      observeReveals(); closeMenu(); window.scrollTo({top:0, behavior:'smooth'});
-    }
+    function renderReviews(active='Todos', push=true) { views.catalog(active, push); }
 
-    function renderHome() {
-      document.title = 'Marte Alma | Cultura & Entretenimento';
-      history.replaceState(null, '', location.pathname);
-      const featured = POSTS.find(p => p.featured) || POSTS[0];
-      if (!featured) return renderEmpty();
-      const others = POSTS.filter(p => p.id !== featured.id);
-      const trending = others.slice(0,4);
-      const latest = others.slice(0,9);
+    function renderHome() { views.home(false); }
 
-      content.innerHTML = `
-        <section class="mb-7 md:mb-10 reveal is-visible">
-          <div class="now-ribbon flex items-center gap-2 text-xs md:text-sm font-semibold">
-            <span class="relative z-10 inline-flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-gradient-to-r from-brand-pink to-brand-orange text-white shrink-0 font-brand text-[.55rem] tracking-[.1em]"><span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> AGORA</span>
-            <div class="relative z-10 min-w-0 overflow-hidden whitespace-nowrap flex-1 px-1">
-              <button ${articleButton(POSTS[0])} class="truncate w-full text-left opacity-75 hover:opacity-100 transition font-semibold">${escapeHtml(POSTS[0].title)}</button>
-            </div>
-            <i class="relative z-10 ph-fill ph-sparkle text-brand-orange text-lg mr-2 hidden sm:block"></i>
-          </div>
-        </section>
-
-        <section class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_380px] gap-5 md:gap-8 mb-16 md:mb-24">
-          <div class="hero-shell reveal is-visible">
-            <div class="hero-backplate"></div>
-            <article ${articleButton(featured)} class="hero-feature group cursor-pointer relative overflow-hidden rounded-[2rem] md:rounded-[2.7rem] min-h-[520px] md:min-h-[660px] story-media z-10">
-              <img src="${escapeHtml(featured.image)}" alt="${escapeHtml(featured.title)}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1800ms] group-hover:scale-[1.075]" fetchpriority="high" />
-              <div class="hero-index">MA / DESTAQUE</div>
-              <div class="hero-sigil"></div>
-              <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-8 md:p-11 lg:p-14 pt-24">
-                <div class="flex flex-wrap gap-2 items-center mb-4 md:mb-5">${pill(featured.category)}<span class="text-white/70 text-[.62rem] font-brand uppercase tracking-[.14em]">Primeira órbita</span></div>
-                <h1 class="hero-title maxi-title font-display font-extrabold text-white leading-[.96] max-w-5xl mb-5 md:mb-7">${escapeHtml(featured.title)}</h1>
-                <p class="text-white/84 text-sm sm:text-base md:text-xl max-w-3xl leading-relaxed mb-6 hidden sm:block font-medium">${escapeHtml(featured.excerpt)}</p>
-                <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm text-white/70 font-semibold"><span>${escapeHtml(featured.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(featured.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(featured.content)} min de leitura</span></div>
-              </div>
-            </article>
-          </div>
-
-          <aside class="radar-card glass p-5 md:p-6 xl:p-7 reveal is-visible">
-            <div class="flex items-center justify-between mb-5 relative z-10">
-              <div><p class="section-kicker opacity-40 mb-2">Radar Marte</p><h2 class="font-display font-extrabold text-3xl tracking-[-.04em]">Em alta<span class="text-brand-orange">.</span></h2></div>
-              <span class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-orange/20 to-brand-pink/10 text-brand-orange grid place-items-center border border-brand-orange/20"><i class="ph-fill ph-fire text-2xl"></i></span>
-            </div>
-            <div class="divide-y divide-black/10 dark:divide-white/10 relative z-10">
-              ${trending.map((post, i) => `
-                <button ${articleButton(post)} class="w-full text-left grid grid-cols-[44px_1fr] gap-3 py-4 group">
-                  <div class="font-brand font-black text-xl opacity-18 group-hover:text-brand-orange group-hover:opacity-100 transition">0${i+1}</div>
-                  <div><div class="section-kicker mb-1.5 ${categoryClass(post.category).split(' ')[0]}">${escapeHtml(post.category)}</div><h3 class="font-display font-bold text-[1.08rem] leading-[1.04] group-hover:text-brand-orange transition">${escapeHtml(post.title)}</h3></div>
-                </button>`).join('')}
-            </div>
-            <div class="mt-5 pt-5 border-t border-black/10 dark:border-white/10 flex items-center gap-3 opacity-55 relative z-10"><span class="w-8 h-8 rounded-full border border-current grid place-items-center"><i class="ph-bold ph-wave-sine"></i></span><span class="text-xs font-brand tracking-[.08em] uppercase">Sinal editorial ativo</span></div>
-          </aside>
-        </section>
-
-        <section class="mb-20 md:mb-28 reveal">
-          <div class="flex flex-col lg:flex-row gap-6 lg:items-end lg:justify-between mb-7">
-            <div><p class="section-kicker text-brand-orange mb-3">Índice de críticas</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl leading-[.9]">A nota, sem<br>letra miúda.</h2></div>
-            <div class="max-w-md"><p class="opacity-65 leading-relaxed">Música, filmes e séries num arquivo único. A nota é de 0 a 100; a crítica é onde a conversa acontece.</p><button data-reviews class="mt-4 inline-flex items-center gap-2 font-bold text-sm hover:text-brand-orange transition">Ver todas as notas <i class="ph-bold ph-arrow-up-right"></i></button></div>
-          </div>
-          <div class="review-shelf flex gap-4 overflow-x-auto pb-5 -mx-2 px-2">${POSTS.filter(p => Number.isFinite(Number(p.reviewScore))).slice(0,6).map(renderReviewCard).join('')}</div>
-        </section>
-
-        <section class="mb-20 md:mb-28">
-          <div class="flex items-end justify-between gap-4 mb-8 md:mb-10 reveal">
-            <div><p class="section-kicker opacity-40 mb-3">Atualização contínua</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl xl:text-7xl leading-[.9]">Últimas<br class="hidden md:block"> notícias<span class="text-brand-pink">✦</span></h2></div>
-            <div class="hidden md:flex flex-1 items-center gap-4 max-w-xl mb-3"><div class="h-px flex-1 bg-gradient-to-r from-brand-pink/60 via-brand-orange/35 to-transparent"></div><span class="font-brand text-[.55rem] tracking-[.13em] uppercase opacity-30">Marte Alma / 2026</span></div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 md:gap-9">
-            ${latest.map((post,i) => `
-              <article ${articleButton(post)} class="editorial-card card-hover cursor-pointer reveal">
-                <div class="glass-card-inner flex flex-col">
-                  <div class="relative aspect-[16/10] overflow-hidden"><img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" loading="lazy" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110"/><div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent opacity-60"></div><div class="absolute top-3 left-3">${pill(post.category)}</div><div class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/16 text-white backdrop-blur-xl border border-white/25 grid place-items-center"><i class="ph-bold ph-arrow-up-right"></i></div></div>
-                  <div class="p-5 md:p-6 flex flex-col flex-1">
-                    <div class="section-kicker opacity-30 mb-3">Órbita ${String(i+1).padStart(2,'0')}</div>
-                    <h3 class="font-display font-extrabold text-[1.55rem] md:text-[1.75rem] leading-[.98] tracking-[-.035em] mb-3">${escapeHtml(post.title)}</h3>
-                    <p class="text-sm opacity-60 leading-relaxed mb-6">${escapeHtml(post.excerpt)}</p>
-                    <div class="mt-auto pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between gap-3 text-xs font-semibold opacity-55"><span>${dateLabel(post.publishedAt)}</span><span>${readingTime(post.content)} min</span></div>
-                  </div>
-                </div>
-              </article>`).join('')}
-          </div>
-        </section>
-
-        <section class="newsletter-max reveal overflow-hidden p-6 md:p-10 lg:p-14 relative">
-          <div class="relative grid lg:grid-cols-[1fr_auto] gap-8 lg:items-center z-10">
-            <div><p class="section-kicker text-brand-pink mb-3">Newsletter Marte Alma</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl leading-[.9] mb-4 max-w-4xl">O universo pop<br>sem modo econômico.</h2><p class="opacity-65 max-w-2xl text-base md:text-lg">Notícias, críticas e lançamentos em uma seleção editorial com personalidade — sem transformar seu e-mail em um buraco negro.</p></div>
-            <form class="flex flex-col sm:flex-row gap-2 w-full lg:w-[470px]" onsubmit="event.preventDefault(); alert('Conecte este formulário ao Brevo, Mailchimp ou Resend quando quiser ativar a newsletter.');"><input type="email" required placeholder="seu@email.com" class="min-w-0 flex-1 rounded-2xl px-4 py-4 bg-white/[.55] dark:bg-black/20 border border-black/10 dark:border-white/10 outline-none focus:ring-2 ring-brand-pink/40"><button class="rounded-2xl px-5 py-4 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-violet text-white font-brand text-[.64rem] tracking-[.08em] uppercase shadow-xl shadow-brand-pink/15">Entrar em órbita</button></form>
-          </div>
-        </section>
-      `;
-      bindDynamicEvents(); observeReveals();
-    }
-
-    function renderCategory(category) {
-      const filtered = POSTS.filter(p => category === 'Notícias' ? p.reviewScore == null : (category === 'Críticas' ? p.reviewScore != null : p.category.toLowerCase() === category.toLowerCase()));
-      content.innerHTML = `
-        <section class="pt-5 md:pt-10">
-          <div class="mb-10 md:mb-16 reveal is-visible relative">
-            <button data-go-home class="text-sm font-bold opacity-55 hover:opacity-100 mb-8 inline-flex items-center gap-2"><span class="w-10 h-10 rounded-full glass grid place-items-center"><i class="ph-bold ph-arrow-left"></i></span> Voltar para a órbita</button>
-            <div class="relative overflow-hidden glass rounded-[2rem] md:rounded-[3rem] p-6 md:p-10 lg:p-14">
-              <div class="absolute -right-10 -top-14 text-[8rem] md:text-[15rem] font-brand font-black opacity-[.035] leading-none select-none">${escapeHtml(category.slice(0,2).toUpperCase())}</div>
-              <p class="section-kicker opacity-45 mb-4">Marte Alma / editoria</p>
-              <h1 class="maxi-title font-display font-extrabold text-6xl md:text-8xl xl:text-[9rem] leading-[.78] headline-gradient relative z-10">${escapeHtml(category)}</h1>
-              <div class="mt-6 md:mt-8 h-1.5 w-28 rounded-full bg-gradient-to-r from-brand-pink via-brand-orange to-brand-cyan"></div>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7 md:gap-9">
-            ${filtered.length ? filtered.map((post,i) => `<article ${articleButton(post)} class="editorial-card card-hover cursor-pointer reveal"><div class="glass-card-inner"><div class="relative aspect-[16/10] overflow-hidden"><img src="${escapeHtml(post.image)}" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" alt="${escapeHtml(post.title)}"><div class="absolute top-3 left-3">${pill(post.category)}</div><div class="absolute bottom-3 right-3 font-brand text-[.55rem] tracking-[.1em] text-white bg-black/25 backdrop-blur-lg border border-white/20 px-3 py-2 rounded-full">0${i+1}</div></div><div class="p-5 md:p-6"><p class="section-kicker opacity-30 mb-3">Arquivo orbital</p><h2 class="font-display font-extrabold text-[1.65rem] leading-[.98] mt-1 mb-3">${escapeHtml(post.title)}</h2><p class="text-sm opacity-60 leading-relaxed">${escapeHtml(post.excerpt)}</p><div class="text-xs font-semibold opacity-45 mt-5 pt-4 border-t border-black/10 dark:border-white/10">${dateLabel(post.publishedAt)} · ${readingTime(post.content)} min</div></div></div></article>`).join('') : `<div class="col-span-full py-24 text-center opacity-50"><i class="ph-fill ph-planet text-6xl mb-4"></i><p class="font-display font-bold text-xl">Ainda não há matérias nesta editoria.</p></div>`}
-          </div>
-        </section>`;
-      bindDynamicEvents(); observeReveals(); closeMenu();
-    }
+    function renderCategory(category, push=true) { views.feed(category, push); }
 
     function renderNews() {
       renderCategory('Notícias');
     }
 
-    function renderArticle(slug, push=true) {
-      const post = POSTS.find(p => p.slug === slug || p.id === slug);
-      if (!post) return renderHome();
-      if (push) history.pushState({slug:post.slug}, '', `?artigo=${encodeURIComponent(post.slug)}`);
-      document.title = `${post.title} | Marte Alma`;
-      updateMeta(post);
-
-      const related = POSTS.filter(p => p.id !== post.id && p.category === post.category).slice(0,3);
-      const html = DOMPurify.sanitize(marked.parse(post.content || ''));
-      content.innerHTML = `
-        <article class="max-w-[1180px] mx-auto pt-4 md:pt-8">
-          <button data-go-home class="reveal is-visible w-12 h-12 rounded-full glass grid place-items-center mb-7 md:mb-10 hover:text-brand-orange transition" aria-label="Voltar"><i class="ph-bold ph-arrow-left"></i></button>
-
-          <header class="max-w-[1040px] mx-auto text-center mb-9 md:mb-14 reveal is-visible relative">
-            <div class="absolute left-1/2 -translate-x-1/2 -top-6 md:-top-10 text-[6rem] md:text-[11rem] font-brand font-black opacity-[.025] pointer-events-none select-none">MA</div>
-            <div class="mb-5 relative z-10 flex flex-wrap justify-center gap-2">${pill(post.category)}${post.revisiting ? '<span class="inline-flex items-center px-3 py-1.5 rounded-full border border-brand-violet/25 bg-brand-violet/10 text-brand-violet text-[.66rem] font-extrabold uppercase tracking-[.12em]">Revisitando</span>' : ''}</div>
-            <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / ${post.reviewScore != null ? 'crítica' : 'notícia em órbita'}</p>
-            <h1 class="maxi-title font-display font-extrabold text-[clamp(2.45rem,5.8vw,5.65rem)] leading-[.96] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
-            <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
-            ${post.reviewScore != null ? `<div class="score-panel mx-auto mb-8 max-w-md rounded-[1.8rem] p-4 md:p-5 flex items-center gap-5 text-left"><div class="score-square review-score shrink-0 w-24 h-24 rounded-2xl grid place-items-center font-black text-5xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-60 mb-1">Nota Marte Alma · 0–100</p><p class="font-display font-extrabold text-xl leading-tight">${scoreVerdict(post.reviewScore)}</p><p class="text-sm opacity-70 mt-1">A crítica inteira explica o caminho até essa nota.</p></div></div>` : ''}
-            <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-xs md:text-sm font-semibold opacity-55 relative z-10"><span>${escapeHtml(post.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(post.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(post.content)} min de leitura</span></div>
-          </header>
-
-          <div class="hero-shell max-w-[1100px] mx-auto mb-10 md:mb-16 reveal">
-            <div class="hero-backplate"></div>
-            <div class="relative z-10 rounded-[2rem] md:rounded-[2.8rem] overflow-hidden shadow-2xl border border-white/20 bg-[#1d1a17]"><img src="${escapeHtml(post.image)}" alt="Capa de ${escapeHtml(post.title)}" class="w-full max-h-[720px] object-contain"><div class="absolute top-4 right-4 md:top-6 md:right-6 font-brand text-[.55rem] md:text-[.62rem] tracking-[.12em] text-white bg-black/45 backdrop-blur-xl border border-white/25 px-3 py-2 rounded-full">MARTE / ALMA</div></div>
-          </div>
-
-          ${post.trailerId ? `<section class="max-w-[940px] mx-auto mb-10 md:mb-14 reveal"><div class="flex items-center justify-between gap-4 mb-3"><p class="section-kicker text-brand-orange">Trailer oficial</p><span class="text-xs opacity-50">YouTube</span></div><div class="aspect-video overflow-hidden rounded-[1.7rem] border border-black/10 dark:border-white/15 bg-black"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${escapeHtml(post.trailerId)}" title="Trailer oficial de ${escapeHtml(post.title)}" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div></section>` : ''}
-          ${post.spotifyEmbed ? `<section class="max-w-[940px] mx-auto mb-10 md:mb-14 reveal"><p class="section-kicker text-brand-pink mb-3">Ouça o álbum</p><iframe class="w-full rounded-2xl" src="${escapeHtml(post.spotifyEmbed)}" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Ouvir ${escapeHtml(post.title)} no Spotify"></iframe></section>` : ''}
-
-          <div class="grid lg:grid-cols-[1fr_86px] gap-8 items-start max-w-[940px] mx-auto">
-            <div class="glass rounded-[2rem] md:rounded-[2.6rem] p-5 sm:p-8 md:p-11 lg:p-14 reveal relative border border-brand-pink/10">
-              <div class="absolute top-0 left-8 md:left-12 w-28 h-1.5 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-cyan rounded-b-full"></div>
-              <div class="article-body">${html}</div>
-              ${post.reviewScore != null ? `<aside class="mt-10 rounded-2xl border-l-4 border-brand-orange bg-brand-orange/[.07] p-5 md:p-6"><p class="section-kicker text-brand-orange mb-2">Sobre a nota</p><p class="text-sm md:text-base opacity-75 leading-relaxed">${reviewType(post) === 'Música' ? 'A nota olha para as canções, a produção, a coesão e o lugar do disco na trajetória da artista. Contexto pesa, mas não substitui música boa.' : 'A nota considera o que o filme propõe e como realiza isso: direção, roteiro, atuações, linguagem e o que continua reverberando depois dos créditos.'}</p></aside>` : ''}
-              <div class="mt-10 pt-6 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-2">${(post.tags || []).map(t => `<span class="px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-pink/8 to-brand-orange/8 border border-brand-pink/10 text-xs font-semibold">#${escapeHtml(t)}</span>`).join('')}</div>
-              <section id="comments" class="mt-12 pt-9 border-t border-black/10 dark:border-white/10"><div class="flex items-end justify-between gap-4 mb-5"><div><p class="section-kicker text-brand-pink mb-2">Conversa</p><h2 class="font-display font-extrabold text-3xl">Comentários</h2></div><button id="comment-login" class="rounded-full px-4 py-2 bg-brand-ink text-white dark:bg-white dark:text-brand-ink text-sm font-bold">Entrar para comentar</button></div><div id="comment-form-wrap" class="hidden"><textarea id="comment-text" maxlength="1200" rows="4" class="w-full rounded-2xl p-4 bg-black/[.04] dark:bg-white/[.08] border border-black/10 dark:border-white/15 outline-none" placeholder="Escreva seu comentário..."></textarea><div class="mt-2 flex justify-between items-center"><span id="comment-user" class="text-xs opacity-55"></span><button id="comment-send" class="rounded-full px-4 py-2 bg-brand-pink text-white text-sm font-bold">Publicar</button></div></div><div id="comments-list" class="mt-6 space-y-3 text-sm opacity-65">Carregando comentários...</div></section>
-            </div>
-            <div class="hidden lg:flex sticky top-28 flex-col gap-2 reveal">
-              <span class="section-kicker opacity-30 text-center mb-1">Share</span>
-              <button data-share="x" class="w-12 h-12 rounded-full glass grid place-items-center hover:text-brand-cyan"><i class="ph-fill ph-x-logo"></i></button>
-              <button data-share="whatsapp" class="w-12 h-12 rounded-full glass grid place-items-center hover:text-green-500"><i class="ph-fill ph-whatsapp-logo"></i></button>
-              <button data-share="copy" class="w-12 h-12 rounded-full glass grid place-items-center hover:text-brand-orange"><i class="ph-bold ph-link"></i></button>
-            </div>
-          </div>
-
-          ${related.length ? `<section class="mt-18 md:mt-24"><div class="flex items-end gap-4 mb-8 reveal"><div><p class="section-kicker opacity-35 mb-2">Próxima órbita</p><h2 class="font-display font-extrabold text-4xl md:text-5xl leading-[.92]">Continue em <span class="headline-gradient">${escapeHtml(post.category)}</span></h2></div><div class="hidden md:block flex-1 h-px bg-gradient-to-r from-brand-pink/40 to-transparent mb-2"></div></div><div class="grid md:grid-cols-3 gap-7">${related.map((r,i) => `<article ${articleButton(r)} class="editorial-card cursor-pointer reveal card-hover"><div class="glass-card-inner"><div class="aspect-[16/10] overflow-hidden"><img src="${escapeHtml(r.image)}" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" alt="${escapeHtml(r.title)}"></div><div class="p-5"><div class="section-kicker opacity-25 mb-2">0${i+1}</div><h3 class="font-display font-extrabold text-xl leading-[1]">${escapeHtml(r.title)}</h3></div></div></article>`).join('')}</div></section>` : ''}
-        </article>`;
-      bindDynamicEvents(); bindShare(post); initComments(post); observeReveals(); window.scrollTo({top:0, behavior:'smooth'});
-    }
+    function renderArticle(slug, push=true) { views.article(slug, push); }
 
     function updateMeta(post) {
       const description = post.excerpt || stripMarkdown(post.content).slice(0,160);
@@ -921,14 +749,14 @@
 
     // Categorias globais
     $$('[data-category]').forEach(btn => btn.addEventListener('click',()=>renderCategory(btn.dataset.category)));
-    $$('[data-go-home]').forEach(btn => btn.addEventListener('click',renderHome));
+    $$('[data-go-home]').forEach(btn => btn.addEventListener('click',()=>views.home()));
     $$('[data-reviews]').forEach(btn => btn.addEventListener('click',()=>renderReviews()));
     $$('[data-news]').forEach(btn => btn.addEventListener('click',renderNews));
 
     // Tema
     const themeButton = $('#theme-button');
     function applyTheme(mode){ document.documentElement.classList.toggle('dark', mode==='dark'); localStorage.setItem('marteAlmaTheme',mode); themeButton.innerHTML = mode==='dark' ? '<i class="ph-fill ph-sun text-xl text-brand-orange"></i>' : '<i class="ph-fill ph-moon text-xl"></i>'; }
-    applyTheme(localStorage.getItem('marteAlmaTheme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'));
+    applyTheme(localStorage.getItem('marteAlmaTheme') || 'light');
     themeButton.addEventListener('click',()=>applyTheme(document.documentElement.classList.contains('dark')?'light':'dark'));
 
     // Reveals
@@ -940,22 +768,24 @@
 
     // Navegação voltar/avançar
     addEventListener('popstate',routeFromUrl);
-    function routeFromUrl(){ const params=new URLSearchParams(location.search); const slug=params.get('artigo'); if(slug) renderArticle(slug,false); else if(params.get('notas')) renderReviews('Todos', false); else renderHome(); }
+    const views = createViews({ getPosts:()=>POSTS, root:content, initComments, updateMeta, bindShare, cleanup:()=>{ if(stopComments){stopComments();stopComments=null;} } });
+    function routeFromUrl(){ const params=new URLSearchParams(location.search); const slug=params.get('artigo'); if(slug) renderArticle(slug,false); else if(params.get('obra')) views.work(params.get('obra'),false); else if(params.get('critico')) views.critic(params.get('critico'),false); else if(params.get('pagina')) views.page(params.get('pagina'),false); else if(params.get('notas')) renderReviews('Todos', false); else if(params.get('categoria')) renderCategory(params.get('categoria'),false); else renderHome(); }
 
     // Firebase: se não estiver configurado, usa fallback automaticamente.
     async function boot() {
       POSTS = FALLBACK_POSTS.map(normalizePost).sort((a,b)=>b.publishedAt-a.publishedAt);
       routeFromUrl();
+      enableAds();
       const configured = firebaseConfig.apiKey && firebaseConfig.apiKey !== 'COLE_AQUI' && firebaseConfig.projectId && !firebaseConfig.projectId.startsWith('SEU-');
       if (!configured) { POSTS = FALLBACK_POSTS.map(normalizePost).sort((a,b)=>b.publishedAt-a.publishedAt); return routeFromUrl(); }
       try {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app); auth = getAuth(app);
         onAuthStateChanged(auth, user => { currentUser = user; const login = $('#comment-login'), form = $('#comment-form-wrap'); if(login && form){ login.classList.toggle('hidden',!!user); form.classList.toggle('hidden',!user); if(user) $('#comment-user').textContent=`Comentando como ${user.displayName || user.email}`; } document.querySelectorAll('a[href="admin.html"]').forEach(link => { if(user && user.email === MARTE_ALMA.adminEmail) link.textContent='Redação'; }); });
-        const q = query(collection(db,'articles'), where('status','==','published'), limit(100));
+        const q = query(collection(db,'articles'), where('status','==','published'));
         onSnapshot(q, snapshot => {
           const live = snapshot.docs.map((d,i)=>normalizePost({id:d.id,...d.data()},i)).sort((a,b)=>b.publishedAt-a.publishedAt);
-          POSTS = live.length ? live : FALLBACK_POSTS.map(normalizePost);
+          POSTS = live;
           routeFromUrl();
         }, err => { console.warn('Firestore indisponível, usando fallback:',err); POSTS=FALLBACK_POSTS.map(normalizePost); routeFromUrl(); });
       } catch (err) { console.warn('Firebase não configurado corretamente:',err); POSTS=FALLBACK_POSTS.map(normalizePost); routeFromUrl(); }

@@ -1,28 +1,48 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
     function isAdmin() {
-      return request.auth != null
-        && request.auth.token.email == "felip0fonseca@gmail.com";
+      return signedIn() && request.auth.token.email == "felip0fonseca@gmail.com"
+        && request.auth.token.email_verified == true;
     }
-
+    function isWriter() {
+      return isAdmin() || (signedIn() && request.auth.token.email_verified == true
+        && exists(/databases/$(database)/documents/writerInvites/$(request.auth.token.email))
+        && get(/databases/$(database)/documents/writerInvites/$(request.auth.token.email)).data.active == true);
+    }
+    function validArticle() {
+      let data = request.resource.data;
+      return data.authorId == request.auth.uid
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 300
+        && data.content is string && data.content.size() > 0 && data.content.size() <= 150000
+        && data.status in ['draft', 'published']
+        && (data.reviewScore == null || (data.reviewScore is int && data.reviewScore >= 0 && data.reviewScore <= 100))
+        && (isAdmin() || data.featured == false);
+    }
+    match /writerInvites/{email} {
+      allow get: if isAdmin() || (signedIn() && request.auth.token.email == email);
+      allow list, create, update, delete: if isAdmin();
+    }
     match /articles/{articleId} {
-      // O site público só lê matérias publicadas.
-      allow read: if resource.data.status == "published" || isAdmin();
-
-      // Somente seu usuário da redação pode criar/editar/apagar.
-      allow create, update, delete: if isAdmin();
-    }
-
-    match /articles/{articleId}/comments/{commentId} {
-      allow read: if true;
-      allow create: if request.auth != null
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.text is string
-        && request.resource.data.text.size() > 0
-        && request.resource.data.text.size() <= 1200;
-      allow delete: if request.auth != null
-        && (resource.data.userId == request.auth.uid || isAdmin());
+      allow read: if resource.data.status == 'published' || isAdmin()
+        || (signedIn() && resource.data.authorId == request.auth.uid);
+      allow create: if isWriter() && validArticle();
+      allow update: if isWriter() && validArticle()
+        && (resource.data.get('authorId', '') == request.auth.uid
+          || (isAdmin() && resource.data.get('authorId', '') == '' && resource.data.author == 'Felipe R. Fonseca'));
+      allow delete: if isWriter() && resource.data.authorId == request.auth.uid;
+      match /comments/{commentId} {
+        allow read: if true;
+        allow create: if signedIn()
+          && get(/databases/$(database)/documents/articles/$(articleId)).data.status == 'published'
+          && request.resource.data.keys().hasOnly(['text','userId','name','photoURL','createdAt'])
+          && request.resource.data.userId == request.auth.uid
+          && request.resource.data.text is string
+          && request.resource.data.text.size() > 0 && request.resource.data.text.size() <= 1200
+          && request.resource.data.createdAt == request.time;
+        allow delete: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      }
     }
   }
 }

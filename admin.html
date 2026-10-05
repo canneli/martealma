@@ -13,19 +13,23 @@
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
     body{font-family:'Outfit',sans-serif;background:#0a0a0f;color:#f8f8fb;min-height:100vh;background-image:radial-gradient(circle at 10% 0,rgba(255,79,163,.16),transparent 27%),radial-gradient(circle at 90% 0,rgba(255,122,26,.14),transparent 30%)}
-    .display{font-family:'Syne',sans-serif}.brand{font-family:'Unbounded',sans-serif}.glass{background:rgba(19,19,27,.72);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(24px);box-shadow:0 20px 70px rgba(0,0,0,.35)}
+    .display{font-family:'Outfit',sans-serif}.brand{font-family:'Unbounded',sans-serif}.glass{background:rgba(19,19,27,.72);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(24px);box-shadow:0 20px 70px rgba(0,0,0,.35)}
     input,textarea,select{background:rgba(255,255,255,.055)!important;border:1px solid rgba(255,255,255,.11)!important;color:#fff!important;outline:none} input:focus,textarea:focus,select:focus{border-color:#ff4fa3!important;box-shadow:0 0 0 3px rgba(255,79,163,.12)}
     textarea{resize:vertical}.preview h2,.preview h3{font-family:'Syne';font-weight:800;margin:1.5rem 0 .7rem}.preview h2{font-size:1.7rem}.preview h3{font-size:1.35rem}.preview p{margin-bottom:1rem;line-height:1.75;color:rgba(255,255,255,.78)}.preview blockquote{border-left:3px solid #ff7a1a;padding-left:1rem;font-weight:600;margin:1.5rem 0}
+  </style>
+  <style>
+    body{background:#18211c;background-image:none;color:#f6f5ec}.glass{background:#222e26;border-color:#405046;box-shadow:none}.display,.preview h2,.preview h3{font-family:'Outfit',sans-serif}.bg-gradient-to-r{background:#315f47!important}input:focus,textarea:focus,select:focus{border-color:#a5d4b6!important;box-shadow:0 0 0 3px #a5d4b620}.text-orange-400{color:#cba98b}.text-orange-300{color:#cba98b}
   </style>
 </head>
 <body>
   <div id="login-view" class="min-h-screen grid place-items-center p-4">
     <form id="login-form" class="glass w-full max-w-md rounded-[2rem] p-6 md:p-8">
       <div class="brand font-black text-2xl tracking-[.08em] uppercase mb-2">MARTE<span class="text-orange-400">ALMA</span></div>
-      <p class="text-sm text-white/50 mb-7">Acesso da redação</p>
-      <p class="text-sm text-white/65 leading-relaxed mb-5">Entre com a conta Google autorizada da redação para publicar e editar matérias.</p>
+      <p class="text-sm text-white/50 mb-7">Sua conta Marte Alma</p>
+      <p class="text-sm text-white/65 leading-relaxed mb-5">Entre para comentar. Escritores autorizados também podem criar e editar as próprias matérias.</p>
       <button id="google-login" type="button" class="w-full rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 font-bold py-3.5"><i class="ph-bold ph-google-logo mr-2"></i>Entrar com Google</button>
       <p id="login-error" class="text-sm text-red-300 mt-4 hidden"></p>
+      <a href="./index.html" class="block mt-5 text-sm underline text-white/75">Voltar ao site</a>
     </form>
   </div>
 
@@ -36,11 +40,17 @@
       <section class="glass rounded-[2rem] p-4 md:p-6 lg:p-8">
         <div class="flex flex-wrap items-center justify-between gap-3 mb-6"><div><p class="text-[.65rem] uppercase tracking-[.2em] font-bold text-white/35">Editor</p><h1 id="editor-title" class="display font-black text-3xl">Nova matéria</h1></div><button id="new-post" class="px-4 py-2.5 rounded-xl bg-white/[.08] font-semibold text-sm"><i class="ph-bold ph-plus mr-1"></i> Nova</button></div>
         <form id="post-form" class="space-y-4">
+          <section class="rounded-2xl bg-white/5 p-4 space-y-3">
+            <p class="font-semibold">Sobre o que você vai escrever?</p>
+            <select id="work-kind" class="w-full rounded-xl px-4 py-3"><option value="album">Música · Álbum</option><option value="artist">Música · Artista</option><option value="film">Filme</option><option value="series">Série</option><option value="news">Notícia, sem nota</option></select>
+            <div id="work-fields" class="space-y-3"><label class="block text-sm text-white/75">Nome da obra ou artista<input id="work-title" list="work-options" class="w-full mt-2 rounded-xl px-4 py-3" placeholder="Escolha algo do catálogo ou cadastre um novo nome"><datalist id="work-options"></datalist></label><div class="grid sm:grid-cols-2 gap-3"><label id="artist-field" class="text-sm text-white/75">Artista do álbum<input id="work-artist" class="w-full mt-2 rounded-xl px-4 py-3"></label><label class="text-sm text-white/75">Ano de lançamento<input id="release-year" type="number" min="1800" max="2100" class="w-full mt-2 rounded-xl px-4 py-3"></label></div><label class="block text-sm text-white/75">Sua nota, de 0 a 100<input id="review-score" type="number" min="0" max="100" step="1" class="w-full mt-2 rounded-xl px-4 py-3"></label><p id="work-hint" class="text-sm text-white/65">A nota entra na média da obra, sem substituir as avaliações dos outros críticos.</p></div>
+          </section>
           <input type="hidden" id="post-id">
           <div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Título</label><input id="title" required class="w-full mt-2 rounded-xl px-4 py-3 text-lg font-semibold" placeholder="Título da matéria"></div>
           <div class="grid md:grid-cols-2 gap-4"><div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Slug</label><input id="slug" required class="w-full mt-2 rounded-xl px-4 py-3" placeholder="titulo-da-materia"></div><div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Categoria</label><select id="category" class="w-full mt-2 rounded-xl px-4 py-3"><option>Pop</option><option>Cinema</option><option>Séries</option><option>Críticas</option></select></div></div>
           <div class="grid md:grid-cols-2 gap-4"><div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Autor</label><input id="author" class="w-full mt-2 rounded-xl px-4 py-3" value="Redação Marte"></div><div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Imagem de capa (URL)</label><input id="image" required type="url" class="w-full mt-2 rounded-xl px-4 py-3" placeholder="https://..."></div></div>
           <div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Resumo / linha fina</label><textarea id="excerpt" rows="3" class="w-full mt-2 rounded-xl px-4 py-3" placeholder="Resumo curto que aparece na home e no Google."></textarea></div>
+          <div class="grid md:grid-cols-2 gap-4"><label class="text-sm text-white/75">Spotify: link do álbum<input id="spotify-link" class="w-full mt-2 rounded-xl px-4 py-3" placeholder="https://open.spotify.com/album/..."></label><label class="text-sm text-white/75">YouTube: link do trailer<input id="trailer-link" class="w-full mt-2 rounded-xl px-4 py-3" placeholder="https://www.youtube.com/watch?v=..."></label></div>
           <div><div class="flex items-center justify-between"><label class="text-xs font-bold uppercase tracking-wider text-white/40">Texto em Markdown</label><span class="text-[.68rem] text-white/30">## subtítulo · **negrito** · > citação</span></div><textarea id="content" required rows="18" class="w-full mt-2 rounded-xl px-4 py-3 font-mono text-sm" placeholder="Escreva a matéria aqui..."></textarea></div>
           <div class="grid md:grid-cols-2 gap-4"><div><label class="text-xs font-bold uppercase tracking-wider text-white/40">Tags</label><input id="tags" class="w-full mt-2 rounded-xl px-4 py-3" placeholder="música, pop, lançamento"></div><div class="flex items-end gap-4 pb-2"><label class="flex items-center gap-2 cursor-pointer"><input id="featured" type="checkbox" class="accent-pink-500"><span class="text-sm font-semibold">Destaque principal</span></label></div></div>
           <div class="flex flex-col sm:flex-row gap-2 pt-2"><button type="button" data-save="draft" class="flex-1 rounded-xl bg-white/[.08] py-3.5 font-bold">Salvar rascunho</button><button type="button" data-save="published" class="flex-1 rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 py-3.5 font-bold">Publicar agora</button></div>
@@ -49,70 +59,10 @@
         <div class="mt-8 pt-8 border-t border-white/10"><p class="text-xs font-bold uppercase tracking-wider text-white/35 mb-3">Prévia do texto</p><div id="preview" class="preview rounded-2xl bg-black/20 border border-white/8 p-5 min-h-[160px] text-white/90"></div></div>
       </section>
 
-      <aside class="glass rounded-[2rem] p-4 md:p-6 h-fit xl:sticky xl:top-24"><div class="flex items-center justify-between mb-4"><div><p class="text-[.65rem] uppercase tracking-[.2em] font-bold text-white/35">Banco de conteúdo</p><h2 class="display font-black text-2xl">Matérias</h2></div><span id="post-count" class="w-10 h-10 rounded-full bg-white/[.08] grid place-items-center font-bold">0</span></div><div id="posts-list" class="space-y-2 max-h-[70vh] overflow-y-auto pr-1"></div></aside>
+      <aside class="glass rounded-[2rem] p-4 md:p-6 h-fit xl:sticky xl:top-24"><div class="flex items-center justify-between mb-4"><div><p class="text-[.65rem] uppercase tracking-[.2em] font-bold text-white/35">Redação</p><h2 class="display font-black text-2xl">Minhas matérias</h2></div><span id="post-count" class="w-10 h-10 rounded-full bg-white/[.08] grid place-items-center font-bold">0</span></div><p class="text-sm text-white/65 mb-4">Você edita apenas textos assinados pela sua conta.</p><div id="posts-list" class="space-y-2 max-h-[40vh] overflow-y-auto pr-1"></div><details class="mt-6 border-t border-white/10 pt-5" open><summary class="font-bold cursor-pointer">Já está no catálogo</summary><p class="text-sm text-white/65 mt-2">Escolha uma obra para escrever sua própria crítica.</p><input id="catalog-search" class="w-full rounded-xl px-3 py-2 mt-3" placeholder="Buscar filme, álbum ou artista"><div id="catalog-list" class="space-y-2 mt-3 max-h-[35vh] overflow-y-auto"></div></details><section id="writer-management" class="hidden mt-6 border-t border-white/10 pt-5"><h3 class="font-bold">Escritores autorizados</h3><p class="text-sm text-white/65 mt-2">Autorize o e-mail Google de cada colaborador. Leitores continuam só com acesso aos comentários.</p><input id="invite-email" type="email" class="w-full rounded-xl px-3 py-2 mt-3" placeholder="E-mail do escritor"><button id="invite-writer" class="w-full mt-2 rounded-xl bg-orange-500 py-2 font-bold">Autorizar escritor</button><p id="invite-message" class="text-sm mt-2"></p><div id="writers-list" class="space-y-2 mt-3"></div></section></aside>
     </main>
   </div>
 
-  <script type="module">
-    import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
-    import { FALLBACK_POSTS } from './articles.js';
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
-    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
-    import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, serverTimestamp, Timestamp, writeBatch } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
-
-    const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
-    // Mantém o acesso da redação neste navegador até a pessoa sair manualmente.
-    setPersistence(auth, browserLocalPersistence);
-    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-    let posts=[];
-    const slugify=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-    const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
-
-    $('#google-login').addEventListener('click',async()=>{ $('#login-error').classList.add('hidden'); try { await signInWithPopup(auth,new GoogleAuthProvider()); } catch(err) { $('#login-error').textContent=err.code==='auth/popup-blocked'?'Permita a janela de login do Google e clique em Entrar novamente.':`Não foi possível entrar: ${err.code||err.message}`; $('#login-error').classList.remove('hidden'); } });
-    $('#logout').addEventListener('click',()=>signOut(auth));
-
-
-    onAuthStateChanged(auth,user=>{
-      const allowed = user && (!MARTE_ALMA.adminEmail || MARTE_ALMA.adminEmail==='SEU-EMAIL@exemplo.com' || user.email===MARTE_ALMA.adminEmail);
-      $('#login-view').classList.toggle('hidden',!!allowed); $('#app-view').classList.toggle('hidden',!allowed);
-      if(user && !allowed){ $('#login-error').textContent='Você está conectado como leitor. Já pode comentar nas críticas. A redação está disponível apenas para a conta autorizada.'; $('#login-error').classList.remove('hidden'); $('#google-login').textContent='Trocar conta Google'; }
-      if(allowed) watchPosts();
-    });
-
-    let unsubscribe=null;
-    let checkedInitialContent=false;
-    function watchPosts(){
-      if(unsubscribe) unsubscribe();
-      unsubscribe=onSnapshot(collection(db,'articles'),async snap=>{
-        if(!checkedInitialContent){
-          checkedInitialContent=true;
-          if(snap.empty){
-            $('#posts-list').textContent='Preparando as matérias atuais para edição…';
-            try {
-              const batch=writeBatch(db);
-              FALLBACK_POSTS.forEach(({id,...post})=>batch.set(doc(db,'articles',id),post));
-              await batch.commit();
-              return;
-            } catch(err){ $('#posts-list').textContent='Não foi possível carregar as matérias para edição: '+err.message; return; }
-          }
-        }
-        posts=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.publishedAt?.seconds||0)-(a.publishedAt?.seconds||0)));
-        renderList();
-      },err=>{ $('#posts-list').textContent='Não foi possível acessar as matérias: '+err.message; });
-    }
-    function renderList(){ $('#post-count').textContent=posts.length; $('#posts-list').innerHTML=posts.map(p=>`<div class="rounded-2xl bg-white/[.045] border border-white/8 p-3"><div class="flex gap-3"><img src="${escapeHtml(p.image||'')}" class="w-20 h-16 rounded-xl object-cover bg-white/5"><div class="min-w-0 flex-1"><div class="text-[.62rem] uppercase tracking-wider font-bold ${p.status==='published'?'text-emerald-300':'text-amber-300'}">${p.status==='published'?'Publicado':'Rascunho'} · ${escapeHtml(p.category||'')}</div><div class="display font-bold leading-tight mt-1 line-clamp-2">${escapeHtml(p.title||'Sem título')}</div></div></div><div class="flex gap-2 mt-3"><button data-edit="${p.id}" class="flex-1 py-2 rounded-lg bg-white/[.07] text-xs font-bold">Editar</button><button data-delete="${p.id}" class="w-9 rounded-lg bg-red-500/10 text-red-300"><i class="ph-bold ph-trash"></i></button></div></div>`).join('')||'<p class="text-sm text-white/35 py-8 text-center">Nenhuma matéria ainda.</p>'; $$('[data-edit]').forEach(b=>b.onclick=()=>loadPost(b.dataset.edit)); $$('[data-delete]').forEach(b=>b.onclick=()=>removePost(b.dataset.delete)); }
-
-    $('#title').addEventListener('input',()=>{if(!$('#post-id').value) $('#slug').value=slugify($('#title').value)});
-    $('#content').addEventListener('input',updatePreview); function updatePreview(){ $('#preview').innerHTML=DOMPurify.sanitize(marked.parse($('#content').value||'*A prévia aparece aqui.*')); } updatePreview();
-    $('#new-post').onclick=resetForm;
-    $$('[data-save]').forEach(b=>b.onclick=()=>savePost(b.dataset.save));
-
-    function loadPost(id){const p=posts.find(x=>x.id===id);if(!p)return;$('#post-id').value=p.id;$('#title').value=p.title||'';$('#slug').value=p.slug||'';$('#category').value=p.category||'Pop';$('#author').value=p.author||'Redação Marte';$('#image').value=p.image||'';$('#excerpt').value=p.excerpt||'';$('#content').value=p.content||'';$('#tags').value=(p.tags||[]).join(', ');$('#featured').checked=!!p.featured;$('#editor-title').textContent='Editar matéria';updatePreview();scrollTo({top:0,behavior:'smooth'});}
-    function resetForm(){$('#post-form').reset();$('#post-id').value='';$('#author').value='Redação Marte';$('#editor-title').textContent='Nova matéria';$('#content').value='';updatePreview();}
-
-    async function savePost(status){const title=$('#title').value.trim(),slug=$('#slug').value.trim()||slugify(title);if(!title||!slug||!$('#image').value.trim()||!$('#content').value.trim()){alert('Preencha título, slug, imagem e texto.');return;}const id=$('#post-id').value||slug;const old=posts.find(p=>p.id===id);const data={title,slug,category:$('#category').value,author:$('#author').value.trim()||'Redação Marte',image:$('#image').value.trim(),excerpt:$('#excerpt').value.trim(),content:$('#content').value,tags:$('#tags').value.split(',').map(x=>x.trim()).filter(Boolean),featured:$('#featured').checked,status,updatedAt:serverTimestamp(),publishedAt:status==='published'?(old?.publishedAt||Timestamp.now()):(old?.publishedAt||null)};try{await setDoc(doc(db,'articles',id),data,{merge:true});showMessage(status==='published'?'Matéria publicada com sucesso.':'Rascunho salvo.');$('#post-id').value=id;$('#editor-title').textContent='Editar matéria';}catch(err){alert('Erro ao salvar: '+err.message)}}
-    async function removePost(id){const p=posts.find(x=>x.id===id);if(!confirm(`Excluir “${p?.title||'esta matéria'}”?`))return;await deleteDoc(doc(db,'articles',id));if($('#post-id').value===id)resetForm();}
-    function showMessage(text){$('#save-message').textContent=text;$('#save-message').classList.remove('hidden');setTimeout(()=>$('#save-message').classList.add('hidden'),2500)}
-  </script>
+  <script type="module" src="./editor.js"></script>
 </body>
 </html>
