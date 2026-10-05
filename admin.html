@@ -56,7 +56,7 @@
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
-    import { getAuth, GoogleAuthProvider, signInWithRedirect, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
+    import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
     import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, serverTimestamp, Timestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
 
     const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
@@ -69,6 +69,8 @@
 
     $('#google-login').addEventListener('click',async()=>{ $('#login-error').classList.add('hidden'); try { await signInWithRedirect(auth,new GoogleAuthProvider()); } catch(err) { $('#login-error').textContent='Não foi possível iniciar o login com Google. Tente de novo.'; $('#login-error').classList.remove('hidden'); } });
     $('#logout').addEventListener('click',()=>signOut(auth));
+
+    getRedirectResult(auth).catch(err=>{ $('#login-error').textContent=`O login Google retornou um erro: ${err.code||err.message}`; $('#login-error').classList.remove('hidden'); });
 
     onAuthStateChanged(auth,user=>{
       const allowed = user && (!MARTE_ALMA.adminEmail || MARTE_ALMA.adminEmail==='SEU-EMAIL@exemplo.com' || user.email===MARTE_ALMA.adminEmail);
