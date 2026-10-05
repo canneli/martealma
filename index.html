@@ -422,14 +422,18 @@
     }
     .dark .score-panel { background: linear-gradient(135deg, #f5e1b8, #fff5df); color: #221d17; }
     .score-square {
-      background: #201e1d;
-      color: #fff8eb;
+      color: #fffdf7;
       border: 1px solid rgba(255,255,255,.18);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
     }
+    .score-good { background: #25844e; }
+    .score-mid { background: #bf8100; }
+    .score-low { background: #bd3441; }
     .score-filter[aria-pressed="true"] { background: #201e1d; color: #fff8eb; border-color: #201e1d; }
     .dark .score-filter[aria-pressed="true"] { background: #fff8eb; color: #201e1d; border-color: #fff8eb; }
     .rating-card { background: var(--surface-strong); border:1px solid var(--line); box-shadow: var(--shadow); }
+    .review-shelf { scrollbar-width: thin; scrollbar-color: rgba(255,122,26,.55) transparent; }
+    .poster-frame { background:#2a2724; box-shadow:0 8px 22px rgba(0,0,0,.18); }
 
     @media (max-width: 767px) {
       .cosmos-orb { filter: blur(70px); opacity: .34; }
@@ -482,11 +486,10 @@
       </div>
 
       <nav class="desktop-nav hidden lg:flex items-center gap-1 rounded-full p-1 bg-black/[.035] dark:bg-white/[.04] border border-black/[.05] dark:border-white/[.07]">
-        <button data-category="Pop" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Pop</button>
-        <button data-category="Cinema" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Cinema</button>
-        <button data-category="Séries" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Séries</button>
-        <button data-category="Críticas" class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Críticas</button>
+        <button data-go-home class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Início</button>
+        <button data-reviews class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Críticas</button>
         <button data-reviews class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Notas</button>
+        <button data-news class="nav-chip px-4 py-2 rounded-full text-sm font-bold hover:bg-black/[.05] dark:hover:bg-white/10 transition">Notícias</button>
       </nav>
 
       <div class="flex items-center gap-1.5 md:gap-2">
@@ -496,6 +499,7 @@
         <button id="theme-button" class="w-10 h-10 md:w-11 md:h-11 rounded-full grid place-items-center hover:bg-black/5 dark:hover:bg-white/[.08] transition" aria-label="Alternar tema">
           <i class="ph-fill ph-moon text-xl"></i>
         </button>
+        <a href="admin.html" class="hidden sm:inline-flex h-10 md:h-11 items-center px-3 rounded-full bg-brand-ink text-white dark:bg-white dark:text-brand-ink text-sm font-bold">Entrar</a>
       </div>
     </div>
   </header>
@@ -509,11 +513,10 @@
     </div>
     <p class="text-[.68rem] uppercase tracking-[.24em] font-bold opacity-40 mb-3">Explorar</p>
     <nav class="space-y-2">
-      <button data-category="Pop" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-pink/12 text-brand-pink grid place-items-center"><i class="ph-fill ph-sparkle text-xl"></i></span> Cultura Pop</button>
-      <button data-category="Cinema" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-cyan/12 text-brand-cyan grid place-items-center"><i class="ph-fill ph-film-strip text-xl"></i></span> Cinema</button>
-      <button data-category="Séries" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-television text-xl"></i></span> Séries</button>
-      <button data-category="Críticas" class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas</button>
+      <button data-go-home class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-pink/12 text-brand-pink grid place-items-center"><i class="ph-fill ph-house text-xl"></i></span> Início</button>
+      <button data-reviews class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-violet/12 text-brand-violet grid place-items-center"><i class="ph-fill ph-star-half text-xl"></i></span> Críticas e notas</button>
       <button data-reviews class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-orange/12 text-brand-orange grid place-items-center"><i class="ph-fill ph-squares-four text-xl"></i></span> Notas</button>
+      <button data-news class="sidebar-category w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold"><span class="w-10 h-10 rounded-full bg-brand-cyan/12 text-brand-cyan grid place-items-center"><i class="ph-fill ph-newspaper text-xl"></i></span> Notícias</button>
     </nav>
     <div class="mt-auto pt-7 border-t border-black/10 dark:border-white/10">
       <a href="admin.html" class="mb-4 w-full flex items-center gap-3 p-3 rounded-2xl hover:bg-black/5 dark:hover:bg-white/[.07] transition text-left font-bold">
@@ -545,11 +548,9 @@
       <!-- CATEGORY STRIP / MOBILE -->
       <div class="category-strip flex lg:hidden overflow-x-auto gap-2 pb-3 -mx-4 px-4 mb-2">
         <button data-go-home class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Início</button>
-        <button data-category="Pop" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Pop</button>
-        <button data-category="Cinema" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Cinema</button>
-        <button data-category="Séries" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Séries</button>
-        <button data-category="Críticas" class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Críticas</button>
+        <button data-reviews class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Críticas</button>
         <button data-reviews class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Notas</button>
+        <button data-news class="shrink-0 px-4 py-2 rounded-full glass text-sm font-bold">Notícias</button>
       </div>
 
       <div id="dynamic-content">
@@ -577,7 +578,8 @@
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
-    import { getFirestore, collection, onSnapshot, query, where, limit } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+    import { getFirestore, collection, onSnapshot, query, where, limit, orderBy, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
 
     // ==========================================================
     // POSTS DE DEMONSTRAÇÃO / FALLBACK
@@ -593,6 +595,7 @@
         featured: true, status: 'published', publishedAt: new Date('2026-10-05T13:16:00'),
         reviewScore: 70,
         reviewType: 'Música',
+        spotifyEmbed: 'https://open.spotify.com/embed/album/5T0XGpHYAdQKJycz00qYIz?utm_source=generator',
         reviewBreakdown: { cancoes: 72, producao: 76, coesao: 60, impacto: 72 },
         content: `**Nota: 7/10**
 
@@ -620,7 +623,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'challengers', slug: 'challengers-triangulo-realista',
         title: 'Challengers entende que desejo também é jogo de posição',
         excerpt: 'A pouca interação entre Art e Patrick incomoda no começo, mas o desfecho encontra uma verdade emocional que sustenta o triângulo.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=85&w=1600&auto=format&fit=crop',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://i0.wp.com/vsmoviepodcast.com/wp-content/uploads/2024/04/Challengers-IMAX-Amazon-MGM.jpg?fit=1080%2C1600&ssl=1', trailerId: 'VobTTbg-te0',
         featured: false, status: 'published', publishedAt: new Date('2024-06-04T12:00:00'), reviewScore: 70, reviewType: 'Filmes', reviewBreakdown: { roteiro: 68, atuações: 78, direção: 74, impacto: 70 },
         content: `## O jogo não acontece só na quadra\n\n*Challengers* demora um pouco para tornar clara a medida da relação entre Art e Patrick. A falta de cenas mais diretas entre os dois pode dar a impressão de que o filme segura uma peça importante demais. Ainda assim, a ausência também ajuda a prender o espectador na perspectiva instável de Tashi.\n\n## Um final que resolve sem simplificar\n\nNo desfecho, o que parecia pouco desenvolvido encontra uma resposta mais realista. A relação entre os dois é feita de competição, ressentimento e desejo de reconhecimento. Não é uma solução confortável, mas também não é vazia.\n\n> O enredo funciona porque entende que nenhum dos três sabe separar amor, ego e ambição.`
       },
@@ -628,7 +631,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'puss-last-wish', slug: 'gato-de-botas-ultimo-pedido',
         title: 'Gato de Botas 2 é o filme que fez o primeiro parecer ensaio',
         excerpt: 'Joel Crawford supera a aventura anterior com uma animação mais afiada, mais bonita e muito mais segura do que quer ser.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=85&w=1600&auto=format&fit=crop',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://www.awn.com/sites/default/files/styles/original/public/image/attached/1057422-pibadv1sheet3goodevilrgb1-1280.jpg?itok=7XebA4sg', trailerId: 'xgZLXyqbYOc',
         featured: false, status: 'published', publishedAt: new Date('2024-05-28T11:00:00'), reviewScore: 100, reviewType: 'Filmes', reviewBreakdown: { roteiro: 96, animação: 100, personagens: 100, impacto: 98 },
         content: `## Quando a sequência encontra uma razão para existir\n\nJoel Crawford conseguiu fazer de *Gato de Botas 2: O Último Pedido* mais do que uma continuação simpática. O filme é tão mais inventivo e bem resolvido que, para quem quer entrar nesse canto do universo de *Shrek*, ele virou a recomendação óbvia antes do primeiro longa.\n\n## A aventura tem peso\n\nA animação é viva, os personagens têm função dramática e a história não trata o público infantil como se ele só precisasse de barulho e cor. O medo, o desejo de viver e a noção de limite aparecem numa aventura que se permite ser engraçada sem abrir mão de sentimento.\n\n> Um daqueles raros casos em que a franquia lembra que ainda pode ter imaginação.`
       },
@@ -636,7 +639,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'interstellar', slug: 'interstellar-ainda-olha-para-o-humano',
         title: 'Interestelar é gigante porque não esquece das pessoas',
         excerpt: 'O espetáculo visual é imenso, mas o que permanece é a tentativa de discutir uma ideia humana dentro de uma ficção científica de escala absurda.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?q=85&w=1600&auto=format&fit=crop',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://image.tmdb.org/t/p/original/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg', trailerId: 'zSWdZVtXT7E',
         featured: false, status: 'published', publishedAt: new Date('2024-05-28T10:00:00'), reviewScore: 90, reviewType: 'Filmes', reviewBreakdown: { roteiro: 84, visual: 98, personagens: 88, impacto: 92 },
         content: `## Ficção científica com pulso\n\n*Interestelar* é autêntico porque usa a escala cósmica para falar de uma filosofia humana bem simples: o que a gente faz quando o futuro exige que alguém fique para trás? Os efeitos visuais são lindos, mas não funcionam como vitrine solta. Eles servem à sensação de distância, urgência e perda.\n\n## Mais do que um quebra-cabeça\n\nOs personagens têm espaço para carregar essa ideia, e o filme não precisa escolher entre ser uma experiência visual e uma história emocional. Nem todas as explicações precisam ser recebidas da mesma forma por todo mundo, mas o sentimento que sustenta a viagem é direto.\n\n> É um filme que olha para o espaço para falar do tamanho das escolhas humanas.`
       },
@@ -644,7 +647,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'saltburn', slug: 'saltburn-estranho-com-razao',
         title: 'Saltburn incomoda de propósito e sabe a hora de virar a faca',
         excerpt: 'A estranheza é a porta de entrada; a reviravolta é o momento em que o filme deixa claro que estava armando o terreno.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=85&w=1600&auto=format&fit=crop',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.flickdirect.com/movies/saltburn/saltburn-poster.jpg', trailerId: 'fNYepvUtYGA',
         featured: false, status: 'published', publishedAt: new Date('2024-05-28T09:00:00'), reviewScore: 90, reviewType: 'Filmes', reviewBreakdown: { roteiro: 90, direção: 92, atuações: 88, impacto: 90 },
         content: `## Estranheza não é defeito quando tem função\n\n*Saltburn* provoca um desconforto constante, e isso faz parte do pacote. O filme se constrói em cima de situações que parecem excessivas, deslocadas e até meio suspeitas. É uma escolha que pode afastar, mas também mantém a narrativa em alerta.\n\n## A virada reorganiza tudo\n\nQuando a história revela de onde vinha essa energia estranha, a reviravolta não parece colocada só para chocar. Ela dá outro peso aos gestos, às relações e à ambição que o filme estava encenando.\n\n> Ele não pede para você gostar de cada escolha; pede para você perceber o plano por trás delas.`
       },
@@ -652,7 +655,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'top-gun-maverick', slug: 'top-gun-maverick-uma-sequencia-impecavel',
         title: 'Top Gun: Maverick prova que uma sequência pode melhorar a lenda',
         excerpt: 'Com uma história precisa e cenas de voo que têm consequência, o filme passa por cima do original de 1986 sem tratá-lo como descartável.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=85&w=1600&auto=format&fit=crop',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://www.impawards.com/2022/posters/top_gun_maverick_ver3_xxlg.jpg', trailerId: 'giXco2jaZ_4',
         featured: false, status: 'published', publishedAt: new Date('2024-05-28T08:00:00'), reviewScore: 100, reviewType: 'Filmes', reviewBreakdown: { roteiro: 98, ação: 100, personagens: 94, impacto: 100 },
         content: `## Nostalgia só funciona quando o filme anda com as próprias pernas\n\n*Top Gun: Maverick* respeita o primeiro filme, mas não se apoia nele o tempo todo. A sequência encontra uma história clara para Pete Mitchell, cria uma missão que importa e faz cada cena de ação carregar algum risco emocional.\n\n## O espetáculo vem com consequência\n\nAs imagens aéreas são impressionantes porque não entram apenas para enfeitar. Elas ajudam a fazer da missão um teste de técnica, lealdade e amadurecimento. É difícil sair sem a sensação de que a continuação conseguiu ultrapassar o ponto de partida.\n\n> Uma sequência rara: fiel ao que existia, mas melhor porque sabe o que fazer com isso.`
       },
@@ -660,15 +663,15 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'halloween-1978', slug: 'halloween-1978-o-sucesso-de-jamie-lee-curtis',
         title: 'Halloween já entendia o poder de Jamie Lee Curtis',
         excerpt: 'O clássico abriu espaço para uma protagonista que transformou vulnerabilidade e inteligência em força — e o sucesso dela não foi acaso.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=85&w=1600&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2024-05-27T18:00:00'), reviewScore: 100, reviewType: 'Filmes', reviewBreakdown: { direção: 100, suspense: 100, atuação: 96, legado: 100 },
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://cdn11.bigcommerce.com/s-yshlhd/images/stencil/1280x1280/products/26297/181156/halloween_31360__07701.1753386832.jpg?c=2', trailerId: 'xHuOtLTQ_64',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-27T18:00:00'), reviewScore: 100, reviewType: 'Filmes', revisiting: true, reviewBreakdown: { direção: 100, suspense: 100, atuação: 96, legado: 100 },
         content: `## Uma estrela nasce no meio do terror\n\nO sucesso de Jamie Lee Curtis é merecido, e *Halloween* deixa isso claro desde o começo. Laurie Strode não funciona porque o filme precisa de uma heroína pronta; ela funciona porque Curtis encontra a medida entre medo, atenção e sobrevivência.\n\n## O clássico não precisa gritar\n\nA simplicidade da trama ajuda o terror a ficar maior. O filme prefere construir clima, silêncio e presença em vez de explicar demais. É uma escolha que ainda sustenta o impacto do longa.\n\n> A carreira de Jamie Lee Curtis começou bem porque o filme enxergou muito mais nela do que uma vítima.`
       },
       {
         id: 'avatar-way-water', slug: 'avatar-o-caminho-da-agua-e-o-prazer-de-rever',
         title: 'Avatar: O Caminho da Água é lindo o bastante para merecer replay',
         excerpt: 'A sequência entrega um mundo visualmente enorme e uma história que, mesmo com clichês, sabe ser vista de novo.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=85&w=1600&auto=format&fit=crop',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://cdn.hk01.com/di/media/images/dw/20221214/679735468002119680718069.jpeg/gs9VdHfs15ZmlvbHT48Srl8lnIlWTfVmzrWtus61rbo?v=w1920', trailerId: 'd9MyW72ELq0',
         featured: false, status: 'published', publishedAt: new Date('2024-05-27T16:00:00'), reviewScore: 80, reviewType: 'Filmes', reviewBreakdown: { roteiro: 72, visual: 100, personagens: 76, impacto: 82 },
         content: `## O visual é parte da experiência\n\n*Avatar: O Caminho da Água* é uma ótima sequência porque constrói um universo que convida a ficar mais tempo nele. A beleza visual não aparece como um extra: ela organiza o ritmo, a escala e o prazer de descobrir cada novo espaço.\n\n## Clichês, mas com vontade de voltar\n\nO enredo tem caminhos conhecidos, e isso impede o filme de chegar a um lugar ainda mais forte. Mesmo assim, a história segura o suficiente para que a experiência não dependa só do efeito técnico. É um filme que aceita ser grandioso e ainda deixa vontade de rever.\n\n> Nem todo replay precisa de uma tese; às vezes ele vem porque o mundo ainda tem coisa para mostrar.`
       },
@@ -676,13 +679,14 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'the-core', slug: 'o-nucleo-uma-parodia-seria-demais',
         title: 'O Núcleo tem pouca coisa acontecendo para tanto tempo de filme',
         excerpt: 'Mesmo com Hilary Swank no elenco, a trama parece uma paródia séria demais de Viagem ao Centro da Terra.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=85&w=1600&auto=format&fit=crop',
-        featured: false, status: 'published', publishedAt: new Date('2024-05-27T14:00:00'), reviewScore: 50, reviewType: 'Filmes', reviewBreakdown: { roteiro: 42, visual: 58, personagens: 52, impacto: 46 },
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://image.tmdb.org/t/p/original/b3Oe2WIhGX6gfG3IMRZf3wIfm1d.jpg',
+        featured: false, status: 'published', publishedAt: new Date('2024-05-27T14:00:00'), reviewScore: 50, reviewType: 'Filmes', revisiting: true, reviewBreakdown: { roteiro: 42, visual: 58, personagens: 52, impacto: 46 },
         content: `## Longo demais para tão pouco movimento\n\n*O Núcleo* tem uma premissa que poderia render aventura: o centro da Terra para de funcionar e uma equipe precisa atravessar o planeta para consertar o problema. Na prática, porém, há pouquíssimas coisas acontecendo para um filme tão longo.\n\n## A seriedade vira problema\n\nHilary Swank não consegue salvar uma trama que parece uma paródia feita sem perceber que é paródia. O longa insiste em elevar o absurdo sem construir personagens ou tensão que acompanhem esse esforço.\n\n> A viagem ao centro da Terra é longa; a sensação é que o filme faz questão de levar o público junto.`
       }
     ];
 
     let POSTS = [];
+    let auth, db, currentUser = null, stopComments = null;
     const content = document.getElementById('dynamic-content');
     const $ = (s, root=document) => root.querySelector(s);
     const $$ = (s, root=document) => [...root.querySelectorAll(s)];
@@ -745,6 +749,12 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       return 'fraco';
     }
 
+    function scoreTone(score) {
+      if (score >= 70) return 'score-good';
+      if (score < 50) return 'score-low';
+      return 'score-mid';
+    }
+
     function reviewType(post) {
       if (post.reviewType) return post.reviewType;
       if (post.category === 'Cinema') return 'Filmes';
@@ -753,9 +763,9 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
     }
 
     function renderReviewCard(post) {
-      return `<article ${articleButton(post)} class="rating-card cursor-pointer rounded-[1.6rem] p-4 md:p-5 grid grid-cols-[82px_1fr] gap-4 hover:-translate-y-1 transition-transform">
-        <div class="score-square review-score rounded-2xl aspect-square grid place-items-center text-4xl font-black leading-none">${post.reviewScore}</div>
-        <div class="min-w-0"><div class="section-kicker opacity-55 mb-1">${escapeHtml(reviewType(post))} · ${scoreVerdict(post.reviewScore)}</div><h3 class="font-display font-extrabold text-xl leading-[1.02] tracking-[-.025em]">${escapeHtml(post.title)}</h3><p class="text-sm opacity-65 leading-relaxed mt-2 line-clamp-2">${escapeHtml(post.excerpt)}</p><div class="mt-3 text-xs font-bold opacity-50">${dateLabel(post.publishedAt)} · ${escapeHtml(post.author)}</div></div>
+      return `<article ${articleButton(post)} class="rating-card cursor-pointer w-[164px] md:w-[190px] shrink-0 rounded-2xl p-2.5 hover:-translate-y-1 transition-transform">
+        <div class="relative"><img src="${escapeHtml(post.poster || post.image)}" alt="Pôster de ${escapeHtml(post.title)}" class="poster-frame w-full aspect-[2/3] rounded-xl object-cover" loading="lazy"><div class="score-square ${scoreTone(post.reviewScore)} review-score absolute right-2 top-2 w-11 h-11 rounded-xl grid place-items-center text-xl font-black leading-none">${post.reviewScore}</div>${post.trailerId ? '<span class="absolute left-2 bottom-2 w-8 h-8 rounded-full bg-black/70 text-white grid place-items-center"><i class="ph-fill ph-play"></i></span>' : ''}</div>
+        <div class="px-1 pt-3"><div class="section-kicker opacity-55 mb-1">${escapeHtml(reviewType(post))}</div><h3 class="font-display font-extrabold text-[.98rem] leading-[1.08] tracking-[-.02em] line-clamp-3">${escapeHtml(post.title)}</h3>${post.revisiting ? '<span class="inline-flex mt-2 px-2 py-1 rounded-md bg-brand-violet/12 text-brand-violet text-[.58rem] font-extrabold uppercase tracking-[.09em]">Revisitando</span>' : ''}<div class="mt-2 text-[.68rem] font-bold opacity-50">${dateLabel(post.publishedAt)}</div></div>
       </article>`;
     }
 
@@ -772,7 +782,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
           <p class="max-w-2xl mt-5 text-base md:text-lg opacity-70 leading-relaxed">Cada obra recebe uma nota de 0 a 100. A nota resume a leitura, não substitui o texto: contexto, ambição e execução entram na conta.</p>
           <div class="mt-7 flex flex-wrap gap-2">${types.map(type => `<button data-review-filter="${type}" aria-pressed="${type===active}" class="score-filter px-4 py-2 rounded-full border border-black/15 dark:border-white/20 text-sm font-bold transition">${type}</button>`).join('')}</div>
         </header>
-        <div class="grid md:grid-cols-2 gap-5">${filtered.length ? filtered.map(renderReviewCard).join('') : `<div class="md:col-span-2 rounded-[1.6rem] rating-card p-10 text-center"><i class="ph-fill ph-film-strip text-4xl text-brand-orange"></i><p class="font-display font-bold text-xl mt-3">Ainda não há críticas publicadas nesta categoria.</p><p class="opacity-60 mt-2">Quando elas entrarem, aparecem aqui sem precisar reinventar o site inteiro.</p></div>`}</div>
+        <div class="review-shelf flex gap-4 overflow-x-auto pb-5 -mx-2 px-2">${filtered.length ? filtered.map(renderReviewCard).join('') : `<div class="w-full rounded-[1.6rem] rating-card p-10 text-center"><i class="ph-fill ph-film-strip text-4xl text-brand-orange"></i><p class="font-display font-bold text-xl mt-3">Ainda não há críticas publicadas nesta categoria.</p><p class="opacity-60 mt-2">Quando elas entrarem, aparecem aqui.</p></div>`}</div>
         <details class="mt-10 rounded-[1.6rem] glass p-5 md:p-7"><summary class="cursor-pointer font-display font-extrabold text-xl">Como a nota funciona</summary><div class="mt-4 max-w-3xl text-sm md:text-base opacity-70 leading-relaxed space-y-3"><p>Roteiro ou canções, direção ou produção, performances, coesão e impacto são avaliados conforme a obra. Não existe fórmula fixa que transforme arte em boletim de escola.</p><p>90–100: essencial · 80–89: muito bom · 70–79: bom · 60–69: irregular · abaixo de 60: fraco. O texto explica onde a obra ganha, tropeça ou simplesmente resolve se sabotar.</p></div></details>
       </section>`;
       bindDynamicEvents();
@@ -837,7 +847,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
             <div><p class="section-kicker text-brand-orange mb-3">Índice de críticas</p><h2 class="maxi-title font-display font-extrabold text-4xl md:text-6xl leading-[.9]">A nota, sem<br>letra miúda.</h2></div>
             <div class="max-w-md"><p class="opacity-65 leading-relaxed">Música, filmes e séries num arquivo único. A nota é de 0 a 100; a crítica é onde a conversa acontece.</p><button data-reviews class="mt-4 inline-flex items-center gap-2 font-bold text-sm hover:text-brand-orange transition">Ver todas as notas <i class="ph-bold ph-arrow-up-right"></i></button></div>
           </div>
-          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">${POSTS.filter(p => Number.isFinite(Number(p.reviewScore))).slice(0,3).map(renderReviewCard).join('')}</div>
+          <div class="review-shelf flex gap-4 overflow-x-auto pb-5 -mx-2 px-2">${POSTS.filter(p => Number.isFinite(Number(p.reviewScore))).slice(0,6).map(renderReviewCard).join('')}</div>
         </section>
 
         <section class="mb-20 md:mb-28">
@@ -872,7 +882,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
     }
 
     function renderCategory(category) {
-      const filtered = POSTS.filter(p => category === 'Críticas' ? p.category.toLowerCase() === 'críticas' : p.category.toLowerCase() === category.toLowerCase());
+      const filtered = POSTS.filter(p => category === 'Notícias' ? p.reviewScore == null : (category === 'Críticas' ? p.reviewScore != null : p.category.toLowerCase() === category.toLowerCase()));
       content.innerHTML = `
         <section class="pt-5 md:pt-10">
           <div class="mb-10 md:mb-16 reveal is-visible relative">
@@ -891,6 +901,10 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       bindDynamicEvents(); observeReveals(); closeMenu();
     }
 
+    function renderNews() {
+      renderCategory('Notícias');
+    }
+
     function renderArticle(slug, push=true) {
       const post = POSTS.find(p => p.slug === slug || p.id === slug);
       if (!post) return renderHome();
@@ -906,7 +920,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
 
           <header class="max-w-[1040px] mx-auto text-center mb-9 md:mb-14 reveal is-visible relative">
             <div class="absolute left-1/2 -translate-x-1/2 -top-6 md:-top-10 text-[6rem] md:text-[11rem] font-brand font-black opacity-[.025] pointer-events-none select-none">MA</div>
-            <div class="mb-5 relative z-10">${pill(post.category)}</div>
+            <div class="mb-5 relative z-10 flex flex-wrap justify-center gap-2">${pill(post.category)}${post.revisiting ? '<span class="inline-flex items-center px-3 py-1.5 rounded-full border border-brand-violet/25 bg-brand-violet/10 text-brand-violet text-[.66rem] font-extrabold uppercase tracking-[.12em]">Revisitando</span>' : ''}</div>
             <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / ${post.reviewScore != null ? 'crítica' : 'notícia em órbita'}</p>
             <h1 class="maxi-title font-display font-extrabold text-[clamp(2.45rem,5.8vw,5.65rem)] leading-[.96] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
             <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
@@ -916,15 +930,19 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
 
           <div class="hero-shell max-w-[1100px] mx-auto mb-10 md:mb-16 reveal">
             <div class="hero-backplate"></div>
-            <div class="relative z-10 rounded-[2rem] md:rounded-[2.8rem] overflow-hidden shadow-2xl border border-white/20"><img src="${escapeHtml(post.image)}" alt="${escapeHtml(post.title)}" class="w-full max-h-[720px] object-cover"><div class="absolute top-4 right-4 md:top-6 md:right-6 font-brand text-[.55rem] md:text-[.62rem] tracking-[.12em] text-white bg-black/25 backdrop-blur-xl border border-white/25 px-3 py-2 rounded-full">MARTE / ALMA</div></div>
+            <div class="relative z-10 rounded-[2rem] md:rounded-[2.8rem] overflow-hidden shadow-2xl border border-white/20 bg-[#1d1a17]"><img src="${escapeHtml(post.image)}" alt="Capa de ${escapeHtml(post.title)}" class="w-full max-h-[720px] object-contain"><div class="absolute top-4 right-4 md:top-6 md:right-6 font-brand text-[.55rem] md:text-[.62rem] tracking-[.12em] text-white bg-black/45 backdrop-blur-xl border border-white/25 px-3 py-2 rounded-full">MARTE / ALMA</div></div>
           </div>
+
+          ${post.trailerId ? `<section class="max-w-[940px] mx-auto mb-10 md:mb-14 reveal"><div class="flex items-center justify-between gap-4 mb-3"><p class="section-kicker text-brand-orange">Trailer oficial</p><span class="text-xs opacity-50">YouTube</span></div><div class="aspect-video overflow-hidden rounded-[1.7rem] border border-black/10 dark:border-white/15 bg-black"><iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${escapeHtml(post.trailerId)}" title="Trailer oficial de ${escapeHtml(post.title)}" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div></section>` : ''}
+          ${post.spotifyEmbed ? `<section class="max-w-[940px] mx-auto mb-10 md:mb-14 reveal"><p class="section-kicker text-brand-pink mb-3">Ouça o álbum</p><iframe class="w-full rounded-2xl" src="${escapeHtml(post.spotifyEmbed)}" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Ouvir ${escapeHtml(post.title)} no Spotify"></iframe></section>` : ''}
 
           <div class="grid lg:grid-cols-[1fr_86px] gap-8 items-start max-w-[940px] mx-auto">
             <div class="glass rounded-[2rem] md:rounded-[2.6rem] p-5 sm:p-8 md:p-11 lg:p-14 reveal relative border border-brand-pink/10">
               <div class="absolute top-0 left-8 md:left-12 w-28 h-1.5 bg-gradient-to-r from-brand-pink via-brand-orange to-brand-cyan rounded-b-full"></div>
               <div class="article-body">${html}</div>
-              ${post.reviewBreakdown ? `<details class="mt-10 rounded-2xl border border-black/10 dark:border-white/10 p-5 md:p-6"><summary class="cursor-pointer font-display font-extrabold text-xl">Como chegamos à nota</summary><p class="mt-3 text-sm opacity-65 leading-relaxed">A nota considera as canções, a produção, a coesão do álbum e seu impacto dentro da trajetória da artista. Contexto importa, mas não substitui a música.</p><div class="mt-5 grid grid-cols-2 gap-3 text-sm">${Object.entries(post.reviewBreakdown).map(([label,score])=>`<div class="rounded-xl bg-black/[.04] dark:bg-white/[.06] p-3"><span class="opacity-55 capitalize">${escapeHtml(label)}</span><strong class="float-right font-brand text-brand-orange">${score}</strong></div>`).join('')}</div></details>` : ''}
+              ${post.reviewScore != null ? `<aside class="mt-10 rounded-2xl border-l-4 border-brand-orange bg-brand-orange/[.07] p-5 md:p-6"><p class="section-kicker text-brand-orange mb-2">Sobre a nota</p><p class="text-sm md:text-base opacity-75 leading-relaxed">${reviewType(post) === 'Música' ? 'A nota olha para as canções, a produção, a coesão e o lugar do disco na trajetória da artista. Contexto pesa, mas não substitui música boa.' : 'A nota considera o que o filme propõe e como realiza isso: direção, roteiro, atuações, linguagem e o que continua reverberando depois dos créditos.'}</p></aside>` : ''}
               <div class="mt-10 pt-6 border-t border-black/10 dark:border-white/10 flex flex-wrap gap-2">${(post.tags || []).map(t => `<span class="px-3 py-1.5 rounded-full bg-gradient-to-r from-brand-pink/8 to-brand-orange/8 border border-brand-pink/10 text-xs font-semibold">#${escapeHtml(t)}</span>`).join('')}</div>
+              <section id="comments" class="mt-12 pt-9 border-t border-black/10 dark:border-white/10"><div class="flex items-end justify-between gap-4 mb-5"><div><p class="section-kicker text-brand-pink mb-2">Conversa</p><h2 class="font-display font-extrabold text-3xl">Comentários</h2></div><button id="comment-login" class="rounded-full px-4 py-2 bg-brand-ink text-white dark:bg-white dark:text-brand-ink text-sm font-bold">Entrar para comentar</button></div><div id="comment-form-wrap" class="hidden"><textarea id="comment-text" maxlength="1200" rows="4" class="w-full rounded-2xl p-4 bg-black/[.04] dark:bg-white/[.08] border border-black/10 dark:border-white/15 outline-none" placeholder="Escreva seu comentário..."></textarea><div class="mt-2 flex justify-between items-center"><span id="comment-user" class="text-xs opacity-55"></span><button id="comment-send" class="rounded-full px-4 py-2 bg-brand-pink text-white text-sm font-bold">Publicar</button></div></div><div id="comments-list" class="mt-6 space-y-3 text-sm opacity-65">Carregando comentários...</div></section>
             </div>
             <div class="hidden lg:flex sticky top-28 flex-col gap-2 reveal">
               <span class="section-kicker opacity-30 text-center mb-1">Share</span>
@@ -936,7 +954,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
 
           ${related.length ? `<section class="mt-18 md:mt-24"><div class="flex items-end gap-4 mb-8 reveal"><div><p class="section-kicker opacity-35 mb-2">Próxima órbita</p><h2 class="font-display font-extrabold text-4xl md:text-5xl leading-[.92]">Continue em <span class="headline-gradient">${escapeHtml(post.category)}</span></h2></div><div class="hidden md:block flex-1 h-px bg-gradient-to-r from-brand-pink/40 to-transparent mb-2"></div></div><div class="grid md:grid-cols-3 gap-7">${related.map((r,i) => `<article ${articleButton(r)} class="editorial-card cursor-pointer reveal card-hover"><div class="glass-card-inner"><div class="aspect-[16/10] overflow-hidden"><img src="${escapeHtml(r.image)}" class="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" alt="${escapeHtml(r.title)}"></div><div class="p-5"><div class="section-kicker opacity-25 mb-2">0${i+1}</div><h3 class="font-display font-extrabold text-xl leading-[1]">${escapeHtml(r.title)}</h3></div></div></article>`).join('')}</div></section>` : ''}
         </article>`;
-      bindDynamicEvents(); bindShare(post); observeReveals(); window.scrollTo({top:0, behavior:'smooth'});
+      bindDynamicEvents(); bindShare(post); initComments(post); observeReveals(); window.scrollTo({top:0, behavior:'smooth'});
     }
 
     function updateMeta(post) {
@@ -966,6 +984,19 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       }));
     }
 
+    function initComments(post) {
+      if (stopComments) stopComments();
+      const list = $('#comments-list');
+      const login = $('#comment-login');
+      const form = $('#comment-form-wrap');
+      if (!db || !auth) { list.textContent = 'Os comentários estarão disponíveis quando a conexão com o site terminar de carregar.'; return; }
+      const renderState = () => { login.classList.toggle('hidden', !!currentUser); form.classList.toggle('hidden', !currentUser); if (currentUser) $('#comment-user').textContent = `Comentando como ${currentUser.displayName || currentUser.email}`; };
+      renderState();
+      login.onclick = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); currentUser = auth.currentUser; renderState(); } catch (err) { alert('Não foi possível entrar com Google agora. Tente novamente.'); } };
+      $('#comment-send').onclick = async () => { const text = $('#comment-text').value.trim(); if (!text || !currentUser) return; try { await addDoc(collection(db, 'articles', post.id, 'comments'), { text, userId: currentUser.uid, name: currentUser.displayName || 'Leitor(a)', photoURL: currentUser.photoURL || '', createdAt: serverTimestamp() }); $('#comment-text').value = ''; } catch (err) { alert('Não foi possível publicar o comentário.'); } };
+      stopComments = onSnapshot(query(collection(db, 'articles', post.id, 'comments'), orderBy('createdAt', 'desc'), limit(50)), snap => { const comments = snap.docs.map(d => d.data()); list.innerHTML = comments.length ? comments.map(c => `<article class="rounded-2xl bg-black/[.035] dark:bg-white/[.06] p-4"><div class="font-bold text-sm">${escapeHtml(c.name || 'Leitor(a)')}</div><p class="mt-2 leading-relaxed">${escapeHtml(c.text || '')}</p></article>`).join('') : '<p class="opacity-60">Ainda não tem comentários. Começa a conversa.</p>'; }, () => { list.textContent = 'Os comentários serão liberados assim que as regras de publicação forem ativadas.'; });
+    }
+
     // Busca
     const searchOverlay = $('#search-overlay');
     function openSearch(){ searchOverlay.classList.remove('opacity-0','pointer-events-none'); $('#search-modal').classList.remove('translate-y-[-14px]'); document.body.style.overflow='hidden'; setTimeout(()=>$('#search-input').focus(),80); renderSearch(''); }
@@ -990,6 +1021,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
     $$('[data-category]').forEach(btn => btn.addEventListener('click',()=>renderCategory(btn.dataset.category)));
     $$('[data-go-home]').forEach(btn => btn.addEventListener('click',renderHome));
     $$('[data-reviews]').forEach(btn => btn.addEventListener('click',()=>renderReviews()));
+    $$('[data-news]').forEach(btn => btn.addEventListener('click',renderNews));
 
     // Tema
     const themeButton = $('#theme-button');
@@ -1014,7 +1046,8 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       if (!configured) { POSTS = FALLBACK_POSTS.map(normalizePost).sort((a,b)=>b.publishedAt-a.publishedAt); return routeFromUrl(); }
       try {
         const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        db = getFirestore(app); auth = getAuth(app);
+        onAuthStateChanged(auth, user => { currentUser = user; });
         const q = query(collection(db,'articles'), where('status','==','published'), limit(100));
         onSnapshot(q, snapshot => {
           const live = snapshot.docs.map((d,i)=>normalizePost({id:d.id,...d.data()},i)).sort((a,b)=>b.publishedAt-a.publishedAt);

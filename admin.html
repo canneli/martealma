@@ -23,9 +23,8 @@
     <form id="login-form" class="glass w-full max-w-md rounded-[2rem] p-6 md:p-8">
       <div class="brand font-black text-2xl tracking-[.08em] uppercase mb-2">MARTE<span class="text-orange-400">ALMA</span></div>
       <p class="text-sm text-white/50 mb-7">Acesso da redação</p>
-      <label class="text-xs font-bold uppercase tracking-wider text-white/45">E-mail</label><input id="email" type="email" required class="w-full mt-2 mb-4 rounded-xl px-4 py-3" placeholder="voce@martealma.com.br">
-      <label class="text-xs font-bold uppercase tracking-wider text-white/45">Senha</label><input id="password" type="password" required class="w-full mt-2 mb-5 rounded-xl px-4 py-3" placeholder="••••••••">
-      <button class="w-full rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 font-bold py-3.5">Entrar na redação</button>
+      <p class="text-sm text-white/65 leading-relaxed mb-5">Entre com a conta Google autorizada da redação para publicar e editar matérias.</p>
+      <button id="google-login" type="button" class="w-full rounded-xl bg-gradient-to-r from-pink-500 to-orange-500 font-bold py-3.5"><i class="ph-bold ph-google-logo mr-2"></i>Entrar com Google</button>
       <p id="login-error" class="text-sm text-red-300 mt-4 hidden"></p>
     </form>
   </div>
@@ -57,7 +56,7 @@
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
     import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, serverTimestamp, Timestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
 
     const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
@@ -68,7 +67,7 @@
     const slugify=v=>v.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
     const escapeHtml=(v='')=>String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 
-    $('#login-form').addEventListener('submit',async e=>{e.preventDefault();$('#login-error').classList.add('hidden');try{await signInWithEmailAndPassword(auth,$('#email').value,$('#password').value)}catch(err){$('#login-error').textContent='Não foi possível entrar. Confira e-mail/senha e se o provedor Email/Senha foi ativado no Firebase.';$('#login-error').classList.remove('hidden')}});
+    $('#google-login').addEventListener('click',async()=>{ $('#login-error').classList.add('hidden'); try { await signInWithPopup(auth,new GoogleAuthProvider()); } catch(err) { $('#login-error').textContent='Não foi possível entrar com Google. Confira se os pop-ups estão liberados e tente de novo.'; $('#login-error').classList.remove('hidden'); } });
     $('#logout').addEventListener('click',()=>signOut(auth));
 
     onAuthStateChanged(auth,user=>{
