@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0a0a0f" />
   <meta name="description" content="Marte Alma — cultura pop, cinema, séries, música e crítica com olhar autoral." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Marte Alma" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://canneli.github.io/martealma/" />
   <title>Marte Alma | Cultura & Entretenimento</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -183,7 +188,9 @@
 
 
     /* ===================== MARTE ALMA / MAXIMALISMO EDITORIAL ===================== */
-    .font-brand { font-family: 'Unbounded', sans-serif; }
+    /* Mantém a identidade, mas devolve legibilidade aos rótulos e números. */
+    .font-brand { font-family: 'Syne', sans-serif; letter-spacing: .04em; }
+    .review-score { font-family: 'Syne', sans-serif; font-variant-numeric: tabular-nums; }
 
     body::after {
       content: "";
@@ -799,7 +806,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
             <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / ${post.reviewScore != null ? 'crítica' : 'notícia em órbita'}</p>
             <h1 class="maxi-title font-display font-extrabold text-[clamp(2.7rem,7.6vw,7rem)] leading-[.84] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
             <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
-            ${post.reviewScore != null ? `<div class="mx-auto mb-8 max-w-md rounded-[1.8rem] border border-brand-orange/35 bg-brand-orange/[.08] p-4 md:p-5 flex items-center gap-5 text-left"><div class="shrink-0 w-24 h-24 rounded-2xl bg-brand-orange text-brand-ink grid place-items-center font-brand font-black text-4xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-50 mb-1">Nota Marte Alma</p><p class="font-display font-extrabold text-xl leading-tight">Boa, inquieta e irregular.</p><p class="text-sm opacity-60 mt-1">Um disco que troca de rota antes de perder a energia.</p></div></div>` : ''}
+            ${post.reviewScore != null ? `<div class="mx-auto mb-8 max-w-md rounded-[1.8rem] border border-brand-orange/35 bg-brand-orange/[.08] p-4 md:p-5 flex items-center gap-5 text-left"><div class="review-score shrink-0 w-24 h-24 rounded-2xl bg-brand-orange text-brand-ink grid place-items-center font-black text-5xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-50 mb-1">Nota Marte Alma · 0–100</p><p class="font-display font-extrabold text-xl leading-tight">Boa, inquieta e irregular.</p><p class="text-sm opacity-60 mt-1">Um disco que troca de rota antes de perder a energia.</p></div></div>` : ''}
             <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-xs md:text-sm font-semibold opacity-55 relative z-10"><span>${escapeHtml(post.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(post.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(post.content)} min de leitura</span></div>
           </header>
 
@@ -834,6 +841,8 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       let json = $('#news-jsonld');
       if (!json) { json = document.createElement('script'); json.type='application/ld+json'; json.id='news-jsonld'; document.head.appendChild(json); }
       json.textContent = JSON.stringify({ '@context':'https://schema.org', '@type':'NewsArticle', headline:post.title, description, image:[post.image], datePublished:post.publishedAt.toISOString(), author:[{'@type':'Person','name':post.author}], publisher:{'@type':'Organization','name':MARTE_ALMA.siteName} });
+      document.querySelector('link[rel="canonical"]').href = `${MARTE_ALMA.siteUrl}?artigo=${encodeURIComponent(post.slug)}`;
+      document.querySelector('meta[property="og:type"]').content = 'article';
     }
 
     function renderEmpty() { content.innerHTML = `<div class="py-28 text-center"><i class="ph-fill ph-planet text-6xl text-brand-orange"></i><h1 class="font-display font-black text-3xl mt-4">Nenhuma matéria publicada ainda.</h1></div>`; }
