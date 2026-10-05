@@ -21,8 +21,8 @@ service cloud.firestore {
         && request.resource.data.text is string
         && request.resource.data.text.size() > 0
         && request.resource.data.text.size() <= 1200;
-      allow update, delete: if request.auth != null
-        && resource.data.userId == request.auth.uid;
+      allow delete: if request.auth != null
+        && (resource.data.userId == request.auth.uid || isAdmin());
     }
   }
 }

@@ -55,9 +55,10 @@
 
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
+    import { FALLBACK_POSTS } from './articles.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
-    import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, serverTimestamp, Timestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+    import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc, serverTimestamp, Timestamp, writeBatch } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
 
     const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
     // Mantém o acesso da redação neste navegador até a pessoa sair manualmente.
@@ -79,7 +80,26 @@
     });
 
     let unsubscribe=null;
-    function watchPosts(){ if(unsubscribe) unsubscribe(); unsubscribe=onSnapshot(collection(db,'articles'),snap=>{posts=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.publishedAt?.seconds||0)-(a.publishedAt?.seconds||0)));renderList();}); }
+    let checkedInitialContent=false;
+    function watchPosts(){
+      if(unsubscribe) unsubscribe();
+      unsubscribe=onSnapshot(collection(db,'articles'),async snap=>{
+        if(!checkedInitialContent){
+          checkedInitialContent=true;
+          if(snap.empty){
+            $('#posts-list').textContent='Preparando as matérias atuais para edição…';
+            try {
+              const batch=writeBatch(db);
+              FALLBACK_POSTS.forEach(({id,...post})=>batch.set(doc(db,'articles',id),post));
+              await batch.commit();
+              return;
+            } catch(err){ $('#posts-list').textContent='Não foi possível carregar as matérias para edição: '+err.message; return; }
+          }
+        }
+        posts=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.publishedAt?.seconds||0)-(a.publishedAt?.seconds||0)));
+        renderList();
+      },err=>{ $('#posts-list').textContent='Não foi possível acessar as matérias: '+err.message; });
+    }
     function renderList(){ $('#post-count').textContent=posts.length; $('#posts-list').innerHTML=posts.map(p=>`<div class="rounded-2xl bg-white/[.045] border border-white/8 p-3"><div class="flex gap-3"><img src="${escapeHtml(p.image||'')}" class="w-20 h-16 rounded-xl object-cover bg-white/5"><div class="min-w-0 flex-1"><div class="text-[.62rem] uppercase tracking-wider font-bold ${p.status==='published'?'text-emerald-300':'text-amber-300'}">${p.status==='published'?'Publicado':'Rascunho'} · ${escapeHtml(p.category||'')}</div><div class="display font-bold leading-tight mt-1 line-clamp-2">${escapeHtml(p.title||'Sem título')}</div></div></div><div class="flex gap-2 mt-3"><button data-edit="${p.id}" class="flex-1 py-2 rounded-lg bg-white/[.07] text-xs font-bold">Editar</button><button data-delete="${p.id}" class="w-9 rounded-lg bg-red-500/10 text-red-300"><i class="ph-bold ph-trash"></i></button></div></div>`).join('')||'<p class="text-sm text-white/35 py-8 text-center">Nenhuma matéria ainda.</p>'; $$('[data-edit]').forEach(b=>b.onclick=()=>loadPost(b.dataset.edit)); $$('[data-delete]').forEach(b=>b.onclick=()=>removePost(b.dataset.delete)); }
 
     $('#title').addEventListener('input',()=>{if(!$('#post-id').value) $('#slug').value=slugify($('#title').value)});
