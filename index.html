@@ -579,7 +579,7 @@
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
     import { getFirestore, collection, onSnapshot, query, where, limit, orderBy, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
+    import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
 
     // ==========================================================
     // POSTS DE DEMONSTRAÇÃO / FALLBACK
@@ -623,7 +623,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         id: 'challengers', slug: 'challengers-triangulo-realista',
         title: 'Challengers entende que desejo também é jogo de posição',
         excerpt: 'A pouca interação entre Art e Patrick incomoda no começo, mas o desfecho encontra uma verdade emocional que sustenta o triângulo.',
-        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://i0.wp.com/vsmoviepodcast.com/wp-content/uploads/2024/04/Challengers-IMAX-Amazon-MGM.jpg?fit=1080%2C1600&ssl=1', trailerId: 'VobTTbg-te0',
+        category: 'Cinema', author: 'Felipe R. Fonseca', image: 'https://www.newdvdreleasedates.com/images/posters/large/challengers-2023-02.jpg', trailerId: 'VobTTbg-te0',
         featured: false, status: 'published', publishedAt: new Date('2024-06-04T12:00:00'), reviewScore: 70, reviewType: 'Filmes', reviewBreakdown: { roteiro: 68, atuações: 78, direção: 74, impacto: 70 },
         content: `## O jogo não acontece só na quadra\n\n*Challengers* demora um pouco para tornar clara a medida da relação entre Art e Patrick. A falta de cenas mais diretas entre os dois pode dar a impressão de que o filme segura uma peça importante demais. Ainda assim, a ausência também ajuda a prender o espectador na perspectiva instável de Tashi.\n\n## Um final que resolve sem simplificar\n\nNo desfecho, o que parecia pouco desenvolvido encontra uma resposta mais realista. A relação entre os dois é feita de competição, ressentimento e desejo de reconhecimento. Não é uma solução confortável, mas também não é vazia.\n\n> O enredo funciona porque entende que nenhum dos três sabe separar amor, ego e ambição.`
       },
@@ -992,7 +992,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
       if (!db || !auth) { list.textContent = 'Os comentários estarão disponíveis quando a conexão com o site terminar de carregar.'; return; }
       const renderState = () => { login.classList.toggle('hidden', !!currentUser); form.classList.toggle('hidden', !currentUser); if (currentUser) $('#comment-user').textContent = `Comentando como ${currentUser.displayName || currentUser.email}`; };
       renderState();
-      login.onclick = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); currentUser = auth.currentUser; renderState(); } catch (err) { alert('Não foi possível entrar com Google agora. Tente novamente.'); } };
+      login.onclick = async () => { try { await signInWithRedirect(auth, new GoogleAuthProvider()); } catch (err) { alert('Não foi possível iniciar o login com Google. Tente novamente.'); } };
       $('#comment-send').onclick = async () => { const text = $('#comment-text').value.trim(); if (!text || !currentUser) return; try { await addDoc(collection(db, 'articles', post.id, 'comments'), { text, userId: currentUser.uid, name: currentUser.displayName || 'Leitor(a)', photoURL: currentUser.photoURL || '', createdAt: serverTimestamp() }); $('#comment-text').value = ''; } catch (err) { alert('Não foi possível publicar o comentário.'); } };
       stopComments = onSnapshot(query(collection(db, 'articles', post.id, 'comments'), orderBy('createdAt', 'desc'), limit(50)), snap => { const comments = snap.docs.map(d => d.data()); list.innerHTML = comments.length ? comments.map(c => `<article class="rounded-2xl bg-black/[.035] dark:bg-white/[.06] p-4"><div class="font-bold text-sm">${escapeHtml(c.name || 'Leitor(a)')}</div><p class="mt-2 leading-relaxed">${escapeHtml(c.text || '')}</p></article>`).join('') : '<p class="opacity-60">Ainda não tem comentários. Começa a conversa.</p>'; }, () => { list.textContent = 'Os comentários serão liberados assim que as regras de publicação forem ativadas.'; });
     }
