@@ -28,7 +28,7 @@
         extend: {
           fontFamily: {
             sans: ['Outfit', 'sans-serif'],
-            display: ['Syne', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
             brand: ['Outfit', 'sans-serif']
           },
           colors: {
@@ -241,8 +241,14 @@
 
     .maxi-title {
       text-shadow: 0 10px 35px rgba(255,79,163,.10);
-      letter-spacing: -.035em;
+      letter-spacing: -.045em;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      text-wrap: balance;
     }
+
+    /* Syne continua como acento editorial em trechos curtos, nunca como um paredão de texto. */
+    .article-body h2, .article-body h3, .article-body blockquote { font-family: 'Syne', sans-serif; }
 
     .now-ribbon {
       position: relative;
@@ -803,7 +809,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
               <div class="hero-sigil"></div>
               <div class="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-8 md:p-11 lg:p-14 pt-24">
                 <div class="flex flex-wrap gap-2 items-center mb-4 md:mb-5">${pill(featured.category)}<span class="text-white/70 text-[.62rem] font-brand uppercase tracking-[.14em]">Primeira órbita</span></div>
-                <h1 class="hero-title maxi-title font-display font-extrabold text-white leading-[.88] max-w-5xl mb-5 md:mb-7">${escapeHtml(featured.title)}</h1>
+                <h1 class="hero-title maxi-title font-display font-extrabold text-white leading-[.96] max-w-5xl mb-5 md:mb-7">${escapeHtml(featured.title)}</h1>
                 <p class="text-white/84 text-sm sm:text-base md:text-xl max-w-3xl leading-relaxed mb-6 hidden sm:block font-medium">${escapeHtml(featured.excerpt)}</p>
                 <div class="flex flex-wrap gap-x-4 gap-y-2 text-xs md:text-sm text-white/70 font-semibold"><span>${escapeHtml(featured.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(featured.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(featured.content)} min de leitura</span></div>
               </div>
@@ -902,7 +908,7 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
             <div class="absolute left-1/2 -translate-x-1/2 -top-6 md:-top-10 text-[6rem] md:text-[11rem] font-brand font-black opacity-[.025] pointer-events-none select-none">MA</div>
             <div class="mb-5 relative z-10">${pill(post.category)}</div>
             <p class="section-kicker opacity-35 mb-4 relative z-10">Marte Alma / ${post.reviewScore != null ? 'crítica' : 'notícia em órbita'}</p>
-            <h1 class="maxi-title font-display font-extrabold text-[clamp(2.7rem,7.6vw,7rem)] leading-[.84] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
+            <h1 class="maxi-title font-display font-extrabold text-[clamp(2.45rem,5.8vw,5.65rem)] leading-[.96] mb-6 md:mb-8 relative z-10">${escapeHtml(post.title)}</h1>
             <p class="text-base md:text-2xl opacity-65 leading-relaxed max-w-3xl mx-auto mb-7 font-medium relative z-10">${escapeHtml(post.excerpt)}</p>
             ${post.reviewScore != null ? `<div class="score-panel mx-auto mb-8 max-w-md rounded-[1.8rem] p-4 md:p-5 flex items-center gap-5 text-left"><div class="score-square review-score shrink-0 w-24 h-24 rounded-2xl grid place-items-center font-black text-5xl leading-none">${post.reviewScore}</div><div><p class="section-kicker opacity-60 mb-1">Nota Marte Alma · 0–100</p><p class="font-display font-extrabold text-xl leading-tight">${scoreVerdict(post.reviewScore)}</p><p class="text-sm opacity-70 mt-1">A crítica inteira explica o caminho até essa nota.</p></div></div>` : ''}
             <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-xs md:text-sm font-semibold opacity-55 relative z-10"><span>${escapeHtml(post.author)}</span><span class="text-brand-pink">✦</span><span>${dateLabel(post.publishedAt)}</span><span class="text-brand-orange">✦</span><span>${readingTime(post.content)} min de leitura</span></div>
