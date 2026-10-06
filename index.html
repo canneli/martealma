@@ -457,7 +457,7 @@
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
     }
   </style>
-  <link rel="stylesheet" href="./editorial.css?v=20261006">
+  <link rel="stylesheet" href="./editorial.css?v=20261006-instagram1">
 </head>
 <body class="font-sans antialiased selection:bg-brand-pink selection:text-white">
   <div class="noise"></div>
@@ -567,7 +567,8 @@
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { FALLBACK_POSTS, enrichPost } from './articles.js?v=20261006';
     import { buildCatalog, workOf, criticIdFor, kindLabels } from './review-model.js';
-    import { createViews } from './public-views.js';
+    import { createViews } from './public-views.js?v=20261006-instagram1';
+    import { openInstagramShare } from './instagram-share.js?v=1';
     import { enableAds } from './adsense.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
     import { getFirestore, collection, onSnapshot, query, where, limit, orderBy, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
@@ -700,6 +701,7 @@
     function bindShare(post) {
       $$('[data-share]').forEach(btn => btn.addEventListener('click', async () => {
         const url = location.href;
+        if (btn.dataset.share === 'instagram') return openInstagramShare(post, MARTE_ALMA.siteUrl);
         if (btn.dataset.share === 'whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(post.title + ' ' + url)}`,'_blank','noopener');
         if (btn.dataset.share === 'x') window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(url)}`,'_blank','noopener');
         if (btn.dataset.share === 'copy') { await navigator.clipboard.writeText(url); btn.innerHTML = '<i class="ph-bold ph-check"></i>'; setTimeout(()=>btn.innerHTML='<i class="ph-bold ph-link"></i>',1400); }
