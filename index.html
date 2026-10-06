@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0a0f" />
+  <meta name="theme-color" content="#315f47" />
+  <link rel="icon" type="image/svg+xml" href="./brand-mark.svg">
   <meta name="description" content="Marte Alma — cultura pop, cinema, séries, música e crítica com olhar autoral." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Marte Alma" />
@@ -473,17 +474,7 @@
           <i class="ph-bold ph-list text-[1.35rem]"></i>
         </button>
         <button data-go-home class="flex items-center gap-2.5 min-w-0 text-left">
-          <svg viewBox="0 0 100 100" class="logo-eye w-9 h-9 md:w-11 md:h-11 shrink-0 overflow-visible">
-            <g class="logo-blink">
-              <path d="M5 50 C25 20 75 20 95 50 C75 80 25 80 5 50Z" fill="rgba(255,122,26,.10)" stroke="#ff7a1a" stroke-width="4" stroke-linecap="round" />
-              <circle cx="50" cy="50" r="14" fill="#ff7a1a"/>
-              <g class="logo-orbit"><ellipse cx="50" cy="50" rx="28" ry="8" fill="none" stroke="#ff7a1a" stroke-width="2" stroke-dasharray="10 5" transform="rotate(-25 50 50)" /></g>
-            </g>
-          </svg>
-          <div class="min-w-0">
-            <div class="font-brand font-black uppercase tracking-[.08em] text-[1rem] sm:text-[1.12rem] md:text-[1.25rem] whitespace-nowrap">MARTE<span class="text-brand-orange">ALMA</span></div>
-            <div class="hidden sm:block text-[.64rem] uppercase tracking-[.24em] opacity-45 font-bold mt-.5">cultura em outra órbita</div>
-          </div>
+          <img src="./brand-logo.svg" class="brand-logo" width="382" height="80" alt="Marte Alma">
         </button>
       </div>
 
@@ -510,7 +501,7 @@
   <div id="menu-overlay" class="fixed inset-0 z-[60] bg-black/45 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity"></div>
   <aside id="sidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[88vw] max-w-[390px] glass-strong rounded-r-[2rem] -translate-x-[105%] transition-transform duration-300 p-5 md:p-7 flex flex-col mobile-safe">
     <div class="flex items-center justify-between mb-9">
-      <button data-go-home class="font-brand font-black text-xl tracking-[.08em] uppercase">MARTE<span class="text-brand-orange">ALMA</span></button>
+      <button data-go-home><img src="./brand-logo.svg" class="brand-logo" width="382" height="80" alt="Marte Alma"></button>
       <button id="menu-close" class="w-11 h-11 rounded-full bg-black/5 dark:bg-white/[.08] grid place-items-center"><i class="ph-bold ph-x text-xl"></i></button>
     </div>
     <p class="text-[.68rem] uppercase tracking-[.24em] font-bold opacity-40 mb-3">Explorar</p>
@@ -562,7 +553,7 @@
   <footer class="border-t border-black/10 dark:border-white/10 py-10 md:py-14">
     <div class="max-w-[1500px] mx-auto px-4 md:px-7 lg:px-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
       <div>
-        <div class="font-brand font-black text-2xl tracking-[.08em] uppercase mb-3">MARTE<span class="text-brand-orange">ALMA</span></div>
+        <img src="./brand-logo.svg" class="brand-logo footer-brand" width="382" height="80" alt="Marte Alma">
         <p class="max-w-xl text-sm md:text-base opacity-55 leading-relaxed">Cultura pop, cinema, séries, música e crítica com identidade, contexto e uma pitada de outro planeta.</p>
       </div>
       <div class="text-sm opacity-55 md:text-right">
@@ -574,7 +565,7 @@
 
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
-    import { FALLBACK_POSTS } from './articles.js';
+    import { FALLBACK_POSTS, enrichPost } from './articles.js';
     import { buildCatalog, workOf, criticIdFor, kindLabels } from './review-model.js';
     import { createViews } from './public-views.js';
     import { enableAds } from './adsense.js';
@@ -597,6 +588,7 @@
     const slugify = (value='') => value.toString().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 
     function normalizePost(post, index=0) {
+      post = enrichPost(post);
       const work = workOf(post);
       const rawDate = post.publishedAt?.toDate ? post.publishedAt.toDate() : (post.publishedAt instanceof Date ? post.publishedAt : new Date(post.publishedAt || post.timestamp || Date.now()));
       return {
@@ -755,7 +747,7 @@
 
     // Tema
     const themeButton = $('#theme-button');
-    function applyTheme(mode){ document.documentElement.classList.toggle('dark', mode==='dark'); localStorage.setItem('marteAlmaTheme',mode); themeButton.innerHTML = mode==='dark' ? '<i class="ph-fill ph-sun text-xl text-brand-orange"></i>' : '<i class="ph-fill ph-moon text-xl"></i>'; }
+    function applyTheme(mode){ document.documentElement.classList.toggle('dark', mode==='dark'); localStorage.setItem('marteAlmaTheme',mode); document.querySelectorAll('.brand-logo').forEach(image=>{image.src=mode==='dark'?'./brand-logo-dark.svg':'./brand-logo.svg';}); themeButton.innerHTML = mode==='dark' ? '<i class="ph-fill ph-sun text-xl text-brand-orange"></i>' : '<i class="ph-fill ph-moon text-xl"></i>'; }
     applyTheme(localStorage.getItem('marteAlmaTheme') || 'light');
     themeButton.addEventListener('click',()=>applyTheme(document.documentElement.classList.contains('dark')?'light':'dark'));
 

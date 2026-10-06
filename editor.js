@@ -1,9 +1,9 @@
 import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
-import { FALLBACK_POSTS } from './articles.js';
+import { FALLBACK_POSTS, enrichPost } from './articles.js';
 import { buildCatalog, workOf, workIdFor, kindLabels, legacyWorks, slugify } from './review-model.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
-import { getFirestore, collection, onSnapshot, query, where, getDoc, getDocs, doc, setDoc, deleteDoc, serverTimestamp, Timestamp, writeBatch } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+import { getFirestore, collection, onSnapshot, query, where, getDoc, getDocs, doc, setDoc, deleteDoc, serverTimestamp, Timestamp, writeBatch, runTransaction } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
 
 const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
@@ -33,10 +33,10 @@ onAuthStateChanged(auth, async nextUser => {
     $('#login-view').classList.add('hidden'); $('#app-view').classList.remove('hidden');
     $('#writer-management').classList.toggle('hidden',!isAdmin);
     resetForm();
-    if(isAdmin) await migrateOriginals();
+    if(isAdmin) { await migrateOriginals(); await persistExpandedReviews(); }
     if(run!==generation) return;
     stops.push(onSnapshot(query(collection(db,'articles'),where('authorId','==',user.uid)),snapshot=>{
-      posts=snapshot.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.publishedAt?.seconds||0)-(a.publishedAt?.seconds||0)); renderList();
+      posts=snapshot.docs.map(d=>enrichPost({id:d.id,...d.data()})).sort((a,b)=>(b.publishedAt?.seconds||0)-(a.publishedAt?.seconds||0)); renderList();
     },err=>{$('#posts-list').textContent='Erro ao carregar seus textos: '+err.message;}));
     stops.push(onSnapshot(query(collection(db,'articles'),where('status','==','published')),snapshot=>{
       catalog=buildCatalog(snapshot.docs.map(d=>({id:d.id,...d.data()}))); renderCatalog();
@@ -64,6 +64,25 @@ async function migrateOriginals() {
     FALLBACK_POSTS.forEach(({id,...post})=>{const work=workOf({id,...post});batch.set(doc(db,'articles',id),{...post,authorId:user.uid,authorPhoto:user.photoURL||'',workId:work.id,workTitle:work.workTitle,workKind:work.workKind,artist:work.artist,releaseYear:work.releaseYear});changes++;});
   }
   if(changes) await batch.commit();
+}
+async function persistExpandedReviews() {
+  // Persiste as ampliações na conta do autor, sem substituir alterações próprias.
+  // A transação relê o texto para não apagar uma edição feita em outra aba.
+  const ownerId = user.uid;
+  const originals = FALLBACK_POSTS.filter(post => post.reviewType === 'Filmes');
+  for (const original of originals) {
+    if (user?.uid !== ownerId) return;
+    await runTransaction(db, async transaction => {
+      const ref = doc(db, 'articles', original.id);
+      const snapshot = await transaction.get(ref);
+      if (!snapshot.exists()) return;
+      const post = { id: snapshot.id, ...snapshot.data() };
+      if (post.authorId !== ownerId) return;
+      const enriched = enrichPost(post);
+      if (enriched.content === post.content) return;
+      transaction.update(ref, { content: enriched.content, updatedAt: serverTimestamp() });
+    });
+  }
 }
 function renderList() {
   $('#post-count').textContent=posts.length;

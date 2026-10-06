@@ -1,4 +1,6 @@
-export const FALLBACK_POSTS = [
+import { expandedFilmReviews } from './film-reviews.js';
+
+const ORIGINAL_POSTS = [
       {
         id: 'lost-in-lust-pabllo-vittar-critica',
         slug: 'lost-in-lust-pabllo-vittar-critica',
@@ -97,3 +99,16 @@ No fim, é um álbum com boas ideias, boas escolhas de colaboração e muita von
         content: `## Longo demais para tão pouco movimento\n\n*O Núcleo* tem uma premissa que poderia render aventura: o centro da Terra para de funcionar e uma equipe precisa atravessar o planeta para consertar o problema. Na prática, porém, há pouquíssimas coisas acontecendo para um filme tão longo.\n\n## A seriedade vira problema\n\nHilary Swank não consegue salvar uma trama que parece uma paródia feita sem perceber que é paródia. O longa insiste em elevar o absurdo sem construir personagens ou tensão que acompanhem esse esforço.\n\n> A viagem ao centro da Terra é longa; a sensação é que o filme faz questão de levar o público junto.`
       }
     ];
+
+const originalById = new Map(ORIGINAL_POSTS.map(post => [post.id, post]));
+const comparableText = text => String(text || '').replace(/\r\n/g, '\n').trim();
+
+// Atualiza só as versões iniciais. Uma edição salva pelo autor sempre prevalece.
+export function enrichPost(post) {
+  const original = originalById.get(post.id);
+  const expanded = expandedFilmReviews[post.id];
+  if (!original || !expanded || comparableText(post.content) !== comparableText(original.content)) return post;
+  return { ...post, content: expanded.content };
+}
+
+export const FALLBACK_POSTS = ORIGINAL_POSTS.map(enrichPost);

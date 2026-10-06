@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import { buildCatalog, workIdFor, workOf, criticIdFor } from './review-model.js';
-import { FALLBACK_POSTS } from './articles.js';
-for(const file of ['editor.js','public-views.js','review-model.js','articles.js','posters.js']){
+import { FALLBACK_POSTS, enrichPost } from './articles.js';
+import { expandedFilmReviews } from './film-reviews.js';
+for(const file of ['editor.js','public-views.js','review-model.js','articles.js','posters.js','film-reviews.js']){
   new vm.SourceTextModule(fs.readFileSync(file,'utf8'));
 }
 const html=fs.readFileSync('index.html','utf8');
@@ -26,3 +27,17 @@ assert.equal(criticIdFor(posts[0]),'felipe');
 assert.equal(buildCatalog(FALLBACK_POSTS).filter(w=>w.workKind==='film').length,8);
 assert.equal(workOf(FALLBACK_POSTS.find(p=>p.id==='challengers')).workTitle,'Challengers');
 console.log('Sintaxe e 12 verificações de catálogo, identidade e média: OK');
+for (const post of FALLBACK_POSTS.filter(p => p.reviewType === 'Filmes')) {
+  assert.ok(post.content.split(/\s+/).length >= 350, post.id + ': texto desenvolvido');
+  assert.doesNotMatch(post.content, /[\u2013\u2014]/);
+  assert.match(post.content, /## Resumo sem spoilers/);
+  assert.match(post.content, new RegExp('## Por que a nota é ' + post.reviewScore));
+  assert.equal(post.content, expandedFilmReviews[post.id].content);
+  const edited = { ...post, content: 'Meu texto novo, salvo no editor.' };
+  assert.equal(enrichPost(edited).content, edited.content);
+}
+assert.equal(Object.keys(expandedFilmReviews).length, 8);
+assert.equal(enrichPost({id:'nova-critica',content:'Texto de outro escritor'}).content,'Texto de outro escritor');
+assert.match(html,/src="\.\/brand-logo\.svg"/);
+assert.match(html,/href="\.\/brand-mark\.svg"/);
+console.log('8 críticas ampliadas, notas preservadas, sem travessões e sem sobrescrever edições: OK');

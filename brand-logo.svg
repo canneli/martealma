@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 80" fill="none" role="img" aria-labelledby="brand-title">
+  <title id="brand-title">Marte Alma</title>
+  <circle cx="38" cy="41" r="24" fill="#315f47"/>
+  <path d="M23 53V30l15 15 15-15v23" stroke="#f7f5ef" stroke-width="5" stroke-linejoin="round"/>
+  <ellipse cx="38" cy="41" rx="36" ry="12" transform="rotate(-32 38 41)" stroke="#aa6b4b" stroke-width="3"/>
+  <path d="m65 8 2.5 6.5L74 17l-6.5 2.5L65 26l-2.5-6.5L56 17l6.5-2.5Z" fill="#aa6b4b"/>
+  <!-- Lettering desenhado em curvas e linhas, independente de fontes instaladas. -->
+  <g stroke="#315f47" stroke-width="4.6" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M91 53V27l12 16 12-16v26"/>
+    <path d="m126 53 11-26 11 26m-17-8h12"/>
+    <path d="M160 53V27h10c13 0 13 14 0 14h-10m10 0 12 12"/>
+    <path d="M189 27h24m-12 0v26"/>
+    <path d="M242 27h-17v26h17m-17-13h14"/>
+  </g>
+  <g stroke="#aa6b4b" stroke-width="4.6" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="m263 53 11-26 11 26m-17-8h12"/>
+    <path d="M297 27v26h16"/>
+    <path d="M325 53V27l12 16 12-16v26"/>
+    <path d="m359 53 9-26 10 26m-16-8h11"/>
+  </g>
+</svg>

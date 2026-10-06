@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+  <title>Marte Alma</title>
+  <circle cx="38" cy="41" r="24" fill="#315f47"/>
+  <path d="M23 53V30l15 15 15-15v23" stroke="#f7f5ef" stroke-width="5" stroke-linejoin="round"/>
+  <ellipse cx="38" cy="41" rx="36" ry="12" transform="rotate(-32 38 41)" stroke="#aa6b4b" stroke-width="3"/>
+  <path d="m65 8 2.5 6.5L74 17l-6.5 2.5L65 26l-2.5-6.5L56 17l6.5-2.5Z" fill="#aa6b4b"/>
+</svg>
