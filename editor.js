@@ -1,5 +1,5 @@
 import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
-import { FALLBACK_POSTS, enrichPost } from './articles.js';
+import { FALLBACK_POSTS, enrichPost } from './articles.js?v=20261006';
 import { buildCatalog, workOf, workIdFor, kindLabels, legacyWorks, slugify } from './review-model.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';

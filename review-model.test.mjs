@@ -8,7 +8,7 @@ for(const file of ['editor.js','public-views.js','review-model.js','articles.js'
   new vm.SourceTextModule(fs.readFileSync(file,'utf8'));
 }
 const html=fs.readFileSync('index.html','utf8');
-assert.match(fs.readFileSync('admin.html','utf8'),/src="\.\/editor\.js"/);
+assert.match(fs.readFileSync('admin.html','utf8'),/src="\.\/editor\.js(?:\?v=\d+)?"/);
 new vm.SourceTextModule(html.match(/<script type="module">([\s\S]*?)<\/script>/)[1]);
 for(const name of ['POSTS','auth','content','escapeHtml'])assert.match(html,new RegExp('(?:let|const) '+name+'(?:[ ,=])'));
 const base={status:'published',workKind:'album',workTitle:'Álbum',artist:'Artista',image:'https://example.com/cover.jpg'};

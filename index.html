@@ -457,7 +457,7 @@
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
     }
   </style>
-  <link rel="stylesheet" href="./editorial.css">
+  <link rel="stylesheet" href="./editorial.css?v=20261006">
 </head>
 <body class="font-sans antialiased selection:bg-brand-pink selection:text-white">
   <div class="noise"></div>
@@ -565,7 +565,7 @@
 
   <script type="module">
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
-    import { FALLBACK_POSTS, enrichPost } from './articles.js';
+    import { FALLBACK_POSTS, enrichPost } from './articles.js?v=20261006';
     import { buildCatalog, workOf, criticIdFor, kindLabels } from './review-model.js';
     import { createViews } from './public-views.js';
     import { enableAds } from './adsense.js';
