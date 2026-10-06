@@ -4,17 +4,20 @@
   <path d="M23 53V30l15 15 15-15v23" stroke="#18211c" stroke-width="5" stroke-linejoin="round"/>
   <ellipse cx="38" cy="41" rx="36" ry="12" transform="rotate(-32 38 41)" stroke="#cba98b" stroke-width="3"/>
   <path d="m65 8 2.5 6.5L74 17l-6.5 2.5L65 26l-2.5-6.5L56 17l6.5-2.5Z" fill="#cba98b"/>
-  <g stroke="#f6f5ec" stroke-width="4.6" stroke-linecap="square" stroke-linejoin="miter">
-    <path d="M91 53V27l12 16 12-16v26"/>
-    <path d="m126 53 11-26 11 26m-17-8h12"/>
-    <path d="M160 53V27h10c13 0 13 14 0 14h-10m10 0 12 12"/>
-    <path d="M189 27h24m-12 0v26"/>
-    <path d="M242 27h-17v26h17m-17-13h14"/>
+  <!-- Lettering editorial original, convertido em contornos; não depende de fonte. -->
+  <g transform="translate(87 24) scale(.79 .94)" fill-rule="evenodd">
+  <g fill="#f6f5ec">
+    <path d="M0 34v-3h4V3H0V0h12l7 19L26 0h11v3h-4v28h4v3H22v-3h4V8L17 32h-2L7 9v22h4v3Z"/>
+    <path transform="translate(42)" d="M0 34v-3h3L15 0h6l12 31h3v3H21v-3h5l-3-8H11l-3 8h5v3Zm13-16h8l-4-11Z"/>
+    <path transform="translate(84)" d="M0 34v-3h4V3H0V0h19c11 0 16 3 16 10 0 5-3 8-8 9l8 12h4v3H27L17 20h-6v11h5v3Zm11-18h7c7 0 10-2 10-6s-3-6-10-6h-7Z"/>
+    <path transform="translate(127)" d="M0 0h33v10h-3l-2-6h-8v27h5v3H8v-3h5V4H5l-2 6H0Z"/>
+    <path transform="translate(166)" d="M0 0h30v9h-3l-2-5H11v10h10l1-4h3v12h-3l-1-4H11v12h14l3-6h3v10H0v-3h4V3H0Z"/>
   </g>
-  <g stroke="#cba98b" stroke-width="4.6" stroke-linecap="square" stroke-linejoin="miter">
-    <path d="m263 53 11-26 11 26m-17-8h12"/>
-    <path d="M297 27v26h16"/>
-    <path d="M325 53V27l12 16 12-16v26"/>
-    <path d="m359 53 9-26 10 26m-16-8h11"/>
+  <g fill="#cba98b">
+    <path transform="translate(212)" d="M0 34v-3h3L15 0h6l12 31h3v3H21v-3h5l-3-8H11l-3 8h5v3Zm13-16h8l-4-11Z"/>
+    <path transform="translate(254)" d="M0 0h17v3h-6v27h11l3-7h3v11H0v-3h4V3H0Z"/>
+    <path transform="translate(288)" d="M0 34v-3h4V3H0V0h12l7 19L26 0h11v3h-4v28h4v3H22v-3h4V8L17 32h-2L7 9v22h4v3Z"/>
+    <path transform="translate(331)" d="M0 34v-3h3L15 0h6l12 31h3v3H21v-3h5l-3-8H11l-3 8h5v3Zm13-16h8l-4-11Z"/>
+  </g>
   </g>
 </svg>

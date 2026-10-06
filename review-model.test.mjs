@@ -38,6 +38,6 @@ for (const post of FALLBACK_POSTS.filter(p => p.reviewType === 'Filmes')) {
 }
 assert.equal(Object.keys(expandedFilmReviews).length, 8);
 assert.equal(enrichPost({id:'nova-critica',content:'Texto de outro escritor'}).content,'Texto de outro escritor');
-assert.match(html,/src="\.\/brand-logo\.svg"/);
+assert.match(html,/src="\.\/brand-logo\.svg(?:\?v=\d+)?"/);
 assert.match(html,/href="\.\/brand-mark\.svg"/);
 console.log('8 críticas ampliadas, notas preservadas, sem travessões e sem sobrescrever edições: OK');

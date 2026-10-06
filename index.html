@@ -474,7 +474,7 @@
           <i class="ph-bold ph-list text-[1.35rem]"></i>
         </button>
         <button data-go-home class="flex items-center gap-2.5 min-w-0 text-left">
-          <img src="./brand-logo.svg" class="brand-logo" width="382" height="80" alt="Marte Alma">
+          <img src="./brand-logo.svg?v=2" class="brand-logo" width="382" height="80" alt="Marte Alma">
         </button>
       </div>
 
@@ -501,7 +501,7 @@
   <div id="menu-overlay" class="fixed inset-0 z-[60] bg-black/45 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity"></div>
   <aside id="sidebar" class="fixed top-0 left-0 bottom-0 z-[70] w-[88vw] max-w-[390px] glass-strong rounded-r-[2rem] -translate-x-[105%] transition-transform duration-300 p-5 md:p-7 flex flex-col mobile-safe">
     <div class="flex items-center justify-between mb-9">
-      <button data-go-home><img src="./brand-logo.svg" class="brand-logo" width="382" height="80" alt="Marte Alma"></button>
+      <button data-go-home><img src="./brand-logo.svg?v=2" class="brand-logo" width="382" height="80" alt="Marte Alma"></button>
       <button id="menu-close" class="w-11 h-11 rounded-full bg-black/5 dark:bg-white/[.08] grid place-items-center"><i class="ph-bold ph-x text-xl"></i></button>
     </div>
     <p class="text-[.68rem] uppercase tracking-[.24em] font-bold opacity-40 mb-3">Explorar</p>
@@ -553,7 +553,7 @@
   <footer class="border-t border-black/10 dark:border-white/10 py-10 md:py-14">
     <div class="max-w-[1500px] mx-auto px-4 md:px-7 lg:px-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
       <div>
-        <img src="./brand-logo.svg" class="brand-logo footer-brand" width="382" height="80" alt="Marte Alma">
+        <img src="./brand-logo.svg?v=2" class="brand-logo footer-brand" width="382" height="80" alt="Marte Alma">
         <p class="max-w-xl text-sm md:text-base opacity-55 leading-relaxed">Cultura pop, cinema, séries, música e crítica com identidade, contexto e uma pitada de outro planeta.</p>
       </div>
       <div class="text-sm opacity-55 md:text-right">
@@ -747,7 +747,7 @@
 
     // Tema
     const themeButton = $('#theme-button');
-    function applyTheme(mode){ document.documentElement.classList.toggle('dark', mode==='dark'); localStorage.setItem('marteAlmaTheme',mode); document.querySelectorAll('.brand-logo').forEach(image=>{image.src=mode==='dark'?'./brand-logo-dark.svg':'./brand-logo.svg';}); themeButton.innerHTML = mode==='dark' ? '<i class="ph-fill ph-sun text-xl text-brand-orange"></i>' : '<i class="ph-fill ph-moon text-xl"></i>'; }
+    function applyTheme(mode){ document.documentElement.classList.toggle('dark', mode==='dark'); localStorage.setItem('marteAlmaTheme',mode); document.querySelectorAll('.brand-logo').forEach(image=>{image.src=mode==='dark'?'./brand-logo-dark.svg?v=2':'./brand-logo.svg?v=2';}); themeButton.innerHTML = mode==='dark' ? '<i class="ph-fill ph-sun text-xl text-brand-orange"></i>' : '<i class="ph-fill ph-moon text-xl"></i>'; }
     applyTheme(localStorage.getItem('marteAlmaTheme') || 'light');
     themeButton.addEventListener('click',()=>applyTheme(document.documentElement.classList.contains('dark')?'light':'dark'));
 
