@@ -457,7 +457,7 @@
       *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
     }
   </style>
-  <link rel="stylesheet" href="./editorial.css?v=20261006-instagram1">
+  <link rel="stylesheet" href="./editorial.css?v=20261007-social2">
 </head>
 <body class="font-sans antialiased selection:bg-brand-pink selection:text-white">
   <div class="noise"></div>
@@ -567,11 +567,11 @@
     import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
     import { FALLBACK_POSTS, enrichPost } from './articles.js?v=20261006';
     import { buildCatalog, workOf, criticIdFor, kindLabels } from './review-model.js';
-    import { createViews } from './public-views.js?v=20261006-instagram1';
-    import { openInstagramShare } from './instagram-share.js?v=1';
+    import { createViews } from './public-views.js?v=20261007-social2';
+    import { openInstagramShare } from './instagram-share.js?v=2';
     import { enableAds } from './adsense.js';
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
-    import { getFirestore, collection, onSnapshot, query, where, limit, orderBy, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
+    import { getFirestore, collection, onSnapshot, query, where, limit, orderBy, addDoc, serverTimestamp, doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
     import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
 
     // ==========================================================
@@ -581,7 +581,7 @@
     // Conteúdo inicial compartilhado com o editor da redação.
     // As versões salvas no banco têm prioridade.
     let POSTS = [];
-    let auth, db, currentUser = null, stopComments = null;
+    let auth, db, currentUser = null, canCreateSocial = false, stopComments = null;
     const content = document.getElementById('dynamic-content');
     const $ = (s, root=document) => root.querySelector(s);
     const $$ = (s, root=document) => [...root.querySelectorAll(s)];
@@ -762,7 +762,7 @@
 
     // Navegação voltar/avançar
     addEventListener('popstate',routeFromUrl);
-    const views = createViews({ getPosts:()=>POSTS, root:content, initComments, updateMeta, bindShare, cleanup:()=>{ if(stopComments){stopComments();stopComments=null;} } });
+    const views = createViews({ getPosts:()=>POSTS, root:content, initComments, updateMeta, bindShare, canCreateSocial:()=>canCreateSocial, cleanup:()=>{ if(stopComments){stopComments();stopComments=null;} } });
     function routeFromUrl(){ const params=new URLSearchParams(location.search); const slug=params.get('artigo'); if(slug) renderArticle(slug,false); else if(params.get('obra')) views.work(params.get('obra'),false); else if(params.get('critico')) views.critic(params.get('critico'),false); else if(params.get('pagina')) views.page(params.get('pagina'),false); else if(params.get('notas')) renderReviews('Todos', false); else if(params.get('categoria')) renderCategory(params.get('categoria'),false); else renderHome(); }
 
     // Firebase: se não estiver configurado, usa fallback automaticamente.
@@ -775,7 +775,7 @@
       try {
         const app = initializeApp(firebaseConfig);
         db = getFirestore(app); auth = getAuth(app);
-        onAuthStateChanged(auth, user => { currentUser = user; const login = $('#comment-login'), form = $('#comment-form-wrap'); if(login && form){ login.classList.toggle('hidden',!!user); form.classList.toggle('hidden',!user); if(user) $('#comment-user').textContent=`Comentando como ${user.displayName || user.email}`; } document.querySelectorAll('a[href="admin.html"]').forEach(link => { if(user && user.email === MARTE_ALMA.adminEmail) link.textContent='Redação'; }); });
+        onAuthStateChanged(auth, async user => { currentUser = user; canCreateSocial = !!user && user.email === MARTE_ALMA.adminEmail; if(user && !canCreateSocial){ try { canCreateSocial = (await getDoc(doc(db,'writerInvites',user.email))).data()?.active===true; } catch {} } const login = $('#comment-login'), form = $('#comment-form-wrap'); if(login && form){ login.classList.toggle('hidden',!!user); form.classList.toggle('hidden',!user); if(user) $('#comment-user').textContent=`Comentando como ${user.displayName || user.email}`; } document.querySelectorAll('a[href="admin.html"]').forEach(link => { if(user && canCreateSocial) link.textContent='Redação'; }); routeFromUrl(); });
         const q = query(collection(db,'articles'), where('status','==','published'));
         onSnapshot(q, snapshot => {
           const live = snapshot.docs.map((d,i)=>normalizePost({id:d.id,...d.data()},i)).sort((a,b)=>b.publishedAt-a.publishedAt);

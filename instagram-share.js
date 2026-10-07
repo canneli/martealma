@@ -1,15 +1,15 @@
-import { renderInstagramCard, hasReviewScore } from './instagram-card.js?v=1';
+import { renderInstagramCard, hasReviewScore, cardStyles } from './instagram-card.js?v=2';
 
 export function openInstagramShare(post, siteUrl) {
   document.querySelector('#instagram-dialog')?.close();
   const originalFocus = document.activeElement;
   const dialog = document.createElement('dialog'); dialog.id = 'instagram-dialog'; dialog.className = 'instagram-dialog';
   dialog.setAttribute('aria-labelledby', 'instagram-title');
-  dialog.innerHTML = `<div class="instagram-panel"><header><div><p class="eyebrow">COMPARTILHAR MARTE ALMA</p><h2 id="instagram-title">Post para Instagram</h2></div><button type="button" data-instagram-close aria-label="Fechar prévia">✕</button></header><p class="muted">PNG de feed · 1080 × 1350 · a publicação no Instagram é feita por você.</p><div class="instagram-status" role="status" aria-live="polite">Preparando a arte...</div><img class="instagram-preview" alt="Prévia do post para Instagram" hidden><div class="instagram-actions"><button class="primary-button" type="button" data-instagram-download disabled>Baixar PNG</button><button class="primary-button" type="button" data-instagram-native hidden>Compartilhar PNG</button><button class="text-link" type="button" data-instagram-caption>Copiar legenda</button><label class="instagram-upload">Trocar imagem só nesta arte<input type="file" accept="image/png,image/jpeg,image/webp" data-instagram-upload></label></div></div>`;
+  dialog.innerHTML = `<div class="instagram-panel"><header><div><p class="eyebrow">FERRAMENTA DA REDAÇÃO</p><h2 id="instagram-title">Post para Instagram</h2></div><button type="button" data-instagram-close aria-label="Fechar prévia">✕</button></header><p class="muted">PNG de feed · 1080 × 1350 · a publicação no Instagram é feita por você.</p><fieldset class="instagram-customize"><legend>Personalizar este card</legend><label>Paleta<select data-instagram-style>${Object.entries(cardStyles).map(([key,value])=>`<option value="${key}">${value.label}</option>`).join('')}</select></label><label class="instagram-upload">Trocar imagem só nesta arte<input type="file" accept="image/png,image/jpeg,image/webp" data-instagram-upload></label></fieldset><div class="instagram-status" role="status" aria-live="polite">Preparando a arte...</div><img class="instagram-preview" alt="Prévia do post para Instagram" hidden><div class="instagram-actions"><button class="primary-button" type="button" data-instagram-download disabled>Baixar PNG</button><button class="primary-button" type="button" data-instagram-native hidden>Compartilhar PNG</button><button class="text-link" type="button" data-instagram-caption>Copiar legenda</button></div></div>`;
   document.body.append(dialog);
   const status = dialog.querySelector('.instagram-status'), preview = dialog.querySelector('.instagram-preview');
   const download = dialog.querySelector('[data-instagram-download]'), native = dialog.querySelector('[data-instagram-native]');
-  let result, generation = 0, override = '', previousOverflow = document.body.style.overflow;
+  let result, generation = 0, override = '', style = 'marte', previousOverflow = document.body.style.overflow;
   const urls = new Set();
   const makeUrl = blob => { const url = URL.createObjectURL(blob); urls.add(url); return url; };
   dialog.addEventListener('close', () => {
@@ -23,7 +23,7 @@ export function openInstagramShare(post, siteUrl) {
     const run = ++generation; result = null; download.disabled = true; native.hidden = true; preview.hidden = true;
     status.textContent = 'Preparando a arte...';
     try {
-      const card = await renderInstagramCard(post, { imageOverride: override, siteUrl });
+      const card = await renderInstagramCard(post, { imageOverride: override, siteUrl, style });
       if (run !== generation || !dialog.open) return;
       result = card; preview.src = makeUrl(card.blob); preview.hidden = false; download.disabled = false;
       status.textContent = card.warnings.length ? card.warnings.join(' ') : 'Arte pronta. Confira a prévia e baixe o PNG.';
@@ -55,5 +55,6 @@ export function openInstagramShare(post, siteUrl) {
     if (!['image/png', 'image/jpeg', 'image/webp'].includes(file.type) || file.size > 15 * 1024 * 1024) { status.textContent = 'Escolha PNG, JPEG ou WebP de até 15 MB.'; return; }
     override = makeUrl(file); generate();
   };
+  dialog.querySelector('[data-instagram-style]').onchange = event => { style = event.target.value; generate(); };
   document.body.style.overflow = 'hidden'; dialog.showModal(); generate();
 }

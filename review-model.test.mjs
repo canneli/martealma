@@ -4,7 +4,8 @@ import vm from 'node:vm';
 import { buildCatalog, workIdFor, workOf, criticIdFor } from './review-model.js';
 import { FALLBACK_POSTS, enrichPost } from './articles.js';
 import { expandedFilmReviews } from './film-reviews.js';
-for(const file of ['editor.js','public-views.js','review-model.js','articles.js','posters.js','film-reviews.js']){
+import { profileForEmail } from './critic-profiles.js';
+for(const file of ['editor.js','public-views.js','review-model.js','articles.js','posters.js','film-reviews.js','critic-profiles.js']){
   new vm.SourceTextModule(fs.readFileSync(file,'utf8'));
 }
 const html=fs.readFileSync('index.html','utf8');
@@ -24,6 +25,7 @@ assert.notEqual(workIdFor({...base,artist:'Outro artista'}),workIdFor(base));
 assert.notEqual(workIdFor({workKind:'film',workTitle:'Halloween',releaseYear:1978}),workIdFor({workKind:'film',workTitle:'Halloween',releaseYear:2018}));
 assert.equal(workIdFor({...base,workTitle:'Album'}),workIdFor(base));
 assert.equal(criticIdFor(posts[0]),'felipe');
+assert.equal(profileForEmail('POULLDARK@gmail.com').name,'Paulo Silva');
 assert.equal(buildCatalog(FALLBACK_POSTS).filter(w=>w.workKind==='film').length,8);
 assert.equal(workOf(FALLBACK_POSTS.find(p=>p.id==='challengers')).workTitle,'Challengers');
 console.log('Sintaxe e 12 verificações de catálogo, identidade e média: OK');

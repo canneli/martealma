@@ -1,10 +1,11 @@
 import { buildCatalog, workOf, criticIdFor, kindLabels } from './review-model.js';
+import { profileForPost, writerProfiles } from './critic-profiles.js';
 const esc = (value='') => String(value).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c]));
 const tone = score => score>=70?'score-good':score<50?'score-low':'score-mid';
 const date = value => new Intl.DateTimeFormat('pt-BR',{day:'2-digit',month:'short',year:'numeric'}).format(value).replace('.','');
 const scoreBox = (score,label='') => score == null ? '' : `<span class="catalog-score ${tone(score)}" aria-label="Nota ${score} de 100">${score}</span>${label?`<span class="score-label">${esc(label)}</span>`:''}`;
 const cover = (work,className='') => `<img class="work-cover ${work.workKind==='album'||work.workKind==='artist'?'square':'portrait'} ${className}" src="${esc(work.image)}" alt="Capa de ${esc(work.workTitle)}" loading="lazy" referrerpolicy="no-referrer">`;
-export function createViews({ getPosts, root, initComments, updateMeta, bindShare, cleanup }) {
+export function createViews({ getPosts, root, initComments, updateMeta, bindShare, cleanup, canCreateSocial=()=>false }) {
   const published=()=>getPosts().filter(p=>p.status==='published');
   const catalog=()=>buildCatalog(published());
   function start(title,params,push=true){
@@ -61,8 +62,8 @@ export function createViews({ getPosts, root, initComments, updateMeta, bindShar
   }
   function critic(id,push=true){
     const posts=published().filter(p=>criticIdFor(p)===id);if(!posts.length)return home(push);
-    const author=posts[0];start(author.author,'critico='+encodeURIComponent(id),push);
-    root.innerHTML=`<button data-home class="text-link back-link">← Início</button><header class="page-heading critic-heading">${author.authorPhoto?`<img src="${esc(author.authorPhoto)}" alt="" class="critic-avatar">`:''}<p class="eyebrow">CRÍTICO MARTE ALMA</p><h1>${esc(author.author)}</h1><p>${posts.filter(p=>p.reviewScore!=null).length} críticas publicadas. Um arquivo das obras avaliadas, notas e textos assinados por este crítico.</p></header><section class="catalog-section"><h2>Críticas e matérias</h2><div class="review-grid">${posts.map(reviewRow).join('')}</div></section>`;
+    const author=posts[0], profile=profileForPost(author);start(author.author,'critico='+encodeURIComponent(id),push);
+    root.innerHTML=`<button data-home class="text-link back-link">← Início</button><header class="page-heading critic-heading">${author.authorPhoto?`<img src="${esc(author.authorPhoto)}" alt="" class="critic-avatar">`:''}<p class="eyebrow">${esc(profile?.role||'CRÍTICO MARTE ALMA')}</p><h1>${esc(profile?.name||author.author)}</h1><p>${esc(profile?.bio||`${posts.filter(p=>p.reviewScore!=null).length} críticas publicadas. Um arquivo das obras avaliadas, notas e textos assinados por este crítico.`)}</p></header><section class="catalog-section"><h2>Críticas e matérias</h2><div class="review-grid">${posts.map(reviewRow).join('')}</div></section>`;
     finish();
   }
   function article(slug,push=true){
@@ -74,7 +75,7 @@ export function createViews({ getPosts, root, initComments, updateMeta, bindShar
     const html=DOMPurify.sanitize(marked.parse(post.content||''));
     const isReview=post.reviewScore!=null;
     root.innerHTML=`<button data-home class="text-link back-link">← Início</button><header class="article-heading"><p class="eyebrow">${esc(isReview?(kindLabels[entity.workKind]||post.category):(post.category||'Notícias'))}${post.revisiting?' · Revisitando':''}</p><h1>${esc(post.title)}</h1><p class="hero-deck">${esc(post.excerpt)}</p><div class="review-credit"><button data-critic="${esc(criticIdFor(post))}" class="text-link">${esc(post.author)}</button><span>${date(post.publishedAt)}</span><span>${Math.max(1,Math.ceil((post.content||'').split(/\s+/).length/210))} min de leitura</span></div></header>
-      <div class="article-share-tools"><button data-share="instagram" class="primary-button">Gerar post para Instagram</button><button data-share="whatsapp" class="text-link">WhatsApp</button><button data-share="copy" class="text-link">Copiar link</button></div>
+      <div class="article-share-tools">${canCreateSocial()?'<button data-share="instagram" class="primary-button">Gerar post para Instagram</button>':''}<button data-share="whatsapp" class="text-link">WhatsApp</button><button data-share="copy" class="text-link">Copiar link</button></div>
       <div class="article-layout"><article class="article-main">${isReview?`<div class="article-work-summary">${cover(entity)}<div><p class="eyebrow">${esc(entity.workTitle)}</p><div class="aggregate-score">${scoreBox(post.reviewScore)}<div><strong>Nota de ${esc(post.author)}</strong><p class="muted">0 a 100</p></div></div>${group?`<button data-work="${esc(group.id)}" class="text-link">Ver página da obra · média ${group.score} ↗</button>`:''}</div></div>`:post.image?`<img class="news-article-image" src="${esc(post.image)}" alt="${esc(post.title)}" referrerpolicy="no-referrer">`:''}
       ${post.spotifyEmbed?`<section class="media-embed"><p class="eyebrow">Ouça o álbum</p><iframe src="${esc(post.spotifyEmbed)}" height="352" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Ouvir ${esc(entity.workTitle)} no Spotify"></iframe></section>`:''}
       ${post.trailerId?`<section class="media-embed"><p class="eyebrow">Trailer</p><iframe class="trailer-frame" src="https://www.youtube-nocookie.com/embed/${esc(post.trailerId)}" title="Trailer de ${esc(entity.workTitle)}" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></section>`:''}
@@ -93,11 +94,12 @@ export function createViews({ getPosts, root, initComments, updateMeta, bindShar
   function page(name,push=true){
     const pages={
       sobre:['Sobre o Marte Alma','Um site de críticas de música, cinema e séries, com textos assinados e notas de 0 a 100. Cada crítico mantém sua opinião. A página da obra reúne as avaliações e mostra a média com o mesmo peso para todos.'],
-      expediente:['Expediente','Felipe R. Fonseca é o responsável pelo Marte Alma. As matérias são assinadas por seus autores. Escritores autorizados publicam e editam apenas os próprios textos. Os perfis dos críticos reúnem suas publicações e avaliações.'],
+      expediente:['Expediente','As matérias são assinadas por seus autores. Escritores autorizados publicam e editam apenas os próprios textos. Os perfis dos críticos reúnem suas publicações e avaliações.'],
       privacidade:['Privacidade','O login usa a conta Google pelo Firebase. O site recebe nome, foto, e-mail e identificador da conta para manter a sessão e verificar o acesso à redação. O e-mail não aparece nos comentários nem no perfil público. Ao comentar, seu nome e o texto ficam públicos. Matérias mostram a assinatura do autor. O navegador guarda a sessão e sua preferência de tema. Os comentários e as matérias são armazenados no Firebase. Players do YouTube e Spotify são serviços externos e seguem suas próprias políticas. Se houver anúncios do Google, eles podem usar cookies e outros identificadores para medir e exibir publicidade. Você pode consultar e controlar a personalização em Minha Central de Anúncios do Google. Não publique dados pessoais ou de terceiros nos comentários.']
     };
     const [title,text]=pages[name]||pages.sobre;start(title,'pagina='+encodeURIComponent(name),push);
-    root.innerHTML=`<header class="page-heading"><p class="eyebrow">MARTE ALMA</p><h1>${title}</h1></header><section class="article-main article-body"><p>${text}</p>${name==='privacidade'?'<p><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacidade do Google</a> · <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Minha Central de Anúncios</a></p>':''}</section>`;finish();
+    const people=name==='expediente'?`<section class="catalog-section"><h2>Redação</h2><div class="critic-reviews">${writerProfiles.map(profile=>`<article class="critic-review"><p class="eyebrow">${esc(profile.role)}</p><h3>${esc(profile.name)}</h3><p>${esc(profile.bio)}</p></article>`).join('')}</div></section>`:'';
+    root.innerHTML=`<header class="page-heading"><p class="eyebrow">MARTE ALMA</p><h1>${title}</h1></header><section class="article-main article-body"><p>${text}</p>${name==='privacidade'?'<p><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacidade do Google</a> · <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Minha Central de Anúncios</a></p>':''}</section>${people}`;finish();
   }
   return { home, catalog:list, article, work, critic, feed, page };
 }

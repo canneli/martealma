@@ -1,6 +1,7 @@
 import { firebaseConfig, MARTE_ALMA } from './firebase-config.js';
 import { FALLBACK_POSTS, enrichPost } from './articles.js?v=20261006';
 import { buildCatalog, workOf, workIdFor, kindLabels, legacyWorks, slugify } from './review-model.js';
+import { profileForEmail } from './critic-profiles.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js';
 import { getFirestore, collection, onSnapshot, query, where, getDoc, getDocs, doc, setDoc, deleteDoc, serverTimestamp, Timestamp, writeBatch, runTransaction } from 'https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js';
@@ -114,7 +115,7 @@ function loadPost(id){
   if(p.reviewScore!=null){applyWork(workOf(p));$('#image').value=p.image;$('#review-score').value=p.reviewScore;}else{$('#work-kind').value='news';updateKind();}
   $('#editor-title').textContent='Editar minha matéria'; updatePreview(); scrollTo({top:0,behavior:'smooth'});
 }
-function resetForm(){ $('#post-form').reset();$('#post-id').value='';$('#author').value=user?.displayName||'Crítico(a)';$('#editor-title').textContent='Nova matéria';$('#work-hint').textContent='A nota entra na média da obra, sem substituir as avaliações dos outros críticos.';updateKind();updatePreview(); }
+function resetForm(){ $('#post-form').reset();$('#post-id').value='';$('#author').value=profileForEmail(user?.email)?.name||user?.displayName||'Crítico(a)';$('#editor-title').textContent='Nova matéria';$('#work-hint').textContent='A nota entra na média da obra, sem substituir as avaliações dos outros críticos.';updateKind();updatePreview(); }
 function updatePreview(){ $('#preview').innerHTML=DOMPurify.sanitize(marked.parse($('#content').value||'*A prévia aparece aqui.*')); }
 $('#catalog-search').oninput=renderCatalog;
 $('#work-kind').onchange=updateKind;
@@ -144,7 +145,8 @@ async function savePost(status){
   const id=old?.id||(workKind==='news'?slug+'--'+crypto.randomUUID():'review--'+workId+'--'+user.uid);
   // A URL leva a assinatura da conta para não colidir com outra crítica da mesma obra.
   const publicSlug=old?.slug||(slug+'--'+user.uid.slice(0,8));
-  const data={title,slug:publicSlug,category:workKind==='film'?'Cinema':workKind==='series'?'Séries':$('#category').value,author:user.displayName||'Crítico(a)',authorId:user.uid,authorPhoto:user.photoURL||'',image,excerpt:$('#excerpt').value.trim(),content,tags:$('#tags').value.split(',').map(x=>x.trim()).filter(Boolean),featured:isAdmin&&$('#featured').checked,status,updatedAt:serverTimestamp(),publishedAt:old?.publishedAt||Timestamp.now(),reviewScore,reviewType:['album','artist'].includes(workKind)?'Música':workKind==='film'?'Filmes':'Séries',workKind,workTitle:workKind==='news'?'':workTitle,workId,artist:workKind==='album'?artist:'',releaseYear,spotifyId:mediaId($('#spotify-link').value,'spotify'),trailerId:mediaId($('#trailer-link').value,'youtube'),revisiting:!!releaseYear&&new Date().getFullYear()-releaseYear>=10};
+  const authorProfile=profileForEmail(user.email), authorName=authorProfile?.name||user.displayName||'Crítico(a)';
+  const data={title,slug:publicSlug,category:workKind==='film'?'Cinema':workKind==='series'?'Séries':$('#category').value,author:authorName,authorEmail:user.email,authorId:user.uid,authorPhoto:user.photoURL||'',image,excerpt:$('#excerpt').value.trim(),content,tags:$('#tags').value.split(',').map(x=>x.trim()).filter(Boolean),featured:isAdmin&&$('#featured').checked,status,updatedAt:serverTimestamp(),publishedAt:old?.publishedAt||Timestamp.now(),reviewScore,reviewType:['album','artist'].includes(workKind)?'Música':workKind==='film'?'Filmes':'Séries',workKind,workTitle:workKind==='news'?'':workTitle,workId,artist:workKind==='album'?artist:'',releaseYear,spotifyId:mediaId($('#spotify-link').value,'spotify'),trailerId:mediaId($('#trailer-link').value,'youtube'),revisiting:!!releaseYear&&new Date().getFullYear()-releaseYear>=10};
   data.poster=image;data.assetVersion=2;
   if(['album','artist'].includes(workKind))data.category='Críticas';
   saving=true;$$('[data-save]').forEach(button=>button.disabled=true);

@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import { hasReviewScore, scoreColors, cardFilename, cleanCardText, fitText, wrapLines } from './instagram-card.js';
-for (const file of ['instagram-card.js','instagram-share.js']) new vm.SourceTextModule(fs.readFileSync(file,'utf8'));
+import { hasReviewScore, scoreColors, cardFilename, cleanCardText, fitText, wrapLines, cardStyles } from './instagram-card.js';
+for (const file of ['instagram-card.js','instagram-share.js','critic-profiles.js']) new vm.SourceTextModule(fs.readFileSync(file,'utf8'));
+assert.deepEqual(Object.keys(cardStyles),['marte','noite','solar']);
 for (const score of [null,undefined,'',NaN,-1,101,'abc']) assert.equal(hasReviewScore({reviewScore:score}),false);
 for (const score of [0,49,50,69,70,100]) assert.equal(hasReviewScore({reviewScore:score}),true);
 assert.equal(scoreColors(49)[0],'#f5988c');
